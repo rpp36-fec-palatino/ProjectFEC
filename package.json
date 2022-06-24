@@ -1,0 +1,38 @@
+{
+  "name": "palatino",
+  "version": "1.0.0",
+  "description": "Project Atelier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js --watch",
+    "react-dev": "webpack --mode development --watch",
+    "server-dev": "npx nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp36-fec-palatino/ProjectFEC.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rpp36-fec-palatino/ProjectFEC/issues"
+  },
+  "homepage": "https://github.com/rpp36-fec-palatino/ProjectFEC#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "jquery": "^3.6.0",
+    "nodemon": "^2.0.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
