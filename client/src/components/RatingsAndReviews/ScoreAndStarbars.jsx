@@ -4,7 +4,7 @@ import React from 'react';
 const ScoreAndStarbars = (props) => {
   return (
     <div className="score-starbars">
-      <h3>5.0 ******</h3>
+      <h3>5.0 ******(Star rating bar)</h3>
       <span>100% of reviews recommend this product</span>
 
 

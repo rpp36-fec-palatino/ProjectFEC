@@ -32,7 +32,9 @@ class AddNewReviewModal extends React.Component {
       </span>
       <div>
         <input type="text" name="name" placeholder="name" />
+        <br />
         <input type="text" name="email" placeholder="email" />
+        <br />
         <input type="text" name="summary" placeholder="summary" maxLength='60'/>
       </div>
       <div>
