@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.jsx';
+import QuestionsAndAnswers from './components/Q&A/QuestionsAndAnswers.jsx';
+import ProductOverview from './components/ProductOverview/index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +18,10 @@ class App extends React.Component {
     return (
     <div>
       Test
+      <RatingsAndReviews />
+      <QuestionsAndAnswers />
     </div>
+
     )
   }
 }
