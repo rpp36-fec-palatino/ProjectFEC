@@ -17,10 +17,11 @@ class App extends React.Component {
   render () {
     return (
     <div>
-      Test
-      <RatingsAndReviews />
-      <QuestionsAndAnswers />
       <ProductOverview />
+      <QuestionsAndAnswers />
+      <RatingsAndReviews />
+
+
     </div>
 
     )
