@@ -20,6 +20,7 @@ class App extends React.Component {
       Test
       <RatingsAndReviews />
       <QuestionsAndAnswers />
+      <ProductOverview />
     </div>
 
     )
