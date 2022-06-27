@@ -2,7 +2,7 @@ import React from 'react';
 
 const ReviewEntry = (props) => {
 
-  return(
+  return (
     <div>
       <div>Stars panel ***** (solid outlined stars with filled amount indicating scores)</div>
       <span>username (only username, no emails)</span>
@@ -17,16 +17,16 @@ const ReviewEntry = (props) => {
 
       </div>
       <div className="review-entry-footer">
-           <span>Helpful?</span>
-           <button>Yes(number)</button>
-           <button>Report</button>
+        <span>Helpful?</span>
+        <button>Yes(number)</button>
+        <button>Report</button>
       </div>
-      {"============================================="}
+      {'============================================='}
 
     </div>
 
-  )
-}
+  );
+};
 
 
 

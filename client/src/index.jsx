@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
+    };
   }
 
   componentDidMount () {
@@ -16,15 +16,15 @@ class App extends React.Component {
 
   render () {
     return (
-    <div>
-      <ProductOverview />
-      <QuestionsAndAnswers />
-      <RatingsAndReviews />
+      <div>
+        <ProductOverview />
+        <QuestionsAndAnswers />
+        <RatingsAndReviews />
 
 
-    </div>
+      </div>
 
-    )
+    );
   }
 }
 

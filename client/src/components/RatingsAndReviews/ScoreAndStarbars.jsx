@@ -19,7 +19,7 @@ const ScoreAndStarbars = (props) => {
 
 
     </div>
-  )
-}
+  );
+};
 
 export default ScoreAndStarbars;
