@@ -1,9 +1,10 @@
 import React from 'react';
+import ReviewsListCSS from './cssModule_Reviews/ReviewsList.module.css';
 
 const ReviewEntry = (props) => {
 
   return (
-    <div>
+    <div className={ReviewsListCSS.reviewEntryContainer}>
       <div>Stars panel ***** (solid outlined stars with filled amount indicating scores)</div>
       <span>username (only username, no emails)</span>
       <span>timestamp(Month DD, YYYY)</span>

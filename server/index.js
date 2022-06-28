@@ -6,7 +6,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
-let API_url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
+let apiUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
 const config = require('../config.js');
 
 
@@ -43,4 +43,4 @@ var port = 3000;
 
 app.listen(port, () => {
   console.log('Listening on port: ', port);
-})
+});
