@@ -1,6 +1,6 @@
 import React from 'react';
-import  ScoreAndStarbars from './ScoreAndStarbars.jsx';
-import  FittingStats from './FittingStats.jsx';
+import ScoreAndStarbars from './ScoreAndStarbars.jsx';
+import FittingStats from './FittingStats.jsx';
 
 const Ratings = (props) => {
   return (
@@ -16,7 +16,7 @@ const Ratings = (props) => {
 
 
     </div>
-  )
-}
+  );
+};
 
 export default Ratings;

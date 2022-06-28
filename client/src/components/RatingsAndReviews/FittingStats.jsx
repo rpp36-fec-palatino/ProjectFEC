@@ -14,7 +14,7 @@ const FittingStats = (props) => {
 
 
     </div>
-  )
-}
+  );
+};
 
 export default FittingStats;

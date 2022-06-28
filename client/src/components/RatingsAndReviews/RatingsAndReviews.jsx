@@ -8,7 +8,7 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       addReview: false
-    }
+    };
   }
 
   componentDidMount () {
@@ -17,17 +17,17 @@ class RatingsAndReviews extends React.Component {
   clickAddReviewBtn(e) {
     this.setState({
       addReview: true
-    })
+    });
   }
 
   render () {
     return (
-    <div>
-      <h1>Ratings and Reviews</h1>
-      <ReviewsList addReview = {this.state.addReview} clickAddReview = {this.clickAddReviewBtn.bind(this)}/>
-      <Ratings />
-    </div>
-    )
+      <div>
+        <h1>Ratings and Reviews</h1>
+        <ReviewsList addReview = {this.state.addReview} clickAddReview = {this.clickAddReviewBtn.bind(this)}/>
+        <Ratings />
+      </div>
+    );
   }
 }
 
