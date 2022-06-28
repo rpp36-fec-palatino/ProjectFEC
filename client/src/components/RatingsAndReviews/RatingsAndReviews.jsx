@@ -11,7 +11,8 @@ class RatingsAndReviews extends React.Component {
       addReview: false,
       currentId: sampleReviews71698.product,
       currentReviews: sampleReviews71698.results,
-      currentDisplayedReviews: sampleReviews71698.results.slice(0, 2)
+      currentDisplayedReviews: sampleReviews71698.results.slice(0, 4),
+
     };
   }
 
