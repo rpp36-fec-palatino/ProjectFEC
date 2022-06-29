@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import { createRoot } from 'react-dom/client';
 import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.jsx';
-import QuestionsAndAnswers from './components/Q&A/QuestionsAndAnswers.jsx';
+import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import ProductOverview from './components/ProductOverview/index.jsx';
 
 class App extends React.Component {
