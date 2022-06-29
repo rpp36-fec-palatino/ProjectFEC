@@ -9,7 +9,7 @@ class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
+    };
   }
 
   componentDidMount () {
@@ -17,20 +17,20 @@ class ProductOverview extends React.Component {
 
   render () {
     return (
-    <div>
-      <div>Logo  _______ search bar</div>
-      <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
-      <div id="productpage">
-        <ImageGallery />
-        <ProductInformation />
+      <div>
+        <div>Logo  _______ search bar</div>
+        <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
+        <div id="productpage">
+          <ImageGallery />
+          <ProductInformation />
+        </div>
+        <div id="productstyle">
+          <StyleSelector />
+          <AddToCart />
+        </div>
       </div>
-      <div id="productstyle">
-        <StyleSelector />
-        <AddToCart />
-      </div>
-    </div>
 
-    )
+    );
   }
 }
 
