@@ -1,10 +1,11 @@
 import React from 'react';
 import ReviewEntry from './ReviewEntry.jsx';
 import AddNewReviewModal from './AddNewReviewModal.jsx';
+import ReviewsListCSS from './cssModule_Reviews/ReviewsList.module.css';
 
 const ReviewsList = (props) => {
   return (
-    <div>
+    <div className={ReviewsListCSS.reviewListMain}>
 
       <div className="sort-slect">
         <h3> xxx reviews, sorted by </h3>
@@ -15,9 +16,9 @@ const ReviewsList = (props) => {
         </select>
       </div>
       <br/>
-      {"--------------------------------------------------------------"}
+      {'--------------------------------------------------------------'}
 
-      <div>
+      <div >
         <ReviewEntry />
         <ReviewEntry />
 
@@ -31,8 +32,8 @@ const ReviewsList = (props) => {
 
 
     </div>
-  )
-}
+  );
+};
 
 
 

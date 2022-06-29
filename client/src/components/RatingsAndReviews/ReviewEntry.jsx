@@ -1,9 +1,10 @@
 import React from 'react';
+import ReviewsListCSS from './cssModule_Reviews/ReviewsList.module.css';
 
 const ReviewEntry = (props) => {
 
-  return(
-    <div>
+  return (
+    <div className={ReviewsListCSS.reviewEntryContainer}>
       <div>Stars panel ***** (solid outlined stars with filled amount indicating scores)</div>
       <span>username (only username, no emails)</span>
       <span>timestamp(Month DD, YYYY)</span>
@@ -17,16 +18,16 @@ const ReviewEntry = (props) => {
 
       </div>
       <div className="review-entry-footer">
-           <span>Helpful?</span>
-           <button>Yes(number)</button>
-           <button>Report</button>
+        <span>Helpful?</span>
+        <button>Yes(number)</button>
+        <button>Report</button>
       </div>
-      {"============================================="}
+      {'============================================='}
 
     </div>
 
-  )
-}
+  );
+};
 
 
 
