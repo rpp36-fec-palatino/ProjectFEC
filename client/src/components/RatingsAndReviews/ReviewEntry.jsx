@@ -60,7 +60,7 @@ const ReviewEntry = (props) => {
 
 
       {/* conditional rendering of seller's response */}
-      {props.review.response.length
+      {props.review.response && props.review.response.length
         ? <div className={ReviewEntryCSS.sellerResponse}>
           <b>Response from seller:</b>
           <br />

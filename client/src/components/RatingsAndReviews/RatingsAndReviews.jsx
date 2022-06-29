@@ -9,9 +9,10 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       addReview: false,
+      loadMore: true,
       currentId: sampleReviews71698.product,
       currentReviews: sampleReviews71698.results,
-      currentDisplayedReviews: sampleReviews71698.results.slice(0, 4),
+      currentDisplayedReviews: sampleReviews71698.results.slice(0, 2) //initial display 2 reviews
 
     };
   }
@@ -25,6 +26,25 @@ class RatingsAndReviews extends React.Component {
     });
   }
 
+  clickLoadMoreBtn(e) {
+    let curDisplays = this.state.currentDisplayedReviews;
+    if (curDisplays.length < sampleReviews71698.results.length - 2) {
+      let i = curDisplays.length;
+      this.setState({
+        currentDisplayedReviews: sampleReviews71698.results.slice(0, i + 2),
+
+      });
+
+    } else {
+      this.setState({
+        currentDisplayedReviews: sampleReviews71698.results,
+        loadMore: false
+
+      });
+    }
+
+  }
+
   render () {
     return (
       <div>
@@ -34,6 +54,8 @@ class RatingsAndReviews extends React.Component {
           currentDisplayReviews = {this.state.currentDisplayedReviews}
           addReview = {this.state.addReview}
           clickAddReview = {this.clickAddReviewBtn.bind(this)}
+          loadMore = {this.state.loadMore}
+          clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
         />
         <Ratings />
       </div>
