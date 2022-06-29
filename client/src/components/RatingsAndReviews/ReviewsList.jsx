@@ -19,12 +19,19 @@ const ReviewsList = (props) => {
       {'--------------------------------------------------------------'}
 
       <div >
-        <ReviewEntry />
-        <ReviewEntry />
-
+        {props.currentDisplayReviews.map(
+          review => <ReviewEntry key = {review.review_id} review = {review} />
+        )}
       </div>
-      <button>MORE REVIEWS (only appear if there are more than 2 reviews)</button>
+
+      {/* conditional rendering when there are more than 2 reviews */}
+      {props.currentReviews.length > 2
+        ? <button>MORE REVIEWS</button>
+        : null
+      }
+
       <button onClick={e => props.clickAddReview(e)}>ADD A NEW REVIEW +</button>
+
       {props.addReview ? <AddNewReviewModal /> : null}
 
 
