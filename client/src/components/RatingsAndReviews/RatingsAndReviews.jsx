@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReviewsList from './ReviewsList.jsx';
 import Ratings from './Ratings.jsx';
-import {sampleReviews71697, sampleReviews71698 } from '../../../../sampleData/sampleReviewData.js';
+import {sampleReviews71697, sampleReviews71698, sampleMetaReview71698 } from '../../../../sampleData/sampleReviewData.js';
 
 class RatingsAndReviews extends React.Component {
   constructor(props) {
@@ -12,7 +12,8 @@ class RatingsAndReviews extends React.Component {
       loadMore: true,
       currentId: sampleReviews71698.product,
       currentReviews: sampleReviews71698.results,
-      currentDisplayedReviews: sampleReviews71698.results.slice(0, 2) //initial display 2 reviews
+      currentDisplayedReviews: sampleReviews71698.results.slice(0, 2), //initial display 2 reviews
+      currentMetaReview: sampleMetaReview71698
 
     };
   }
@@ -57,7 +58,11 @@ class RatingsAndReviews extends React.Component {
           loadMore = {this.state.loadMore}
           clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
         />
-        <Ratings />
+        <Ratings
+          currentMetaReview = {this.state.currentMetaReview}
+
+
+        />
       </div>
     );
   }

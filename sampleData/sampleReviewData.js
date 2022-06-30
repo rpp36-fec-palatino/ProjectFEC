@@ -102,7 +102,8 @@ let sampleReviews71698 =
       'helpfulness': 7,
       'photos': [
         { 'id': 2414648, 'url': 'https://images.unsplash.com/photo-1560570803-7474c0f9af99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80' },
-        { 'id': 2414649, 'url': 'https://images.unsplash.com/photo-1561693532-9ff59442a7db?ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80' }, { 'id': 2414650, 'url': 'https://images.unsplash.com/photo-1487349384428-12b47aca925e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80' }
+        { 'id': 2414649, 'url': 'https://images.unsplash.com/photo-1561693532-9ff59442a7db?ixlib=rb-1.2.1&auto=format&fit=crop&w=975&q=80' },
+        { 'id': 2414650, 'url': 'https://images.unsplash.com/photo-1487349384428-12b47aca925e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80' }
       ]
     },
     {
@@ -202,8 +203,17 @@ let sampleReviews71698 =
     }]
 };
 
+let sampleMetaReview71698 =
+{
+  'product_id': '71698',
+  'ratings': { '2': '1', '3': '2', '4': '2', '5': '6' },
+  'recommended': { 'false': '2', 'true': '9' },
+  'characteristics': { 'Quality': { 'id': 240586, 'value': '3.6000000000000000' } }
+};
+
 module.exports =
 {
   sampleReviews71697,
-  sampleReviews71698
+  sampleReviews71698,
+  sampleMetaReview71698
 };

@@ -5,8 +5,9 @@ import FittingStats from './FittingStats.jsx';
 const Ratings = (props) => {
   return (
     <div className="rating-panel">
+      <h3>sample data display for product_id: {props.currentMetaReview.product_id}</h3>
 
-      <ScoreAndStarbars />
+      <ScoreAndStarbars currentMetaReview = {props.currentMetaReview}/>
 
       <FittingStats />
 
