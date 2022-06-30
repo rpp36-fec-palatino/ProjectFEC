@@ -1,9 +1,6 @@
 .reviewListMain {
   background-color: beige;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.reviewEntryContainer {
-  background-color: lightcyan;
-
-  color:blue;
-}

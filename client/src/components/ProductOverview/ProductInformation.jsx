@@ -1,18 +1,18 @@
 import React from 'react';
 
-class ProductInformation extends React.Component{
+class ProductInformation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
+    };
   }
 
   render () {
-    return(
-    <div>
+    return (
+      <div>
       ProductInformation
-    </div>
-    )
+      </div>
+    );
   }
 }
 
