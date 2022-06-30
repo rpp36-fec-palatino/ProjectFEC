@@ -14,7 +14,7 @@ let avgStarScores = (ratingsObj) => {
 
   }
 
-  return Number((accumScores / totalCount).toFixed(2)); //result round to 2 decimals
+  return Number((accumScores / totalCount).toFixed(1)); //result round to 2 decimals
 
 
 };

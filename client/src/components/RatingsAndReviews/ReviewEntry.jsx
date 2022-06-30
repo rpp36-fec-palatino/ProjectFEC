@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
+import Stars from './Stars.jsx';
 
 /*
     {
@@ -44,16 +45,9 @@ const ReviewEntry = (props) => {
     <div className={ReviewEntryCSS.reviewEntryContainer}>
 
       {/* stars rating display */}
-      <div>Stars rating: {props.review.rating}
-        <div className={ReviewEntryCSS.containerdiv}>
-          <div>
-            <img style={{'maxWidth': '100px' }} src="/img/stars_blank.png" alt="blank-stars" />
-          </div>
-          <div className={ReviewEntryCSS.cornerimage} style={{'width': + percent + '%'}}>
-            <img style={{'maxWidth': '100px' }} src="/img/stars_full.png" alt="filled-stars" />
-          </div>
-        </div>
-
+      <div>
+        Stars rating: {props.review.rating}
+        < Stars percent = {percent}/>
 
       </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {avgStarScores} from './helperFns/helper.js';
+import Stars from './Stars.jsx';
 
 
 const ScoreAndStarbars = (props) => {
@@ -8,11 +9,19 @@ const ScoreAndStarbars = (props) => {
   let notRecommend = Number(props.currentMetaReview.recommended['false']);
   let recommendRate = Math.round((recommended / (recommended + notRecommend)) * 100);
   let avgStars = avgStarScores(props.currentMetaReview.ratings);
+  let percent = Math.round((avgStars / 5) * 100);
 
   return (
     <div className="score-starbars">
-      <h3>{avgStars} ******(Star rating bar)</h3>
-      <span>{recommendRate}% of reviews recommend this product</span>
+      <div>
+        <span><h3>{avgStars}</h3></span>
+        <Stars percent = {percent}/>
+
+      </div>
+
+      <br />
+      <br />
+      <div>{recommendRate}% of reviews recommend this product</div>
 
 
 

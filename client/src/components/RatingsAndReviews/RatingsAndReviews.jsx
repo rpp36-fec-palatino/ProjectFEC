@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ReviewsList from './ReviewsList.jsx';
 import Ratings from './Ratings.jsx';
 import {sampleReviews71697, sampleReviews71698, sampleMetaReview71698 } from '../../../../sampleData/sampleReviewData.js';
+import ReviewsMainCSS from './cssModule_Reviews/ReviewsMain.module.css';
 
 class RatingsAndReviews extends React.Component {
   constructor(props) {
@@ -50,19 +51,22 @@ class RatingsAndReviews extends React.Component {
     return (
       <div>
         <h1>Ratings and Reviews</h1>
-        <ReviewsList
-          currentReviews = {this.state.currentReviews}
-          currentDisplayReviews = {this.state.currentDisplayedReviews}
-          addReview = {this.state.addReview}
-          clickAddReview = {this.clickAddReviewBtn.bind(this)}
-          loadMore = {this.state.loadMore}
-          clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
-        />
-        <Ratings
-          currentMetaReview = {this.state.currentMetaReview}
+        <div className={ReviewsMainCSS.box}>
+          <Ratings
+            currentMetaReview = {this.state.currentMetaReview}
+          />
+          <ReviewsList
+            currentReviews = {this.state.currentReviews}
+            currentDisplayReviews = {this.state.currentDisplayedReviews}
+            addReview = {this.state.addReview}
+            clickAddReview = {this.clickAddReviewBtn.bind(this)}
+            loadMore = {this.state.loadMore}
+            clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
+          />
 
 
-        />
+        </div>
+
       </div>
     );
   }
