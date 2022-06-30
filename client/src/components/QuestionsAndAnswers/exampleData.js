@@ -64,4 +64,4 @@ var questionsAndAnswers = {
   ]
 };
 
-exports.questionsAndAnswers = questionsAndAnswers;
+export default questionsAndAnswers;

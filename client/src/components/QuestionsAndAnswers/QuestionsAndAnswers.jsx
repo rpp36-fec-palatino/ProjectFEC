@@ -24,7 +24,7 @@ class QuestionsAndAnswers extends React.Component {
       <div>
         <h1>Questions And Answers</h1>
         <SearchQuestions/>
-        <QuestionsList/>
+        <QuestionsList results={this.state.results}/>
         <button>More Answered Questions</button><button>Add a Question +</button>
       </div>
     );
