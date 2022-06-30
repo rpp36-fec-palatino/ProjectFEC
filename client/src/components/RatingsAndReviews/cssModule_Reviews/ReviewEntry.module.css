@@ -35,3 +35,18 @@
   margin-left: 15px;
   margin-right: 15px;
 }
+
+.containerdiv {
+  border: 0;
+  float: left;
+  position: relative;
+  width: 100px;
+}
+.cornerimage {
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+ }
+

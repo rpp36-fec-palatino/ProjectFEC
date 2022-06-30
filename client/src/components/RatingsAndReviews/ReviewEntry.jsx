@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
+
 /*
     {
       'review_id': 1254282,
@@ -33,13 +34,28 @@ import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
 const ReviewEntry = (props) => {
   const reviewDate = new Date(props.review.date)
     .toLocaleDateString({}, {timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric'});
+  let percent = (props.review.rating / 5) * 100;
+
 
 
 
 
   return (
     <div className={ReviewEntryCSS.reviewEntryContainer}>
-      <div>Stars rating: {props.review.rating} </div>
+
+      {/* stars rating display */}
+      <div>Stars rating: {props.review.rating}
+        <div className={ReviewEntryCSS.containerdiv}>
+          <div>
+            <img style={{'maxWidth': '100px' }} src="/img/stars_blank.png" alt="blank-stars" />
+          </div>
+          <div className={ReviewEntryCSS.cornerimage} style={{'width': + percent + '%'}}>
+            <img style={{'maxWidth': '100px' }} src="/img/stars_full.png" alt="filled-stars" />
+          </div>
+        </div>
+
+
+      </div>
 
       <div className={ReviewEntryCSS.usernameTimestamp}>
         <span>{props.review.reviewer_name}</span>
