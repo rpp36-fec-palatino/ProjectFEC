@@ -1,0 +1,51 @@
+#topWindow {
+  display: flex;
+}
+
+#imageGallery {
+  display: flex;
+  flex-direction: row;
+}
+
+#styleSelector {
+  margin: auto;
+}
+
+#thumbnailList {
+  display: flex;
+  flex-direction: column;
+}
+
+.thumbnail {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+
+#mainImageFit {
+  height: 900px;
+  width: 668px;
+  object-fit: cover;
+}
+
+#productInformation {
+  display: flex;
+}
+
+#productInfoLeft {
+  border-right: 1px solid black;
+  padding-right: 20px;
+}
