@@ -11,11 +11,6 @@ const Ratings = (props) => {
 
       <FittingStats />
 
-
-
-
-
-
     </div>
   );
 };

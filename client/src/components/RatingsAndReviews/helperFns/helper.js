@@ -33,12 +33,12 @@ let avgStarScores = (ratingsObj) => {
  *
 */
 
-let ratingPercent = (rantingsObj) => {
+let ratingPercentage = (ratingsObj) => {
   let result = {'5': 0, '4': 0, '3': 0, '2': 0, '1': 0}; //initial setting
   let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
   let totalCount = numberArr.reduce((a, b) => a + b );
-  for (let key in rantingsObj) {
-    result[key] = Math.round((Number(rantingsObj[key]) / totalCount).toFixed(2) * 100);
+  for (let key in ratingsObj) {
+    result[key] = Math.round((Number(ratingsObj[key]) / totalCount).toFixed(2) * 100);
 
   }
   return result;
@@ -50,6 +50,6 @@ let ratingPercent = (rantingsObj) => {
 
 module.exports = {
   avgStarScores,
-  ratingPercent
+  ratingPercentage
 
 };
