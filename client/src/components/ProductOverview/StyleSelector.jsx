@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './styles/styleSelector.module.css';
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class StyleSelector extends React.Component {
 
 
     return (
-      <div id='styleSelector'>
+      <div className={css.styleSelector}>
         <div>
           Reviews Component goes here
         </div>
