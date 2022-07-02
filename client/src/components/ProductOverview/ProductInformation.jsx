@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './styles/productInformation.module.css';
 
 class ProductInformation extends React.Component {
   constructor(props) {
@@ -9,12 +10,12 @@ class ProductInformation extends React.Component {
 
   render () {
     return (
-      <div id='productInformation'>
-        <div id='productInfoLeft'>
+      <div className={css.productInformation}>
+        <div className={css.productInfoLeft}>
           <b>{this.props.productData.slogan}</b>
           <p>{this.props.productData.description}</p>
         </div>
-        <div id='productInfoRight'>
+        <div className={css.productInfoRight}>
           <ul>
             {this.props.productData.features.map((feature) =>
               <li key={feature.feature}>

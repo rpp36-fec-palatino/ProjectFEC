@@ -4,7 +4,7 @@ import exampleData from './exampleData.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
-import css from './style.css';
+import css from './styles/index.module.css';
 
 
 class ProductOverview extends React.Component {
@@ -42,7 +42,7 @@ class ProductOverview extends React.Component {
       <div>
         <div>Logo  _______ search bar</div>
         <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
-        <div id='topWindow'>
+        <div className={css.topWindow}>
           <ImageGallery
             photos={this.state.selectedData.photos}/>
           <StyleSelector
