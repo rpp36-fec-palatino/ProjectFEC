@@ -1,12 +1,15 @@
 import React from 'react';
+import AnswerPhoto from './AnswerPhoto.jsx';
 
 const Answer = (props) => {
+  var photos = props.answer.photos;
   return (
     <div className='answer'>
-      <p>A: Icing macaroon bear claw jelly beans chocolate cake. Cookie oat cake chocolate halvah jelly cake cotton candy soffle topping.         Helpful? Yes(25) | Add Answer</p>
-      <img src="https://www.tasteofhome.com/wp-content/uploads/2019/05/Fried-Ice-Cream-Dessert-Bars-_EXPS_SDJJ19_232652_B02_06_1b_rms-2.jpg" width="250" height="250"></img>
-      <p>by username Date | Helpful? Yes(9) | Report</p>
-      <button>Load more answers</button>
+      <p>A: {props.answer.body}</p>
+      {photos.map((item) => {
+        <AnswerPhoto link={item.url}/>;
+      })}
+      <p>by {props.answer.answerer_name} {props.answer.date}  | Helpful? <a href="url">Yes</a>({props.answer.helpfulness}) | <a href="url">Report</a></p>
     </div>
   )
 }
