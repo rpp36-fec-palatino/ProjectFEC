@@ -2,11 +2,6 @@ import React from 'react';
 import RatingBreakdownBarCSS from './cssModule_Reviews/RatingBreakdownBar.module.css';
 
 const RatingBreakdownBar = (props) => {
-  // let percentage = 33;
-
-
-
-
 
   return (
     <div className={RatingBreakdownBarCSS.container}>
