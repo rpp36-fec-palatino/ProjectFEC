@@ -1,5 +1,7 @@
 import React from 'react';
 import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
+import Stars from './Stars.jsx';
+
 /*
     {
       'review_id': 1254282,
@@ -33,13 +35,21 @@ import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
 const ReviewEntry = (props) => {
   const reviewDate = new Date(props.review.date)
     .toLocaleDateString({}, {timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric'});
+  let percent = (props.review.rating / 5) * 100;
+
 
 
 
 
   return (
     <div className={ReviewEntryCSS.reviewEntryContainer}>
-      <div>Stars rating: {props.review.rating} </div>
+
+      {/* stars rating display */}
+      <div>
+        Stars rating: {props.review.rating}
+        < Stars percent = {percent}/>
+
+      </div>
 
       <div className={ReviewEntryCSS.usernameTimestamp}>
         <span>{props.review.reviewer_name}</span>
@@ -60,7 +70,7 @@ const ReviewEntry = (props) => {
 
 
       {/* conditional rendering of seller's response */}
-      {props.review.response.length
+      {props.review.response && props.review.response.length
         ? <div className={ReviewEntryCSS.sellerResponse}>
           <b>Response from seller:</b>
           <br />

@@ -1,17 +1,9 @@
-#topWindow {
-  display: flex;
-}
-
-#imageGallery {
+.imageGallery {
   display: flex;
   flex-direction: row;
 }
 
-#styleSelector {
-  margin: auto;
-}
-
-#thumbnailList {
+.thumbnailList {
   display: flex;
   flex-direction: column;
 }
@@ -35,17 +27,8 @@
           transform: translate(-50%,-50%);
 }
 
-#mainImageFit {
+.mainImageFit {
   height: 900px;
   width: 668px;
   object-fit: cover;
-}
-
-#productInformation {
-  display: flex;
-}
-
-#productInfoLeft {
-  border-right: 1px solid black;
-  padding-right: 20px;
 }

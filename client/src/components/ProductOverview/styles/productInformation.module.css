@@ -1,0 +1,8 @@
+.productInformation {
+  display: flex;
+}
+
+.productInfoLeft {
+  border-right: 1px solid black;
+  padding-right: 20px;
+}

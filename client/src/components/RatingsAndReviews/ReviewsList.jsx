@@ -18,15 +18,15 @@ const ReviewsList = (props) => {
       <br/>
       {'--------------------------------------------------------------'}
 
-      <div >
+      <div className={ReviewsListCSS.reviewScroller} >
         {props.currentDisplayReviews.map(
           review => <ReviewEntry key = {review.review_id} review = {review} />
         )}
       </div>
 
       {/* conditional rendering when there are more than 2 reviews */}
-      {props.currentReviews.length > 2
-        ? <button>MORE REVIEWS</button>
+      {props.currentReviews.length > 2 && props.loadMore
+        ? <button onClick={e => props.clickLoadMoreBtn(e)}>MORE REVIEWS</button>
         : null
       }
 

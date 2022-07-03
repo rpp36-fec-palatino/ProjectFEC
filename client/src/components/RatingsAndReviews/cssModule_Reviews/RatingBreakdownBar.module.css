@@ -1,0 +1,23 @@
+ .container {
+  height: 12px;
+  width: 200px;
+  background-color: lightgrey;
+  margin: 10px
+}
+
+ .filler {
+  height: 100%;
+  background-color: green;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-align: right;
+  color: white;
+
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
