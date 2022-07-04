@@ -1,3 +1,41 @@
 .styleSelector {
-  margin: auto;
+  margin: 10px;
+}
+
+.category {
+  font-size: 1.5em;
+}
+
+.productName {
+  font-size: 3em;
+}
+
+.price {
+  font-size: 1.2em;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.original {
+  margin-right: 5px;
+  text-decoration: line-through;
+  color: red;
+}
+
+.style {
+  font-size: 1.5em;
+}
+
+.styleRow {
+  display: flex;
+}
+
+.styleIcon img {
+  margin: 10px;
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
 }
