@@ -8,7 +8,7 @@ const SearchQuestions = (props) => {
         <input type="text" id="search-questions" name="search-questions"></input>
       </form>
     </div>
-  )
-}
+  );
+};
 
 export default SearchQuestions;
