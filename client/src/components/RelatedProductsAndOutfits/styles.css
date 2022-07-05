@@ -1,0 +1,37 @@
+
+/*
+https://www.youtube.com/watch?v=4KxHcbQ8GYQ
+https://www.youtube.com/watch?v=lgBsm42Fs4k
+https://github.com/akiran/react-slick/issues/167
+*/
+
+/* card-body {
+ font-family: sans-serif;
+ margin: 2rem;
+} */
+
+.card-deck {
+ /* display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem)); */
+ gap: 2rem;
+ /* justify-content: center; */
+}
+
+.card {
+  /* overflow: hidden; */
+  border: 1px solid black;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  cursor: pointer;
+}
+
+.slick-next:before {
+  color: black;
+}
+
+.slick-next {
+  right: 5%;
+}
+
+
