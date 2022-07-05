@@ -5,7 +5,7 @@ import RatingBreakdownBar from './RatingBreakdownBar.jsx';
 import RatingBreakdownBarCSS from './cssModule_Reviews/RatingBreakdownBar.module.css';
 
 
-const ScoreAndStarbars = (props) => {
+const RatingBreakdown = (props) => {
 
   let recommended = Number(props.currentMetaReview.recommended['true']);
   let notRecommend = Number(props.currentMetaReview.recommended['false']);
@@ -22,7 +22,7 @@ const ScoreAndStarbars = (props) => {
 
 
   return (
-    <div className="score-starbars">
+    <div className="rantingBreakdown">
       <div>
         <span><h3>{avgStars}</h3></span>
         <Stars percent = {percent}/>
@@ -76,4 +76,4 @@ const ScoreAndStarbars = (props) => {
   );
 };
 
-export default ScoreAndStarbars;
+export default RatingBreakdown;

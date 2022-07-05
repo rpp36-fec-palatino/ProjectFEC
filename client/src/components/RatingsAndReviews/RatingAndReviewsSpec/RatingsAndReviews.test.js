@@ -6,7 +6,8 @@ import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RatingsAndReviews from '../RatingsAndReviews.jsx';
 import ReviewsList from '../ReviewsList.jsx';
-import {sampleReviews71698} from '../../../../../sampleData/sampleReviewData.js';
+import Ratings from '../Ratings.jsx';
+import {sampleReviews71698, sampleMetaReview71698} from '../../../../../sampleData/sampleReviewData.js';
 
 
 // use describe, it pattern
@@ -22,6 +23,15 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
     />);
     expect(screen.getByText(/Reviews List/i)).toBeInTheDocument();
+  });
+
+  it('Renders <Ratings /> component correctly', () => {
+    render(<Ratings
+      currentMetaReview = {sampleMetaReview71698}
+
+
+    />);
+    expect(screen.getByText(/Ranting Breakdown and Fitting stats/i)).toBeInTheDocument();
   });
 
 });
