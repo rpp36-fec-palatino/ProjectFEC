@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 }
 
-// ReactDOM.render(<App />, document.getElementById('app'));
+
 
 
 /*****Edit to make it compatible with latest react version**********/

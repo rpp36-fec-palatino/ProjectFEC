@@ -8,7 +8,9 @@ class AddNewReviewModal extends React.Component {
 
       currentItemName: 'Bright Future Sunglasses', // directly from sample data. this prop may need to be passed from productOverview component;
 
-      recommendStatus: 'yes' //default
+      recommendStatus: 'yes', //default
+
+      starRating: '' //default
 
     };
   }
