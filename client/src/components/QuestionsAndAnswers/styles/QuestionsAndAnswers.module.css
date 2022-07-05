@@ -1,0 +1,7 @@
+.questionsAndAnswers {
+  flex-direction: column;
+}
+
+.questionHelpAdd {
+  justify-content: space-around;
+}

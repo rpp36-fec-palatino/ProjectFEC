@@ -4,10 +4,13 @@ import Question from './Question.jsx';
 const QuestionsList = (props) => {
   return (
     <div className='questions-list'>
-      <Question/>
-      <Question/>
+      {props.results.map((item) => {
+        return (
+          <Question key={item.question_id} qAndA={item}/>
+        );
+      })}
     </div>
-  )
-}
+  );
+};
 
 export default QuestionsList;
