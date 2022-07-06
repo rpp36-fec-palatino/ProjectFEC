@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.jsx';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import ProductOverview from './components/ProductOverview/index.jsx';
+import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,9 +20,9 @@ class App extends React.Component {
     return (
       <div>
         <ProductOverview />
+        <RelatedProductsAndOutfits />
         <QuestionsAndAnswers />
         <RatingsAndReviews />
-
 
       </div>
 
