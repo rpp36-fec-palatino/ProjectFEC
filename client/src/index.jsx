@@ -6,20 +6,22 @@ import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.
 import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import ProductOverview from './components/ProductOverview/index.jsx';
 import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
+import exampleData from './components/ProductOverview/exampleData.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentId: 71697,
-      product: {},
-      productStyle: {},
-      questionsAndAnswers: {}
+      product: exampleData.product71697,
+      productStyle: exampleData.productStyle71697,
+      questionsAndAnswers: undefined
     };
   }
 
   componentDidMount () {
     let sampleId = 71697;
+    this.setState({currentId: sampleId});
     this.getProduct(sampleId);
     this.getProductStyles(sampleId);
     this.getQuestions(sampleId);
