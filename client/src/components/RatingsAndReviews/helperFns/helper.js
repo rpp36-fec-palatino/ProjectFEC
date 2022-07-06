@@ -46,10 +46,25 @@ let ratingPercentage = (ratingsObj) => {
 
 };
 
+/****
+ * recommendationRate helper function will calculate the recommendation percentage
+ * data format: e. g. {false: "1", true: "15"}
+ *
+*/
+
+let recommendationRate = (recommendObj) => {
+  let recommended = Number(recommendObj['true']);
+  let notRecommend = Number(recommendObj['false']);
+  let recommendRate = Math.round((recommended / (recommended + notRecommend)) * 100);
+  return recommendRate;
+
+};
+
 
 
 module.exports = {
   avgStarScores,
-  ratingPercentage
+  ratingPercentage,
+  recommendationRate
 
 };

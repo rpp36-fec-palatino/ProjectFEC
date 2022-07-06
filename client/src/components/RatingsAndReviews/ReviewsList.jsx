@@ -29,7 +29,7 @@ class ReviewsList extends React.Component {
 
         <div className="sort-slect">
           <h2>Reviews List</h2>
-          <h3> xxx reviews, sorted by </h3>
+          <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
           <select value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
             <option value="relevant">Relevant</option>
             <option value="newest">Newest</option>
@@ -37,7 +37,7 @@ class ReviewsList extends React.Component {
           </select>
         </div>
         <br/>
-        {'--------------------------------------------------------------'}
+        {'----------------------------------------------------------------------------------'}
 
         <div className={ReviewsListCSS.reviewScroller} >
           {this.props.currentDisplayReviews.map(

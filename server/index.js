@@ -48,7 +48,7 @@ app.get('/product', (req, res) => {
 
 */
 
-/********************API Calls for Reviews******************************/
+
 
 app.get('/products/:id', (req, res) => {
   // let id = req.body.id;
@@ -88,29 +88,54 @@ app.get('/products/:id/styles/', (req, res) => {
     });
 });
 
+
+
+
+
+
+/**************Server Calls for Ratings and Reviews********************************/
 app.get('/products/:id/reviews/', (req, res) => {
   let id = req.params.id;
-  let apiProductReview = apiUrl + `/reviews?product_id=${product}`;
-  apiGet(apiProductStyles)
+  console.log('this is id:', id);
+  let sort = 'relevant'; //default
+  let apiProductReview = apiUrl + `/reviews?sort=${sort}&product_id=${id}&count=20`;
+  apiGet(apiProductReview)
     .then(result => {
+      console.log('this is review data:', result.data);
       res.status(200).send(result.data);
     })
     .catch(err => {
-      res.sendStatus(500);
+      res.status(500).send(err);
     });
 });
 
-app.get('/products/:id/reviews/meta/', (req, res) => {
+app.get('/products/:id/reviews/meta', (req, res) => {
   let id = req.params.id;
   let apiProductReviewMeta = apiUrl + `/reviews/meta?product_id=${id}`;
-  apiGet(apiProductStyles)
+  apiGet(apiProductReviewMeta)
     .then(result => {
       res.status(200).send(result.data);
     })
     .catch(err => {
-      res.sendStatus(500);
+      res.status(500).send(err);
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/products/:id/questions/', (req, res) => {
   let id = req.params.id;
