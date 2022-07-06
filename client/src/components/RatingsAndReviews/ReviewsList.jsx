@@ -8,6 +8,7 @@ const ReviewsList = (props) => {
     <div className={ReviewsListCSS.reviewListMain}>
 
       <div className="sort-slect">
+        <h2>Reviews List</h2>
         <h3> xxx reviews, sorted by </h3>
         <select value='relevant' >
           <option name="relevant">Relevant</option>
