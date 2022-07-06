@@ -13,7 +13,13 @@ class RelatedProductsAndOutfits extends React.Component {
     };
   }
 
-  // componentDidMount() {
+  // componentDidMount () {
+  //   let sampleId = 71697;
+  //   let url = `/products/${sampleId}`;
+  //   axios.get(url)
+  //     .then(result => {
+  //       console.log(result.data);
+  //     });
   // }
 
   render() {
