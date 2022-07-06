@@ -51,6 +51,8 @@ class RatingsAndReviews extends React.Component {
     return (
       <div>
         <h1>Ratings and Reviews</h1>
+        <button>testReview: product_id: 71697</button>
+        <button>testReview: product_id: 71698</button>
         <div className={ReviewsMainCSS.box}>
           <Ratings
             currentMetaReview = {this.state.currentMetaReview}
