@@ -1,32 +1,46 @@
 import React from 'react';
 import exampleData from './exampleData.js';
 import RelatedProducts from './RelatedProducts.jsx';
+import axios from 'axios';
 
 class RelatedProductsAndOutfits extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: exampleData.productList[0],
-      relatedProductsIds: exampleData.id71697Related,
-      relatedProducts: [exampleData.productList[1], exampleData.productList[2], exampleData.productList[7], exampleData.productList[6]],
+      // currentProduct: exampleData.productList[0],
+      // relatedProductsIds: exampleData.id71697Related,
+      relatedProducts: [],
       outfit: []
     };
   }
 
-  // componentDidMount () {
-  //   let sampleId = 71697;
-  //   let url = `/products/${sampleId}`;
-  //   axios.get(url)
-  //     .then(result => {
-  //       console.log(result.data);
-  //     });
-  // }
+  componentDidMount() {
+    let id = this.props.currentId;
+    let url = `/products/${id}/related`;
+    var relatedProducts = [];
+
+    axios.get(url)
+      .then(result => {
+        // this.setState({realtedProducts: result.data});
+
+        for (var i = 0; i < result.data.length; i++) {
+          var url = `/products/${result.data[i]}`;
+          axios.get(url)
+            .then(result => {
+              relatedProducts.push(result.data);
+            });
+        }
+        this.setState({realtedProducts: [...relatedProducts]});
+
+
+      });
+  }
 
   render() {
     return (
       <div>
         RELATED PRODUCTS
-        <RelatedProducts relatedProducts={this.state.relatedProducts}/>
+        <RelatedProducts /*relatedProducts={this.state.relatedProducts}*//>
       </div>
     );
   }
