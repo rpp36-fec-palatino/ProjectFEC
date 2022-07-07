@@ -2,6 +2,8 @@ import React from 'react';
 
 
 const FittingStats = (props) => {
+  console.log(props.currentMeta);
+  console.log(typeof(props.currentMeta));
   return (
     <div className="fitting-stats">
       <h5>Size</h5>
