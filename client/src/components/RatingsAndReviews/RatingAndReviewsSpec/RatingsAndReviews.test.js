@@ -37,7 +37,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
 
     />);
-    expect(screen.getByText(/Ranting Breakdown and Fitting stats/i)).toBeInTheDocument();
+    expect(screen.getByText(/Rating Breakdown and Fitting stats/i)).toBeInTheDocument();
   });
 
 });

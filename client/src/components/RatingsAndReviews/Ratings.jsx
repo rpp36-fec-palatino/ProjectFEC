@@ -28,7 +28,7 @@ const Ratings = (props) => {
 
   return (
     <div className="rating-panel">
-      <h3>Ranting Breakdown and Fitting stats</h3>
+      <h3>Rating Breakdown and Fitting stats</h3>
       <h3>Ratings display for product_id: {props.currentMetaReview.product_id}</h3>
 
       { len === 0

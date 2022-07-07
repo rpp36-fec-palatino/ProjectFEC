@@ -58,7 +58,7 @@ const ReviewEntry = (props) => {
       </div>
 
       <h3> {props.review.summary}</h3>
-      <p>Body: {props.review.body} </p>
+      <p> {props.review.body} </p>
 
       {/* conditional rendering of recommendation */}
       {props.review.recommend
@@ -110,7 +110,15 @@ const ReviewEntry = (props) => {
         <button>Yes({props.review.helpfulness})</button>
         <button>Report</button>
       </div>
-      {'============================================='}
+      <hr
+        style={{
+          background: 'grey',
+          color: 'grey',
+          borderColor: 'grey',
+          height: '1px',
+        }}
+      />
+      {/* {'============================================='} */}
 
     </div>
 
