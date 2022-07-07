@@ -1,12 +1,13 @@
 import React from 'react';
 import AddStarRating from './AddStarRating.jsx';
+import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
 class AddNewReviewModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
-      currentItemName: 'Bright Future Sunglasses', // directly from sample data. this prop may need to be passed from productOverview component;
+      currentItemName: '',
 
       recommendStatus: 'yes', //default
 
@@ -16,6 +17,9 @@ class AddNewReviewModal extends React.Component {
   }
 
   componentDidMount () {
+    this.setState({
+      currentItemName: this.props.currentName
+    });
   }
 
 
@@ -29,12 +33,12 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className = {AddNewReviewModalCSS.modalContainer}>
         <h3>Add a New Review</h3>
         <form>
           <div id="heading">
             <div>Write Your Review</div>
-            <div>About {this.state.currentItemName}</div>
+            <div style={{'color': 'blue'}}>About  {this.state.currentItemName}</div>
           </div>
 
           <div name="rating">
@@ -69,11 +73,25 @@ class AddNewReviewModal extends React.Component {
           </div>
 
 
+          {'======images upload ======'}
+          <div>
+            <input type="file" onChange={e => {}} />
+            <button onClick={e => {}}>
+                  Upload your images
+            </button>
+          </div>
+
+
+
+
+
+
 
 
           <br />
 
           <button>Submit Review</button>
+          <button onClick = {e => this.props.handleCancelClick(e)}>cancel</button>
 
 
 

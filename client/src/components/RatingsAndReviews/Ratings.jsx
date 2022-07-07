@@ -10,7 +10,7 @@ import RatingBreakdownBarCSS from './cssModule_Reviews/RatingBreakdownBar.module
 
 
 const Ratings = (props) => {
-  console.log('in ratings:', props.ratingObj);
+  // console.log('in ratings:', props.ratingObj);
   let ratingsObj = props.ratingObj;
   let len = Object.keys(ratingsObj);
   let recommendRate = recommendationRate(props.recommended);

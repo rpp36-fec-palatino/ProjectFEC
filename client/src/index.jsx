@@ -69,7 +69,11 @@ class App extends React.Component {
           productStyle={this.state.productStyle}/>
         <RelatedProductsAndOutfits currentId={this.state.currentId}/>
         <QuestionsAndAnswers results={this.state.questionsAndAnswers}/>
-        <RatingsAndReviews currentId = {this.state.currentId} />
+        <RatingsAndReviews
+          currentId = {this.state.currentId}
+          currentProductName = {this.state.product.name}
+
+        />
 
       </div>
 

@@ -12,7 +12,7 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       currentProductId: 0,
-      addReview: false,
+      // addReview: false,
       loadMore: true,
       currentReviews: [],
       currentDisplayedReviews: [],
@@ -87,11 +87,11 @@ class RatingsAndReviews extends React.Component {
 
 
 
-  clickAddReviewBtn(e) {
-    this.setState({
-      addReview: true
-    });
-  }
+  // clickAddReviewBtn(e) {
+  //   this.setState({
+  //     addReview: true
+  //   });
+  // }
 
   clickLoadMoreBtn(e) {
     let curDisplays = this.state.currentDisplayedReviews;
@@ -127,9 +127,10 @@ class RatingsAndReviews extends React.Component {
             currentReviews = {this.state.currentReviews}
             currentDisplayReviews = {this.state.currentDisplayedReviews}
             addReview = {this.state.addReview}
-            clickAddReview = {this.clickAddReviewBtn.bind(this)}
+            // clickAddReview = {this.clickAddReviewBtn.bind(this)}
             loadMore = {this.state.loadMore}
             clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
+            currentProductName = {this.props.currentProductName}
           />
 
 

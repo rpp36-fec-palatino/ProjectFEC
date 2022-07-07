@@ -7,9 +7,14 @@ class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFilter: 'relevant' //default;
+      currentFilter: 'relevant', //default;
+      addReviewSeen: false
 
     };
+
+  }
+
+  componentDidMount() {
 
   }
 
@@ -18,8 +23,18 @@ class ReviewsList extends React.Component {
   }
 
   handleAddReviewClick(e) {
-    this.props.clickAddReview(e);
+    this.setState({
+      addReviewSeen: true
+    });
   }
+
+  handleCancelClick(e) {
+    this.setState({
+      addReviewSeen: false
+    });
+  }
+
+
 
 
 
@@ -53,7 +68,12 @@ class ReviewsList extends React.Component {
 
         <button onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
 
-        {this.props.addReview ? <AddNewReviewModal /> : null}
+        {this.state.addReviewSeen
+          ? <AddNewReviewModal
+            currentName = {this.props.currentProductName}
+            handleCancelClick = {this.handleCancelClick.bind(this)}
+          />
+          : null}
 
 
 
