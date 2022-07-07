@@ -2,6 +2,8 @@
   background-color: lightcyan;
   padding-bottom: 15px;
   padding-left: 15px;
+  width: 100%;
+  height: auto;
 
   color:blue;
 }

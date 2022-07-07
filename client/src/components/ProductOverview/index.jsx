@@ -15,7 +15,7 @@ class ProductOverview extends React.Component {
       styleData: exampleData.productStyle71697.results,
       selectedData: exampleData.productStyle71697.results[0],
       currentImg: exampleData.productStyle71697.results[0].photos[0],
-      currentImgSize: 'mainImageFit',
+      currentImgSize: 'mainImageFit'
     };
     this.changeStyle = this.changeStyle.bind(this);
     this.changeImage = this.changeImage.bind(this);
@@ -24,6 +24,25 @@ class ProductOverview extends React.Component {
 
   componentDidMount () {
     this.changeStyle();
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (this.props.product.id !== this.state.productData.id) {
+      this.setState({
+        productData: this.props.product,
+        currentImgSize: 'mainImageFit'
+      });
+    }
+    if (this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
+      console.log('hit');
+      this.setState({
+        styleData: this.props.productStyle.results,
+        selectedData: this.props.productStyle.results[0],
+        currentImg: this.props.productStyle.results[0].photos[0],
+      }, () => {
+        this.changeStyle();
+      });
+    }
   }
 
   changeStyle (styleSelect) {
