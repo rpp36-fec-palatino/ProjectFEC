@@ -44,13 +44,13 @@ const FittingStats = (props) => {
       high: 'Too wide',
     },
     Comfort: {
-      low: 'Uncomfortable',
+      low: 'Poor',
       mid: 'Ok',
       high: 'Perfect',
     },
     Quality: {
       low: 'Poor',
-      mid: 'What I exoected',
+      mid: 'What I expected',
       high: 'Perfect',
     },
     Length: {
@@ -69,7 +69,7 @@ const FittingStats = (props) => {
 
 
   return (
-    <div className="fitting-stats">
+    <div className = {CharacteristicsCSS.container}>
       {Object.keys(props.currentMeta.characteristics).map(
         key => (
           <div key = {key} className = {CharacteristicsCSS.box1}>
@@ -91,7 +91,6 @@ const FittingStats = (props) => {
                 <div >{labels[key].high}</div>
               </div>
             </div>
-            <br />
 
           </div>
         )
