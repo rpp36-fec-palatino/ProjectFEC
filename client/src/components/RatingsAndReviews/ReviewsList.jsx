@@ -66,7 +66,7 @@ class ReviewsList extends React.Component {
           : null
         }
 
-        <button onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
+        <button data-testid="popModal" onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
 
         {this.state.addReviewSeen
           ? <AddNewReviewModal

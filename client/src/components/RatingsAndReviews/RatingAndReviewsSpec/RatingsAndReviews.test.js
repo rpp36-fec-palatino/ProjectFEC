@@ -1,12 +1,15 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react';
+import React, {useEffect} from 'react';
+import ReactDOM from 'react-dom';
+import { fireEvent} from '@testing-library/react';
 import {render, screen, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RatingsAndReviews from '../RatingsAndReviews.jsx';
 import ReviewsList from '../ReviewsList.jsx';
 import Ratings from '../Ratings.jsx';
+import AddNewReviewModal from '../AddNewReviewModal.jsx';
 import {sampleReviews71698, sampleMetaReview71698} from '../../../../../sampleData/sampleReviewData.js';
 
 
@@ -20,7 +23,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
     expect (title).toBeInTheDocument();
 
   });
-  it('Renders <ReviewsList /> component correctly', async () => {
+  it('Renders <ReviewsList /> component correctly', () => {
     render(<ReviewsList
       currentReviews = {sampleReviews71698.results}
       currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
@@ -39,6 +42,32 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
     />);
     expect(screen.getByText(/Rating Breakdown and Fitting stats/i)).toBeInTheDocument();
   });
+  /***********test modal pop*********************/
+
+  it('should render the add new review modal component if add new review button is clicked', () => {
+    const mockOnClick = jest.fn();
+    const {queryByText, getByTestId} = render(<ReviewsList currentReviews = {sampleReviews71698.results}
+      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)} onClick = {mockOnClick()}/>);
+    const clickButton = getByTestId('popModal');
+    fireEvent.click(clickButton);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('addNewModal').id).toBe('add-new-review-title');
+  });
+
+
+  it('should render upload images modal component if corresponding button is clicked', () => {
+    const mockOnClick = jest.fn();
+    const {queryByText, getByTestId} = render(<AddNewReviewModal onClick = {mockOnClick()}/>);
+    const clickButton1 = getByTestId('popUploadImg');
+    fireEvent.click(clickButton1);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('uploadImg').id).toBe('uploadImgModal');
+  });
+
+
+
 
 });
+
+
 

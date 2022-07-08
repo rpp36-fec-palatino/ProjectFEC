@@ -44,8 +44,8 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <div className = {AddNewReviewModalCSS.modalContainer}>
-        <h3>Add a New Review</h3>
+      <div data-testid="addNewModal" id="add-new-review-title" className = {AddNewReviewModalCSS.modalContainer}>
+        <h3 >Add a New Review</h3>
         <form>
           <div id="heading">
             <div>Write Your Review</div>
@@ -87,7 +87,7 @@ class AddNewReviewModal extends React.Component {
 
 
           <div>
-            <button onClick = {e => this.uploadModalPop(e)}>Upload Images</button>
+            <button data-testid="popUploadImg" onClick = {e => this.uploadModalPop(e)}>Upload Images</button>
             {this.state.uploadModal
               ? <UploadImgModal/>
               : null

@@ -21,7 +21,7 @@ class UploadImgModal extends React.Component {
 
   render () {
     return (
-      <div className = {AddNewReviewModalCSS.subModalContainer}>
+      <div data-testid="uploadImg" id="uploadImgModal" className = {AddNewReviewModalCSS.subModalContainer}>
         <input type="file" onChange={e => {}} />
         <button onClick={e => {}}>
                   add your images : up to 5
