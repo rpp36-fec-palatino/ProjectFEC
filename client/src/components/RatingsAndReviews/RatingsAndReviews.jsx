@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReviewsList from './ReviewsList.jsx';
 import Ratings from './Ratings.jsx';
-import {sampleReviews71697, sampleReviews71698, sampleMetaReview71698 } from '../../../../sampleData/sampleReviewData.js';
+import {sampleReviews71697, sampleReviews71698, sampleMetaReview71698, sampleMetaReview71697 } from '../../../../sampleData/sampleReviewData.js';
 import ReviewsMainCSS from './cssModule_Reviews/ReviewsMain.module.css';
 import axios from 'axios';
 
@@ -12,11 +12,10 @@ class RatingsAndReviews extends React.Component {
     super(props);
     this.state = {
       currentProductId: 0,
-      // addReview: false,
       loadMore: true,
       currentReviews: [],
       currentDisplayedReviews: [],
-      currentMetaReview: {},
+      currentMetaReview: sampleMetaReview71697, //default
       ratingObj: {'5': '0', '4': '0', '3': '0', '2': '0', '1': '0'},
       recommended: {'false': '0', 'true': '0' },
 
@@ -86,13 +85,6 @@ class RatingsAndReviews extends React.Component {
   }
 
 
-
-  // clickAddReviewBtn(e) {
-  //   this.setState({
-  //     addReview: true
-  //   });
-  // }
-
   clickLoadMoreBtn(e) {
     let curDisplays = this.state.currentDisplayedReviews;
     let allReviews = this.state.currentReviews;
@@ -127,7 +119,6 @@ class RatingsAndReviews extends React.Component {
             currentReviews = {this.state.currentReviews}
             currentDisplayReviews = {this.state.currentDisplayedReviews}
             addReview = {this.state.addReview}
-            // clickAddReview = {this.clickAddReviewBtn.bind(this)}
             loadMore = {this.state.loadMore}
             clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
             currentProductName = {this.props.currentProductName}
