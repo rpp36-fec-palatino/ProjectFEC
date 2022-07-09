@@ -1,0 +1,36 @@
+.modalContainer {
+  position: fixed;
+  z-index: 1;
+  left: 45%;
+  top: 20%;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin: auto;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 30%;
+  z-index: 1;
+  box-shadow: 3px 6px #888888;
+
+
+
+}
+
+.subModalContainer {
+  position: fixed;
+  z-index: 1;
+  left: 45%;
+  bottom: 2%;
+  background-color: D6E0F0;
+  border-radius: 5px;
+  margin: auto;
+  padding: 25px;
+  border: 1px solid #888;
+  width: 30%;
+  z-index: 1;
+  box-shadow: 3px 6px #888888;
+  height: auto;
+
+
+
+}

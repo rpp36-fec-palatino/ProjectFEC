@@ -7,9 +7,14 @@ class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFilter: 'relevant' //default;
+      currentFilter: 'relevant', //default;
+      addReviewSeen: false
 
     };
+
+  }
+
+  componentDidMount() {
 
   }
 
@@ -18,8 +23,18 @@ class ReviewsList extends React.Component {
   }
 
   handleAddReviewClick(e) {
-    this.props.clickAddReview(e);
+    this.setState({
+      addReviewSeen: true
+    });
   }
+
+  handleCancelClick(e) {
+    this.setState({
+      addReviewSeen: false
+    });
+  }
+
+
 
 
 
@@ -30,10 +45,10 @@ class ReviewsList extends React.Component {
         <div className="sort-slect">
           <h2>Reviews List</h2>
           <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
-          <select value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
-            <option value="relevant">Relevant</option>
-            <option value="newest">Newest</option>
-            <option value="helpful">Helpful</option>
+          <select data-testid='select' value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
+            <option value="relevant" name="Relevant">Relevant</option>
+            <option value="newest" data-testid="select-newest">Newest</option>
+            <option value="helpful" data-testid="select-helpful">Helpful</option>
           </select>
         </div>
         <br/>
@@ -51,9 +66,14 @@ class ReviewsList extends React.Component {
           : null
         }
 
-        <button onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
+        <button data-testid="popModal" onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
 
-        {this.props.addReview ? <AddNewReviewModal /> : null}
+        {this.state.addReviewSeen
+          ? <AddNewReviewModal
+            currentName = {this.props.currentProductName}
+            handleCancelClick = {this.handleCancelClick.bind(this)}
+          />
+          : null}
 
 
 
