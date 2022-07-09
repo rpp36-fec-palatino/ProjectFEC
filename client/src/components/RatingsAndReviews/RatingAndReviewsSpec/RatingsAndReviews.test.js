@@ -42,7 +42,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
     />);
     expect(screen.getByText(/Rating Breakdown and Fitting stats/i)).toBeInTheDocument();
   });
-  /***********test modal pop*********************/
+  /*********** test modal pop *********************/
 
   it('should render the add new review modal component if add new review button is clicked', () => {
     const mockOnClick = jest.fn();
@@ -64,7 +64,30 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
     expect(screen.getByTestId('uploadImg').id).toBe('uploadImgModal');
   });
 
+  /****** testing dropdown selection *************************/
 
+  //default selection testing:
+  it('should correctly set default option', () => {
+    render(<ReviewsList
+      currentReviews = {sampleReviews71698.results}
+      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
+
+    />);
+    expect(screen.getByRole('option', {name: 'Relevant'}).selected).toBe(true);
+  });
+
+  it('Should simulates selection', () => {
+    const { getByTestId, getAllByTestId } = render(<ReviewsList
+      currentReviews = {sampleReviews71698.results}
+      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
+
+    />);
+    fireEvent.change(getByTestId('select'), { target: { value: 'newest' } });
+    let option = getByTestId('select-newest');
+    expect(option.selected).toBeTruthy();
+
+    //...
+  });
 
 
 });

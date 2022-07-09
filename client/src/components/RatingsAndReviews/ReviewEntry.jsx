@@ -71,7 +71,7 @@ const ReviewEntry = (props) => {
 
       {/* conditional rendering of seller's response */}
       {props.review.response && props.review.response.length
-        ? <div className={ReviewEntryCSS.sellerResponse}>
+        ? <div className={ReviewEntryCSS.sellerResponse} style={{'backgroundColor': 'lightgrey'}}>
           <b>Response from seller:</b>
           <br />
           <br />

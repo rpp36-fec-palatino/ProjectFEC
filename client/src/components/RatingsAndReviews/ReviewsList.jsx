@@ -45,10 +45,10 @@ class ReviewsList extends React.Component {
         <div className="sort-slect">
           <h2>Reviews List</h2>
           <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
-          <select value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
-            <option value="relevant">Relevant</option>
-            <option value="newest">Newest</option>
-            <option value="helpful">Helpful</option>
+          <select data-testid='select' value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
+            <option value="relevant" name="Relevant">Relevant</option>
+            <option value="newest" data-testid="select-newest">Newest</option>
+            <option value="helpful" data-testid="select-helpful">Helpful</option>
           </select>
         </div>
         <br/>
