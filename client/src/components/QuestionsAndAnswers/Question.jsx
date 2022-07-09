@@ -7,11 +7,12 @@ const Question = (props) => {
   const [answerCount, setAnswerCount] = useState(2);
   const [currentAnswers, setCurrentAnswers] = useState(answers.slice(0, answerCount));
   const totalAnswers = answers.length;
+  const helpfulUrl = '/qa/questions/' + props.qAndA.question_id + '/helpful';
 
   if (answerCount < totalAnswers) {
     return (
       <div className='question'>
-        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href="url">Yes</a>(25) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
+        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href={helpfulUrl}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
         {currentAnswers.map((item) => {
           return (
             <Answer key={item.id} answer={item}/>
@@ -27,7 +28,7 @@ const Question = (props) => {
 
   return (
     <div className='question'>
-      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href="url">Yes</a>(25) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
+      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href={helpfulUrl}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
       {currentAnswers.map((item) => {
         return (
           <Answer key={item.id} answer={item}/>

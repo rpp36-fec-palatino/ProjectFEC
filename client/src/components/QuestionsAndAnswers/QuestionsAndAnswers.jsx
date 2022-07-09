@@ -6,7 +6,7 @@ import style from './styles/QuestionsAndAnswers.module.css';
 
 import SearchQuestions from './SearchQuestions.jsx';
 import QuestionsList from './QuestionsList.jsx';
-//import questionsAndAnswers from './exampleData.js';
+import questionsAndAnswers from './exampleData.js';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -14,29 +14,30 @@ class QuestionsAndAnswers extends React.Component {
     this.state = {
       // eslint-disable-next-line camelcase
       product_id: props.questions.product_id,
-      results: [],
+      results: questionsAndAnswers.results,
       numberResults: 2,
-      currentResults: []
+      totalResults: 4,
+      currentResults: questionsAndAnswers.results.slice(0, 2)
     };
-    this.totalResults = this.state.results.length;
     this.loadQuestions = this.loadQuestions.bind(this);
   }
 
   componentDidUpdate (previousProps, previousState) {
-    console.log('qa componenet', this.props.questions.product_id, this.state.product_id);
+    console.log('qa componenet', this.props.questions, this.state.product_id);
     if (this.props.questions.product_id !== this.state.product_id) {
       this.setState({
         // eslint-disable-next-line camelcase
         product_id: this.props.questions.product_id,
         results: this.props.questions.results,
         numberResults: 2,
+        totalResults: this.props.questions.results.length,
         currentResults: this.props.questions.results.slice(0, 2)
       });
     }
   }
 
   loadQuestions () {
-    if (this.state.numberResults < this.totalResults) {
+    if (this.state.numberResults < this.state.totalResults) {
       var newNumberResults = this.state.numberResults + 1;
       var newResults = this.state.results.slice(0, newNumberResults);
       this.setState({numberResults: newNumberResults,
@@ -46,7 +47,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   loadQuestionsButton () {
-    if (this.state.numberResults === this.totalResults) {
+    if (this.state.numberResults === this.state.totalResults) {
       return null;
     }
     return (

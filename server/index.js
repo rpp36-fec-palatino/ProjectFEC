@@ -170,6 +170,20 @@ app.get('/products/:id/questions/', (req, res) => {
     });
 });
 
+app.put('/qa/questions/:qid/helpful', (req, res) => {
+  console.log('qa helpful', req.params.id);
+  let qid = req.params.id;
+  let apiProductQA = apiUrl + `/qa/questions/${qid}/helpful`;
+  apiGet(apiProductQA)
+    .then(result => {
+      res.status(204).send(result.data);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
+
+});
+
 
 
 
