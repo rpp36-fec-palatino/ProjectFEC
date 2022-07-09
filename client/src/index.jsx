@@ -7,6 +7,7 @@ import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAn
 import ProductOverview from './components/ProductOverview/index.jsx';
 import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
 import exampleData from './components/ProductOverview/exampleData.js';
+import exampleQuestions from './components/QuestionsAndAnswers/exampleData.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends React.Component {
       currentAvgRating: 0,
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
-      questionsAndAnswers: undefined
+      questionsAndAnswers: exampleQuestions
     };
   }
 
@@ -55,6 +56,7 @@ class App extends React.Component {
     let url = `/products/${id}/questions/`;
     axios.get(url)
       .then(result => {
+        console.log('getQuestions', result.data);
         this.setState({questionsAndAnswers: result.data});
       })
       .catch(error => {
