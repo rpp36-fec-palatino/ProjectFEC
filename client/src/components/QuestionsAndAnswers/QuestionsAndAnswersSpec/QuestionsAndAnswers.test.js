@@ -13,4 +13,8 @@ describe('questions and answers module and subcomponent rendering', () => {
     render(<QuestionsAndAnswers />);
     expect(screen.getByText(/Questions and Answers/i)).toBeInTheDocument();
   });
+  // it('Renders Questions List component', () => {
+  //   render(<QuestionsList />);
+  //   expect(screen.getByText(/Add Answer/i)).toBeInTheDocument();
+  // });
 });

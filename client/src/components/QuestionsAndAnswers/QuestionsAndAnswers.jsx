@@ -6,25 +6,33 @@ import style from './styles/QuestionsAndAnswers.module.css';
 
 import SearchQuestions from './SearchQuestions.jsx';
 import QuestionsList from './QuestionsList.jsx';
-import questionsAndAnswers from './exampleData.js';
+//import questionsAndAnswers from './exampleData.js';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // eslint-disable-next-line camelcase
-      product_id: questionsAndAnswers.product_id,
-      results: questionsAndAnswers.results,
+      product_id: props.questions.product_id,
+      results: [],
       numberResults: 2,
-      currentResults: questionsAndAnswers.results.slice(0, 2)
+      currentResults: []
     };
-    this.totalResults = questionsAndAnswers.results.length;
+    this.totalResults = this.state.results.length;
     this.loadQuestions = this.loadQuestions.bind(this);
   }
 
-
-  componentDidMount () {
-
+  componentDidUpdate (previousProps, previousState) {
+    console.log('qa componenet', this.props.questions.product_id, this.state.product_id);
+    if (this.props.questions.product_id !== this.state.product_id) {
+      this.setState({
+        // eslint-disable-next-line camelcase
+        product_id: this.props.questions.product_id,
+        results: this.props.questions.results,
+        numberResults: 2,
+        currentResults: this.props.questions.results.slice(0, 2)
+      });
+    }
   }
 
   loadQuestions () {
