@@ -13,6 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentId: 71697,
+      currentAvgRating: 0,
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
       questionsAndAnswers: undefined
@@ -25,6 +26,7 @@ class App extends React.Component {
     this.getProduct(sampleId);
     this.getProductStyles(sampleId);
     this.getQuestions(sampleId);
+    this.getAvgRating(sampleId);
   }
 
   getProduct (id) {
@@ -57,6 +59,21 @@ class App extends React.Component {
       })
       .catch(error => {
         console.log(error);
+      });
+  }
+
+
+
+  getAvgRating (id) {
+    let url = `/products/${id}/reviews/avg_star`;
+    axios.get(url)
+      .then(result => {
+        this.setState({
+          currentAvgRating: result.data
+        })
+          .catch(error => {
+            console.log(error);
+          });
       });
   }
 

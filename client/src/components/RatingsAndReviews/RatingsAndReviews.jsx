@@ -16,8 +16,10 @@ class RatingsAndReviews extends React.Component {
       currentReviews: [],
       currentDisplayedReviews: [],
       currentMetaReview: sampleMetaReview71697, //default
-      ratingObj: {'5': '0', '4': '0', '3': '0', '2': '0', '1': '0'},
-      recommended: {'false': '0', 'true': '0' },
+      // ratingObj: {'5': '0', '4': '0', '3': '0', '2': '0', '1': '0'},
+      ratingObj: sampleMetaReview71697['ratings'],
+      // recommended: {'false': '0', 'true': '0' },
+      recommended: sampleMetaReview71697['recommended']
 
       // currentId: sampleReviews71698.product,
       // currentReviews: sampleReviews71698.results,
