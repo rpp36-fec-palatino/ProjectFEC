@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    let sampleId = 71697;
+    let sampleId = 71702;
     this.setState({currentId: sampleId});
     this.getProduct(sampleId);
     this.getProductStyles(sampleId);
@@ -87,7 +87,7 @@ class App extends React.Component {
           product={this.state.product}
           productStyle={this.state.productStyle}/>
         <RelatedProductsAndOutfits currentId={this.state.currentId}/>
-        <QuestionsAndAnswers results={this.state.questionsAndAnswers}/>
+        <QuestionsAndAnswers results={this.state.questionsAndAnswers} questions={this.state.questionsAndAnswers}/>
         <RatingsAndReviews
           currentId = {this.state.currentId}
           currentProductName = {this.state.product.name}

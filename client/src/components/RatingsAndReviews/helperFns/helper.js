@@ -6,15 +6,22 @@
 */
 
 let avgStarScores = (ratingsObj) => {
-  let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
-  let totalCount = numberArr.reduce((a, b) => a + b );
-  let accumScores = 0;
-  for (let key in ratingsObj) {
-    accumScores += Number(key) * Number(ratingsObj[key]);
+
+  if (Object.keys(ratingsObj).length === 0) {
+    return 0.0;
+  } else {
+    let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
+    let totalCount = numberArr.reduce((a, b) => a + b );
+    let accumScores = 0;
+    for (let key in ratingsObj) {
+      accumScores += Number(key) * Number(ratingsObj[key]);
+
+    }
+
+    return Number((accumScores / totalCount).toFixed(1)); //result round to 1 decimals
 
   }
 
-  return Number((accumScores / totalCount).toFixed(1)); //result round to 1 decimals
 
 
 };
@@ -34,14 +41,23 @@ let avgStarScores = (ratingsObj) => {
 */
 
 let ratingPercentage = (ratingsObj) => {
-  let result = {'5': 0, '4': 0, '3': 0, '2': 0, '1': 0}; //initial setting
-  let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
-  let totalCount = numberArr.reduce((a, b) => a + b );
-  for (let key in ratingsObj) {
-    result[key] = Math.round((Number(ratingsObj[key]) / totalCount).toFixed(2) * 100);
 
+  let result = {'5': 0, '4': 0, '3': 0, '2': 0, '1': 0}; //initial setting
+  if (Object.keys(ratingsObj).length === 0) {
+
+    return result;
+
+  } else {
+    let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
+    let totalCount = numberArr.reduce((a, b) => a + b );
+    for (let key in ratingsObj) {
+      result[key] = Math.round((Number(ratingsObj[key]) / totalCount).toFixed(2) * 100);
+
+    }
+    return result;
   }
-  return result;
+
+
 
 
 };
@@ -53,6 +69,11 @@ let ratingPercentage = (ratingsObj) => {
 */
 
 let recommendationRate = (recommendObj) => {
+
+  if (Object.keys(recommendObj) === 0) {
+    return 0;
+
+  }
   let recommended = Number(recommendObj['true']);
   let notRecommend = Number(recommendObj['false']);
   let recommendRate = Math.round((recommended / (recommended + notRecommend)) * 100);

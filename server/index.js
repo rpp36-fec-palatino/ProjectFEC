@@ -133,8 +133,8 @@ app.get('/products/:id/reviews/avg_star', (req, res) => {
   apiGet(apiProductReviewMeta)
     .then(result => {
       let ratingObj = result.data.ratings;
-      console.log(ratingObj);
-      let avgRating = helper.avgStarScores(ratingObj);
+      console.log('this is ratingObj:', ratingObj);
+      avgRating = helper.avgStarScores(ratingObj);
       console.log(avgRating);
       res.json(avgRating);
     })
