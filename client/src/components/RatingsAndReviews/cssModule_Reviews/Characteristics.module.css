@@ -9,8 +9,24 @@
 
 .bar {
   width: 80%;
+  -webkit-appearance: none;
+  height: 8px;
+  background: lightgrey;
+  outline: none;
+  opacity: 0.7;
+
 }
 
+.bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+
+  border-top: 15px solid #47597E;
+}
 
 .box2 {
 
