@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 const axios = require('axios');
 const apiGet = require('./apiHelper.js').apiGet;
+const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -96,12 +97,16 @@ app.get('/products/:id/styles/', (req, res) => {
 /**************Server Calls for Ratings and Reviews********************************/
 app.get('/products/:id/reviews/', (req, res) => {
   let id = req.params.id;
+
   console.log('this is id:', id);
+  console.log('this is req.url', req.url);
+  console.log('this is req.query', req.query);
   let sort = 'relevant'; //default
   let apiProductReview = apiUrl + `/reviews?sort=${sort}&product_id=${id}&count=20`;
+
   apiGet(apiProductReview)
     .then(result => {
-      console.log('this is review data:', result.data);
+      // console.log('this is review data:', result.data);
       res.status(200).send(result.data);
     })
     .catch(err => {
@@ -121,6 +126,22 @@ app.get('/products/:id/reviews/meta', (req, res) => {
     });
 });
 
+/*********** get average stars *******************/
+app.get('/products/:id/reviews/avg_star', (req, res) => {
+  let id = req.params.id;
+  let apiProductReviewMeta = apiUrl + `/reviews/meta?product_id=${id}`;
+  apiGet(apiProductReviewMeta)
+    .then(result => {
+      let ratingObj = result.data.ratings;
+      console.log(ratingObj);
+      let avgRating = helper.avgStarScores(ratingObj);
+      console.log(avgRating);
+      res.json(avgRating);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
 
 
 
@@ -148,6 +169,11 @@ app.get('/products/:id/questions/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+
+
+
 
 
 var port = 3000;
