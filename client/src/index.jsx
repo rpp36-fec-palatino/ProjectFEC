@@ -16,24 +16,29 @@ class App extends React.Component {
       currentAvgRating: 0,
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
-      questionsAndAnswers: undefined
+      questionsAndAnswers: undefined,
+      outfit: {}
     };
+    this.modifyOutfit = this.modifyOutfit.bind(this);
   }
 
   componentDidMount () {
     let sampleId = 71697;
     this.setState({currentId: sampleId});
-    this.getProduct(sampleId);
+    this.getProduct(sampleId, true);
     this.getProductStyles(sampleId);
     this.getQuestions(sampleId);
     this.getAvgRating(sampleId);
   }
 
-  getProduct (id) {
+  getProduct (id, setCurrent, callback) {
     let url = `/products/${id}`;
     axios.get(url)
       .then(result => {
-        this.setState({product: result.data});
+        if (setCurrent) {
+          this.setState({product: result.data});
+        }
+        callback(result.data);
       })
       .catch(err => {
         console.log(err);
@@ -62,8 +67,6 @@ class App extends React.Component {
       });
   }
 
-
-
   getAvgRating (id) {
     let url = `/products/${id}/reviews/avg_star`;
     axios.get(url)
@@ -77,29 +80,46 @@ class App extends React.Component {
       });
   }
 
+  modifyOutfit (action, id) {
+    if (action === 'add') {
+      if (this.state.outfit[id] === undefined) {
+        let outfit = this.state.outfit;
+        this.getProduct(id, false, (item) => {
+          outfit[id] = item;
+          this.setState({outfit: outfit});
+        });
+      }
+    }
+    if (action === 'remove') {
+      if (this.state.outfit[id] !== undefined) {
+        let outfit = this.state.outfit;
+        delete outfit[id];
+        this.setState({outfit: outfit});
+      }
+    }
+  }
+
   render () {
     return (
       <div>
         <ProductOverview
           currentId={this.state.currentId}
           product={this.state.product}
-          productStyle={this.state.productStyle}/>
+          productStyle={this.state.productStyle}
+          avgRating={this.state.currentAvgRating}
+          outfit={this.state.outfit}
+          modifyOutfit={this.modifyOutfit}/>
         <RelatedProductsAndOutfits currentId={this.state.currentId}/>
         <QuestionsAndAnswers results={this.state.questionsAndAnswers}/>
         <RatingsAndReviews
           currentId = {this.state.currentId}
           currentProductName = {this.state.product.name}
-
         />
-
       </div>
 
     );
   }
 }
-
-
-
 
 /*****Edit to make it compatible with latest react version**********/
 ReactDOM.createRoot(document.getElementById('app')).render(<App />);

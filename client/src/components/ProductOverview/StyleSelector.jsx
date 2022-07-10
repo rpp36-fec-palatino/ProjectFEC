@@ -1,6 +1,7 @@
 import React from 'react';
 import AddToCart from './AddToCart.jsx';
 import css from './styles/styleSelector.module.css';
+import Stars from '../RatingsAndReviews/Stars.jsx';
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -9,6 +10,9 @@ class StyleSelector extends React.Component {
     };
     this.changeStyle = this.changeStyle.bind(this);
     this.currentPrice = this.currentPrice.bind(this);
+    this.renderRating = this.renderRating.bind(this);
+    this.renderOutfit = this.renderOutfit.bind(this);
+    this.toggleOutfit = this.toggleOutfit.bind(this);
   }
 
   changeStyle (event) {
@@ -55,12 +59,46 @@ class StyleSelector extends React.Component {
     );
   }
 
+  renderRating () {
+    let stars = this.props.avgRating;
+    if (stars === 0) {
+      return (<div></div>);
+    } else {
+      let percent = Math.round((stars / 5) * 100);
+      return (<Stars percent={percent}/>);
+    }
+  }
+
+  renderOutfit () {
+    let outfit = this.props.outfit;
+    let currentProductId = this.props.productData.id;
+    if (outfit[currentProductId]) {
+      return (
+        <div className={css.outfit} onClick={this.toggleOutfit}>
+          &#9733;
+        </div>);
+    } else {
+      return (
+        <div className={css.outfit} onClick={this.toggleOutfit}>
+          &#9734;
+        </div>);
+    }
+  }
+
+  toggleOutfit () {
+    let outfit = this.props.outfit;
+    let currentProductId = this.props.productData.id;
+    if (outfit[currentProductId]) {
+      this.props.modifyOutfit('remove', currentProductId);
+    } else {
+      this.props.modifyOutfit('add', currentProductId);
+    }
+  }
+
   render () {
     return (
       <div className={css.styleSelector}>
-        <div>
-          Reviews Component goes here
-        </div>
+        {this.renderRating()}
         <div className={css.category}>{this.props.productData.category}</div>
         <div className={css.productName}>{this.props.productData.name}</div>
         {this.currentPrice(this.props.selectedData)}
@@ -71,6 +109,13 @@ class StyleSelector extends React.Component {
         {this.renderStyles(this.props.styleData)}
         <AddToCart
           skus = {this.props.selectedData.skus}/>
+        <div className={css.bagOutfit}>
+          <div className={css.addToBag}>
+            <div className={css.bag}>ADD TO BAG</div>
+            <div className={css.plus}>+</div>
+          </div>
+          {this.renderOutfit()}
+        </div>
       </div>
     );
   }

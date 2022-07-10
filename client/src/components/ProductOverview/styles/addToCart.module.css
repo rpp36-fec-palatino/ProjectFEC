@@ -5,7 +5,7 @@
 .selectSize {
   display: block;
   height: 70px;
-  width: 250px;
+  width: 300px;
   padding: 10px;
   font-size: medium;
   margin-right: 25px;
@@ -14,7 +14,7 @@
 .selectQty {
   display: block;
   height: 70px;
-  width: 100px;
+  width: 130px;
   padding: 10px;
   font-size: medium;
 }
