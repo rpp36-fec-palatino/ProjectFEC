@@ -34,7 +34,6 @@ class ProductOverview extends React.Component {
       });
     }
     if (this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
-      console.log('hit');
       this.setState({
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
