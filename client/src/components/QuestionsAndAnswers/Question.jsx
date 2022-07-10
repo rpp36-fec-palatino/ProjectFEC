@@ -9,13 +9,14 @@ const Question = (props) => {
   const totalAnswers = answers.length;
   const helpfulUrl = '/qa/questions/' + props.qAndA.question_id + '/helpful';
 
+
   if (answerCount < totalAnswers) {
     return (
       <div className='question'>
-        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href={helpfulUrl}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
+        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href="#0" onClick={() => props.helpfulQ(helpfulUrl)}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
         {currentAnswers.map((item) => {
           return (
-            <Answer key={item.id} answer={item}/>
+            <Answer key={item.id} answer={item} helpful={props.helpfulQ}/>
           );
         })}
         <button onClick={() => {
@@ -28,10 +29,10 @@ const Question = (props) => {
 
   return (
     <div className='question'>
-      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href={helpfulUrl}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
+      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body} Helpful? <a href="#0" onClick={() => props.helpfulQ(helpfulUrl)}>Yes</a>({props.qAndA.question_helpfulness}) | <a className={style.questionHelpAdd} href="url">Add Answer</a></h3>
       {currentAnswers.map((item) => {
         return (
-          <Answer key={item.id} answer={item}/>
+          <Answer key={item.id} answer={item} helpful={props.helpfulQ}/>
         );
       })}
     </div>

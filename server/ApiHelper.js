@@ -20,4 +20,20 @@ let apiGet = (url) => {
   });
 };
 
+let apiPut = (url, id) => {
+  let options = {
+    url: url,
+    method: 'put',
+    headers: {
+      'Authorization': `${config.TOKEN}`
+    },
+    params: id
+  };
+
+  return axios(options).catch((err) => {
+    console.log('put error', err);
+  });
+};
+
 module.exports.apiGet = apiGet;
+module.exports.apiPut = apiPut;

@@ -55,12 +55,22 @@ class QuestionsAndAnswers extends React.Component {
     );
   }
 
+  helpfulQuestionButton (url) {
+    axios.put(url)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render () {
     return (
       <div className={style.questionsAndAnswers}>
         <h1>Questions And Answers</h1>
         <SearchQuestions/>
-        <QuestionsList results={this.state.currentResults}/>
+        <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton}/>
         {this.loadQuestionsButton()}<button>Add a Question +</button>
       </div>
     );

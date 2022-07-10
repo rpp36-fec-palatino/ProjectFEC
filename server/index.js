@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 const axios = require('axios');
 const apiGet = require('./apiHelper.js').apiGet;
+const apiPut = require('./apiHelper.js').apiPut;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 
 app.use(express.urlencoded({extended: true}));
@@ -143,21 +144,7 @@ app.get('/products/:id/reviews/avg_star', (req, res) => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**************Server Calls for Questions and Answers********************************/
 app.get('/products/:id/questions/', (req, res) => {
   let id = req.params.id;
   let apiProductQA = apiUrl + `/qa/questions?product_id=${id}`;
@@ -170,13 +157,12 @@ app.get('/products/:id/questions/', (req, res) => {
     });
 });
 
-app.put('/qa/questions/:qid/helpful', (req, res) => {
-  console.log('qa helpful', req.params.id);
-  let qid = req.params.id;
-  let apiProductQA = apiUrl + `/qa/questions/${qid}/helpful`;
-  apiGet(apiProductQA)
+app.put('/qa/questions/:id/helpful', (req, res) => {
+  let id = req.params.id;
+  let apiProductQA = apiUrl + `/qa/questions/${id}/helpful`;
+  apiPut(apiProductQA, id)
     .then(result => {
-      res.status(204).send(result.data);
+      res.sendStatus(result.status);
     })
     .catch(err => {
       res.sendStatus(500);
@@ -184,11 +170,31 @@ app.put('/qa/questions/:qid/helpful', (req, res) => {
 
 });
 
+app.put('/qa/answers/:id/helpful', (req, res) => {
+  let id = req.params.id;
+  let apiProductQA = apiUrl + `/qa/answers/${id}/helpful`;
+  apiPut(apiProductQA, id)
+    .then(result => {
+      res.sendStatus(result.status);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
 
+});
 
+app.put('/qa/answers/:id/report', (req, res) => {
+  let id = req.params.id;
+  let apiProductQA = apiUrl + `/qa/answers/${id}/report`;
+  apiPut(apiProductQA, id)
+    .then(result => {
+      res.sendStatus(result.status);
+    })
+    .catch(err => {
+      res.sendStatus(500);
+    });
 
-
-
+});
 
 var port = 3000;
 
