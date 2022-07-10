@@ -39,7 +39,9 @@ class App extends React.Component {
         if (setCurrent) {
           this.setState({product: result.data, currentId: id});
         }
-        callback(result.data);
+        if (callback) {
+          callback(result.data);
+        }
       })
       .catch(err => {
         console.log(err);
