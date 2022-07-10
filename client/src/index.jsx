@@ -7,6 +7,7 @@ import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAn
 import ProductOverview from './components/ProductOverview/index.jsx';
 import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
 import exampleData from './components/ProductOverview/exampleData.js';
+import exampleQuestions from './components/QuestionsAndAnswers/exampleData.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,14 +17,14 @@ class App extends React.Component {
       currentAvgRating: 0,
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
-      questionsAndAnswers: undefined,
+      questionsAndAnswers: exampleQuestions,
       outfit: {}
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
   }
 
   componentDidMount () {
-    let sampleId = 71697;
+    let sampleId = 71702;
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
     this.getProductStyles(sampleId);
@@ -36,7 +37,7 @@ class App extends React.Component {
     axios.get(url)
       .then(result => {
         if (setCurrent) {
-          this.setState({product: result.data});
+          this.setState({product: result.data, currentId: id});
         }
         callback(result.data);
       })
@@ -60,6 +61,7 @@ class App extends React.Component {
     let url = `/products/${id}/questions/`;
     axios.get(url)
       .then(result => {
+        console.log('getQuestions', result.data);
         this.setState({questionsAndAnswers: result.data});
       })
       .catch(error => {
@@ -110,7 +112,7 @@ class App extends React.Component {
           outfit={this.state.outfit}
           modifyOutfit={this.modifyOutfit}/>
         <RelatedProductsAndOutfits currentId={this.state.currentId}/>
-        <QuestionsAndAnswers results={this.state.questionsAndAnswers}/>
+        <QuestionsAndAnswers results={this.state.questionsAndAnswers} questions={this.state.questionsAndAnswers}/>
         <RatingsAndReviews
           currentId = {this.state.currentId}
           currentProductName = {this.state.product.name}
