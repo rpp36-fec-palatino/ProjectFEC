@@ -1,6 +1,7 @@
 import React from 'react';
 import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
 import Stars from './Stars.jsx';
+import HelpfulAndReport from './HelpfulAndReport.jsx';
 
 /*
     {
@@ -103,13 +104,11 @@ const ReviewEntry = (props) => {
 
       }
 
+      <HelpfulAndReport count = {props.review.helpfulness} reviewId = {props.review.review_id}/>
 
 
-      <div className="review-entry-footer">
-        <span>Helpful?</span>
-        <button>Yes({props.review.helpfulness})</button>
-        <button>Report</button>
-      </div>
+
+
       <hr
         style={{
           background: 'grey',
