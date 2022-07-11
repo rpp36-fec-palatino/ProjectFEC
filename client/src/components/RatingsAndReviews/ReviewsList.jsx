@@ -54,11 +54,21 @@ class ReviewsList extends React.Component {
         <br/>
         {'----------------------------------------------------------------------------------'}
 
-        <div className={ReviewsListCSS.reviewScroller} >
-          {this.props.currentDisplayReviews.map(
-            review => <ReviewEntry key = {review.review_id} review = {review} />
-          )}
-        </div>
+        {this.props.currentReviews.length === 0
+          ? <div>This product has no review yet!
+            <br />
+            <br />
+          </div>
+
+          : <div className={ReviewsListCSS.reviewScroller} >
+            {this.props.currentDisplayReviews.map(
+              review => <ReviewEntry key = {review.review_id} review = {review} />
+            )}
+          </div>
+
+        }
+
+
 
         {/* conditional rendering when there are more than 2 reviews */}
         {this.props.currentReviews.length > 2 && this.props.loadMore
