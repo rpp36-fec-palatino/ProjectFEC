@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
 import Stars from './Stars.jsx';
 import HelpfulAndReport from './HelpfulAndReport.jsx';
@@ -37,6 +38,8 @@ const ReviewEntry = (props) => {
   const reviewDate = new Date(props.review.date)
     .toLocaleDateString({}, {timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric'});
   let percent = (props.review.rating / 5) * 100;
+  const [imagePop, setImagePop] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
 
 
 
@@ -85,20 +88,45 @@ const ReviewEntry = (props) => {
 
       {/* conditional rendering of review photos */}
       {props.review.photos.length > 0
-        ? <div>
+        ? <div className={ReviewEntryCSS.box}>
           {props.review.photos.map(
             (photo, i) => (
               <div key ={photo.id} >
-                review photo {i + 1}:
+                <span>{i + 1}:</span>
                 <img
                   alt = 'review-photo'
                   src = {photo.url}
                   className={ReviewEntryCSS.reviewPhotos}
+                  onClick={() => {
+                    setImagePop(!imagePop);
+                    setImageUrl(photo.url);
+                  }}
                 />
+
               </div>
+
             )
 
           )}
+          {imagePop
+            ? <div
+              className={ReviewEntryCSS.photoModal}
+            >
+              <div className={ReviewEntryCSS.photoModalScroller}>
+                <img
+
+                  onClick={() => setImagePop(!imagePop)}
+                  alt = 'full-photo'
+                  src = {imageUrl}
+                />
+
+              </div>
+
+
+
+
+            </div>
+            : null}
         </div>
         : null
 

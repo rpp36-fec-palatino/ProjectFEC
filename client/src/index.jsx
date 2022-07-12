@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    let sampleId = 71701;
+    let sampleId = 71698;
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
     this.getProductStyles(sampleId);
