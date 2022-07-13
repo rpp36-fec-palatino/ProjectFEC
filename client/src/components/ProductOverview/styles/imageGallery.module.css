@@ -6,15 +6,16 @@
 .thumbnailList {
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 .thumbnail img {
   object-fit: cover;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border: 1px solid black;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .mainImageFit {

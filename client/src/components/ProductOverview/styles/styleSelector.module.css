@@ -1,5 +1,7 @@
 .styleSelector {
-  margin: 10px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .category {
@@ -34,8 +36,44 @@
 .styleIcon img {
   margin: 10px;
   object-fit: cover;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   border: 1px solid black;
+}
+
+.bagOutfit {
+  margin-top: 20px;
+  display: flex;
+}
+
+.addToBag {
+  width: 350px;
+  display: flex;
+  border: 1px solid black;
+  margin-right: 25px;
+}
+
+.bag {
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 300px;
+  font-size: medium;
+}
+
+.plus {
+  padding: 25px;
+  font-size: medium;
+}
+
+.outfit {
+  display: block;
+  width: 75px;
+  padding-top: 19px;
+  padding-bottom: 19px;
+  border: 1px solid black;
+  font-size: x-large;
+  text-align: center;
 }

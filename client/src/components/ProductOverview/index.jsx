@@ -34,7 +34,6 @@ class ProductOverview extends React.Component {
       });
     }
     if (this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
-      console.log('hit');
       this.setState({
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
@@ -93,10 +92,13 @@ class ProductOverview extends React.Component {
             changeImage = {this.changeImage}
             resize = {this.resize}/>
           <StyleSelector
+            avgRating = {this.props.avgRating}
             productData = {this.state.productData}
             styleData = {this.state.styleData}
             selectedData = {this.state.selectedData}
-            changeStyle = {this.changeStyle}/>
+            changeStyle = {this.changeStyle}
+            outfit = {this.props.outfit}
+            modifyOutfit = {this.props.modifyOutfit}/>
         </div>
         <ProductInformation
           productData = {this.state.productData}/>
