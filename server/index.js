@@ -4,6 +4,10 @@ const axios = require('axios');
 const apiGet = require('./apiHelper.js').apiGet;
 const apiPut = require('./apiHelper.js').apiPut;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
+const path = require('path');
+
+
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -248,6 +252,11 @@ app.put('/qa/answers/:id/report', (req, res) => {
 });
 
 var port = 3000;
+
+
+app.get('/*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(port, () => {
   console.log('Listening on port: ', port);

@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 71701,
+      currentId: 71697,
       currentAvgRating: 0,
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
@@ -25,6 +25,14 @@ class App extends React.Component {
 
   componentDidMount () {
     let sampleId = 71698;
+    let currentPath = window.location.pathname;
+    console.log('this is currentPath:', currentPath);
+    let sampleId = currentPath.slice(1);
+    //this is the default home page display item;
+    //also need to handle invalid product id, error boundary?
+    if (sampleId === '') {
+      sampleId = 71697;
+    }
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
     this.getProductStyles(sampleId);
