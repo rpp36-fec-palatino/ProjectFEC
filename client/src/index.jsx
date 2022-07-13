@@ -7,6 +7,7 @@ import ProductOverview from './components/ProductOverview/index.jsx';
 import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
 import exampleData from './components/ProductOverview/exampleData.js';
 import exampleQuestions from './components/QuestionsAndAnswers/exampleData.js';
+import ErrorBoundary from './ErrorBoundary.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,10 +15,11 @@ class App extends React.Component {
     this.state = {
       currentId: 71697,
       currentAvgRating: 0,
-      product: exampleData.product71697,
-      productStyle: exampleData.productStyle71697,
+      product: exampleData.productblank,
+      productStyle: exampleData.productStyleblank,
       questionsAndAnswers: exampleQuestions,
-      outfit: {}
+      outfit: JSON.parse(window.localStorage.getItem('outfit')) || {},
+      hasError: false
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
   }
@@ -26,8 +28,6 @@ class App extends React.Component {
     let currentPath = window.location.pathname;
     console.log('this is currentPath:', currentPath);
     let sampleId = currentPath.slice(1);
-    //this is the default home page display item;
-    //also need to handle invalid product id, error boundary?
     if (sampleId === '') {
       sampleId = 71697;
     }
@@ -51,6 +51,7 @@ class App extends React.Component {
       })
       .catch(err => {
         console.log(err);
+        this.setState({hasError: true});
       });
   }
 
@@ -96,7 +97,8 @@ class App extends React.Component {
         let outfit = this.state.outfit;
         this.getProduct(id, false, (item) => {
           outfit[id] = item;
-          this.setState({outfit: outfit});
+          window.localStorage.setItem('outfit', JSON.stringify(outfit));
+          super.setState(outfit);
         });
       }
     }
@@ -104,30 +106,42 @@ class App extends React.Component {
       if (this.state.outfit[id] !== undefined) {
         let outfit = this.state.outfit;
         delete outfit[id];
-        this.setState({outfit: outfit});
+        window.localStorage.setItem('outfit', JSON.stringify(outfit));
+        super.setState(outfit);
       }
     }
   }
 
   render () {
-    return (
-      <div>
-        <ProductOverview
-          currentId={this.state.currentId}
-          product={this.state.product}
-          productStyle={this.state.productStyle}
-          avgRating={this.state.currentAvgRating}
-          outfit={this.state.outfit}
-          modifyOutfit={this.modifyOutfit}/>
-        <RelatedProductsAndOutfits currentId={this.state.currentId}/>
-        <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
-        <RatingsAndReviews
-          currentId = {this.state.currentId}
-          currentProductName = {this.state.product.name}
-        />
-      </div>
-
-    );
+    if (this.state.hasError) {
+      return <h1>Oops! Product not found.</h1>;
+    } else {
+      return (
+        <div>
+          <ErrorBoundary>
+            <ProductOverview
+              currentId={this.state.currentId}
+              product={this.state.product}
+              productStyle={this.state.productStyle}
+              avgRating={this.state.currentAvgRating}
+              outfit={this.state.outfit}
+              modifyOutfit={this.modifyOutfit}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <RelatedProductsAndOutfits currentId={this.state.currentId}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <RatingsAndReviews
+              currentId = {this.state.currentId}
+              currentProductName = {this.state.product.name}
+            />
+          </ErrorBoundary>
+        </div>
+      );
+    }
   }
 }
 
