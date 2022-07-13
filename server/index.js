@@ -4,6 +4,10 @@ const axios = require('axios');
 const apiGet = require('./apiHelper.js').apiGet;
 const apiPut = require('./apiHelper.js').apiPut;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
+const path = require('path');
+
+
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -127,6 +131,57 @@ app.get('/products/:id/reviews/meta', (req, res) => {
     });
 });
 
+//update helpful count
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  let reviewId = req.params.review_id;
+
+  let options = {
+    method: 'PUT',
+    url: apiUrl + `/reviews/${reviewId}/helpful`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`
+    }
+  };
+
+  axios(options)
+    .then(response => {
+      res.status(204).send(response.message);
+    }).catch(
+      err => { res.status(500).send(err); }
+    );
+
+});
+
+//report review
+
+app.put('/reviews/:review_id/report', (req, res) => {
+  let reviewId = req.params.review_id;
+
+  let options = {
+    method: 'PUT',
+    url: apiUrl + `/reviews/${reviewId}/report`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`
+    }
+  };
+
+  axios(options)
+    .then(response => {
+      res.status(204).send(response.message);
+    }).catch(
+      err => { res.status(500).send(err); }
+    );
+
+});
+
+
+
+
+
+
+
 /*********** get average stars *******************/
 app.get('/products/:id/reviews/avg_star', (req, res) => {
   let id = req.params.id;
@@ -197,6 +252,11 @@ app.put('/qa/answers/:id/report', (req, res) => {
 });
 
 var port = 3000;
+
+
+app.get('/*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+});
 
 app.listen(port, () => {
   console.log('Listening on port: ', port);

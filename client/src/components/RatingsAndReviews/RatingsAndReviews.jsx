@@ -117,6 +117,7 @@ class RatingsAndReviews extends React.Component {
             ratingObj = {this.state.ratingObj}
             recommended = {this.state.recommended}
           />
+
           <ReviewsList
             currentReviews = {this.state.currentReviews}
             currentDisplayReviews = {this.state.currentDisplayedReviews}
