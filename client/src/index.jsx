@@ -24,7 +24,6 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    let sampleId = 71698;
     let currentPath = window.location.pathname;
     console.log('this is currentPath:', currentPath);
     let sampleId = currentPath.slice(1);
