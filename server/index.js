@@ -52,15 +52,19 @@ app.get('/products/:id/styles/', (req, res) => {
 });
 
 /**************Server Calls for Ratings and Reviews********************************/
-app.get('/products/:id/reviews/', (req, res) => {
+app.get('/reviews', (req, res) => {
   let id = req.params.id;
 
-  console.log('this is id:', id);
-  console.log('this is req.url', req.url);
   console.log('this is req.query', req.query);
-  let sort = 'relevant'; //default
-  let apiProductReview = apiUrl + `/reviews?sort=${sort}&product_id=${id}&count=20`;
+  let params = {
+    page: req.query.page || 1,
+    count: req.query.count || 5,
+    sort: req.query.sort,
+    // eslint-disable-next-line camelcase
+    product_id: req.query.product_id
+  };
 
+  let apiProductReview = apiUrl + `/reviews?page =${params.page}&sort=${params.sort}&product_id=${params.product_id}&count=${params.count}`;
   apiGet(apiProductReview)
     .then(result => {
       // console.log('this is review data:', result.data);

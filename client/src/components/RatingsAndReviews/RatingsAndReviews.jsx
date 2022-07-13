@@ -49,7 +49,7 @@ class RatingsAndReviews extends React.Component {
 
 
   displayCurrentProductReviews(currentId) {
-    axios.get(`/products/${currentId}/reviews/`)
+    axios.get(`/reviews?sort=${this.state.sortingKeyword}&count=100&product_id=${currentId}`)
       .then(response => {
 
         this.setState({
