@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from 'axios';
-// import { createRoot } from 'react-dom/client';
 import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.jsx';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import ProductOverview from './components/ProductOverview/index.jsx';
@@ -24,7 +23,6 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    let sampleId = 71698;
     let currentPath = window.location.pathname;
     console.log('this is currentPath:', currentPath);
     let sampleId = currentPath.slice(1);
