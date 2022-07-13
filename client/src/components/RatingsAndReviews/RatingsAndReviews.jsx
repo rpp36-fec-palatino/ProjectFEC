@@ -19,12 +19,10 @@ class RatingsAndReviews extends React.Component {
       // ratingObj: {'5': '0', '4': '0', '3': '0', '2': '0', '1': '0'},
       ratingObj: sampleMetaReview71697['ratings'],
       // recommended: {'false': '0', 'true': '0' },
-      recommended: sampleMetaReview71697['recommended']
+      recommended: sampleMetaReview71697['recommended'],
+      sortingKeyword: 'relevant' //default
 
-      // currentId: sampleReviews71698.product,
-      // currentReviews: sampleReviews71698.results,
-      // currentDisplayedReviews: sampleReviews71698.results.slice(0, 2), //initial display 2 reviews
-      // currentMetaReview: sampleMetaReview71698
+
 
     };
   }
@@ -41,6 +39,10 @@ class RatingsAndReviews extends React.Component {
     //only change content if corresponding product id changes
     if (this.props. currentId !== prevProps.currentId) {
       this.componentDidMount();
+
+    }
+    if (this.state.sortingKeyword !== prevState.sortingKeyword) {
+      this.displayCurrentProductReviews(this.props.currentId);
 
     }
 
@@ -107,6 +109,14 @@ class RatingsAndReviews extends React.Component {
 
   }
 
+  selectOption(e) {
+    this.setState({sortingKeyword: e.target.value });
+
+  }
+
+
+
+
   render () {
     return (
       <div>
@@ -125,6 +135,8 @@ class RatingsAndReviews extends React.Component {
             loadMore = {this.state.loadMore}
             clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
             currentProductName = {this.props.currentProductName}
+            dropdownSelection = {this.selectOption.bind(this)}
+            sortingKeyword = {this.state.sortingKeyword}
           />
 
 
