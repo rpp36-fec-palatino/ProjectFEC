@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from 'axios';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import RatingsAndReviews from './components/RatingsAndReviews/RatingsAndReviews.jsx';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import ProductOverview from './components/ProductOverview/index.jsx';
@@ -133,12 +132,4 @@ class App extends React.Component {
 }
 
 /*****Edit to make it compatible with latest react version**********/
-ReactDOM.createRoot(document.getElementById('app')).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App />} >
-
-      </Route>
-    </Routes>
-  </BrowserRouter>
-);
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
