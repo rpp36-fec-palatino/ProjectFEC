@@ -251,6 +251,12 @@ app.put('/qa/answers/:id/report', (req, res) => {
 
 });
 
+app.post('/qa/questions', (req, res) => {
+  console.log('posting question res', res.body);
+  console.log('posting question req', req.body);
+
+});
+
 var port = 3000;
 
 

@@ -22,10 +22,10 @@ class QuestionsAndAnswers extends React.Component {
       addQuestionForm: false
     };
     this.loadQuestions = this.loadQuestions.bind(this);
+    this.handleAddQuestionCancel = this.handleAddQuestionCancel.bind(this);
   }
 
   componentDidUpdate (previousProps, previousState) {
-    console.log('qa componenet', this.props.questions, this.state.product_id);
     if (this.props.questions.product_id !== this.state.product_id) {
       this.setState({
         // eslint-disable-next-line camelcase
@@ -79,6 +79,16 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
+  addQuestionButton (url, options) {
+    axios.post(url, options)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render () {
     return (
       <div className={style.questionsAndAnswers}>
@@ -86,7 +96,7 @@ class QuestionsAndAnswers extends React.Component {
         <SearchQuestions/>
         <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton}/>
         {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
-        {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName}/> : null}
+        {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} cancelButton={this.handleAddQuestionCancel}/> : null}
       </div>
     );
   }
