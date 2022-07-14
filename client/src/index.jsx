@@ -133,7 +133,6 @@ class App extends React.Component {
       return (
 
         <div>
-          <h1>current review count:{this.state.reviewCount}</h1>
           <ErrorBoundary>
             <ProductOverview
               currentId={this.state.currentId}
