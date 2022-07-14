@@ -69,10 +69,10 @@ class StyleSelector extends React.Component {
       return (<div></div>);
     } else {
       let percent = Math.round((stars / 5) * 100);
-      let str = `Read all ${this.props.numReviews} reviews`;
+      let str = `Read all ${this.props.reviewCount} reviews`;
       return (<div>
         <Stars percent={percent}/>
-        <a className={css.numReviews} href="#RatingsAndReviews">{str}</a>
+        <a className={css.reviewCount} href="#RatingsAndReviews">{str}</a>
       </div>);
     }
   }
