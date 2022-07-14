@@ -5,7 +5,7 @@
   width: 100%;
   height: auto;
 
-  color:#4B6587;
+  color:#0E185F;
 
 }
 
@@ -19,7 +19,7 @@
 
 .sellerResponse {
   background-color: whitesmoke;
-  color: grey ;
+  color: black ;
   width: 50%;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -28,7 +28,7 @@
 
 .recommendation {
   font-size: 12px;
-  color: grey;
+  color: #525E75;
   padding-bottom: 15px;
 }
 
