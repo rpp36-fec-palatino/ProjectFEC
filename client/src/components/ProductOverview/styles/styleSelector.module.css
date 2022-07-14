@@ -79,6 +79,7 @@ html {
 
 .outfit {
   display: block;
+  height: 33px;
   width: 75px;
   padding-top: 19px;
   padding-bottom: 19px;

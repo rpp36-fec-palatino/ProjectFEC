@@ -83,7 +83,7 @@ class StyleSelector extends React.Component {
     if (outfit[currentProductId]) {
       return (
         <div className={css.outfit} onClick={this.toggleOutfit}>
-          &#9733;
+          &#9825;
         </div>);
     } else {
       return (
