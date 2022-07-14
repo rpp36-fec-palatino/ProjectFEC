@@ -14,6 +14,7 @@ class RatingsAndReviews extends React.Component {
       currentProductId: 0,
       loadMore: true,
       currentReviews: [],
+      currentReviewCount: 0,
       currentDisplayedReviews: [],
       currentMetaReview: sampleMetaReview71697, //default
       // ratingObj: {'5': '0', '4': '0', '3': '0', '2': '0', '1': '0'},
@@ -29,7 +30,10 @@ class RatingsAndReviews extends React.Component {
 
   componentDidMount () {
 
-    this.setState({currentProductId: this.props.currentId});
+    this.setState({
+      currentProductId: this.props.currentId
+
+    });
     this.displayCurrentProductReviews(this.props.currentId);
     this.displayCurrentProductReviewsMeta(this.props.currentId);
 
@@ -45,6 +49,10 @@ class RatingsAndReviews extends React.Component {
       this.displayCurrentProductReviews(this.props.currentId);
 
     }
+    if (this.state.currentReviewCount !== prevState.currentReviewCount) {
+      this.props.passReviewCount(this.state.currentReviewCount);
+
+    }
 
   }
 
@@ -56,6 +64,7 @@ class RatingsAndReviews extends React.Component {
 
         this.setState({
           currentReviews: response.data.results,
+          currentReviewCount: response.data.results.length,
           currentDisplayedReviews: response.data.results.slice(0, 2)
 
         });
