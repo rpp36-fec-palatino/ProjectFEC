@@ -84,7 +84,7 @@ class ProductOverview extends React.Component {
           <ErrorBoundary>
             <StyleSelector
               avgRating = {this.props.avgRating}
-              numReviews = {this.props.numReviews}
+              reviewCount = {this.props.reviewCount}
               productData = {this.state.productData}
               styleData = {this.state.styleData}
               selectedData = {this.state.selectedData}
