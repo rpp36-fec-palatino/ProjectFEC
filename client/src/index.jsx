@@ -13,13 +13,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 71697,
+      currentId: 0,
       currentAvgRating: 0,
       product: exampleData.productblank,
       productStyle: exampleData.productStyleblank,
       questionsAndAnswers: exampleQuestions,
       outfit: JSON.parse(window.localStorage.getItem('outfit')) || {},
-      hasError: false
+      hasError: false,
+      reviewCount: 0
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
   }
@@ -112,12 +113,22 @@ class App extends React.Component {
     }
   }
 
+  passReviewCount(count) {
+    this.setState({
+      reviewCount: count
+
+    });
+  }
+
   render () {
+    const {reviewCount} = this.state;
     if (this.state.hasError) {
       return <h1>Oops! Product not found.</h1>;
     } else {
       return (
+
         <div>
+          <h1>current review count:{this.state.reviewCount}</h1>
           <ErrorBoundary>
             <ProductOverview
               currentId={this.state.currentId}
@@ -137,6 +148,8 @@ class App extends React.Component {
             <RatingsAndReviews
               currentId = {this.state.currentId}
               currentProductName = {this.state.product.name}
+              passReviewCount = {this.passReviewCount.bind(this)}
+
             />
           </ErrorBoundary>
         </div>
