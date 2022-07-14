@@ -20,13 +20,17 @@ class StyleSelector extends React.Component {
   }
 
   currentPrice (style) {
-    if (style.sale_price !== null) {
-      return (<div className={css.price}>
-        <div className={css.original}>${style.original_price}</div>
-        <div>${style.sale_price}</div>
-      </div>);
+    if (parseInt(style.original_price) !== 0) {
+      if (style.sale_price !== null) {
+        return (<div className={css.price}>
+          <div className={css.original}>${style.original_price}</div>
+          <div>${style.sale_price}</div>
+        </div>);
+      } else {
+        return (<div className={css.price}>${style.original_price}</div>);
+      }
     } else {
-      return (<div className={css.price}>${style.original_price}</div>);
+      return (<div className={css.price}>${this.props.productData.default_price}</div>);
     }
   }
 
