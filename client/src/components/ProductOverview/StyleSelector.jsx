@@ -20,13 +20,17 @@ class StyleSelector extends React.Component {
   }
 
   currentPrice (style) {
-    if (style.sale_price !== null) {
-      return (<div className={css.price}>
-        <div className={css.original}>${style.original_price}</div>
-        <div>${style.sale_price}</div>
-      </div>);
+    if (parseInt(style.original_price) !== 0) {
+      if (style.sale_price !== null) {
+        return (<div className={css.price}>
+          <div className={css.original}>${style.original_price}</div>
+          <div>${style.sale_price}</div>
+        </div>);
+      } else {
+        return (<div className={css.price}>${style.original_price}</div>);
+      }
     } else {
-      return (<div className={css.price}>${style.original_price}</div>);
+      return (<div className={css.price}>${this.props.productData.default_price}</div>);
     }
   }
 
@@ -65,7 +69,11 @@ class StyleSelector extends React.Component {
       return (<div></div>);
     } else {
       let percent = Math.round((stars / 5) * 100);
-      return (<Stars percent={percent}/>);
+      let str = `Read all ${this.props.reviewCount} reviews`;
+      return (<div>
+        <Stars percent={percent}/>
+        <a className={css.reviewCount} href="#RatingsAndReviews">{str}</a>
+      </div>);
     }
   }
 
@@ -75,7 +83,7 @@ class StyleSelector extends React.Component {
     if (outfit[currentProductId]) {
       return (
         <div className={css.outfit} onClick={this.toggleOutfit}>
-          &#9733;
+          &#9825;
         </div>);
     } else {
       return (

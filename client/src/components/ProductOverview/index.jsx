@@ -1,29 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import exampleData from './exampleData.js';
 import ImageGallery from './ImageGallery.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import css from './styles/index.module.css';
+import ErrorBoundary from '../../ErrorBoundary.jsx';
+import exampleData from './exampleData.js';
 
 
 class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productData: exampleData.product71697,
-      styleData: exampleData.productStyle71697.results,
-      selectedData: exampleData.productStyle71697.results[0],
-      currentImg: exampleData.productStyle71697.results[0].photos[0],
+      productData: this.props.product,
+      styleData: this.props.productStyle.results,
+      selectedData: this.props.productStyle.results[0],
+      currentImg: this.props.productStyle.results[0].photos[0],
       currentImgSize: 'mainImageFit'
     };
     this.changeStyle = this.changeStyle.bind(this);
     this.changeImage = this.changeImage.bind(this);
     this.resize = this.resize.bind(this);
-  }
-
-  componentDidMount () {
-    this.changeStyle();
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -33,32 +30,23 @@ class ProductOverview extends React.Component {
         currentImgSize: 'mainImageFit'
       });
     }
-    if (this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
+    if (this.props.productStyle.results.length !== 0 && this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
       this.setState({
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
         currentImg: this.props.productStyle.results[0].photos[0],
-      }, () => {
-        this.changeStyle();
       });
     }
   }
 
   changeStyle (styleSelect) {
-    if (styleSelect === undefined) {
-      this.state.styleData.forEach((style) => {
-        if (style['default?'] === true) {
-          this.setState({selectedData: style});
-        }
-      });
-    } else {
-      this.state.styleData.forEach((style) => {
-        if (style.style_id === parseInt(styleSelect)) {
-          this.setState({selectedData: style, currentImg: style.photos[0], currentImgSize: 'mainImageFit'});
-        }
-      });
-    }
+    this.state.styleData.forEach((style) => {
+      if (style.style_id === parseInt(styleSelect)) {
+        this.setState({selectedData: style, currentImg: style.photos[0], currentImgSize: 'mainImageFit'});
+      }
+    });
   }
+
 
   changeImage (event) {
     let selectedThumb = event.target.name;
@@ -85,23 +73,30 @@ class ProductOverview extends React.Component {
         <div>Logo  _______ search bar</div>
         <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
         <div className={css.topWindow}>
-          <ImageGallery
-            photos = {this.state.selectedData.photos}
-            currentImg = {this.state.currentImg}
-            currentImgSize = {this.state.currentImgSize}
-            changeImage = {this.changeImage}
-            resize = {this.resize}/>
-          <StyleSelector
-            avgRating = {this.props.avgRating}
-            productData = {this.state.productData}
-            styleData = {this.state.styleData}
-            selectedData = {this.state.selectedData}
-            changeStyle = {this.changeStyle}
-            outfit = {this.props.outfit}
-            modifyOutfit = {this.props.modifyOutfit}/>
+          <ErrorBoundary>
+            <ImageGallery
+              photos = {this.state.selectedData.photos}
+              currentImg = {this.state.currentImg}
+              currentImgSize = {this.state.currentImgSize}
+              changeImage = {this.changeImage}
+              resize = {this.resize}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <StyleSelector
+              avgRating = {this.props.avgRating}
+              reviewCount = {this.props.reviewCount}
+              productData = {this.state.productData}
+              styleData = {this.state.styleData}
+              selectedData = {this.state.selectedData}
+              changeStyle = {this.changeStyle}
+              outfit = {this.props.outfit}
+              modifyOutfit = {this.props.modifyOutfit}/>
+          </ErrorBoundary>
         </div>
-        <ProductInformation
-          productData = {this.state.productData}/>
+        <ErrorBoundary>
+          <ProductInformation
+            productData = {this.state.productData}/>
+        </ErrorBoundary>
       </div>
     );
   }

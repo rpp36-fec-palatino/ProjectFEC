@@ -4,6 +4,15 @@
   flex-direction: column;
 }
 
+.reviewCount {
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 .category {
   font-size: 1.5em;
 }
@@ -70,6 +79,7 @@
 
 .outfit {
   display: block;
+  height: 33px;
   width: 75px;
   padding-top: 19px;
   padding-bottom: 19px;

@@ -6,55 +6,12 @@ const apiPut = require('./apiHelper.js').apiPut;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
 
-
-
-
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 let apiUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
 const config = require('../config.js');
-
-
-
-// api's can go here
-
-//  Every time a product is selected, a minimum of the following API calls need
-//  to be made in order to populate the page. We may need to make each of these
-//  calls separately (& async) in order for page to load faster
-
-
-/*
-app.get('/product', (req, res) => {
-  // pass in desired product id from client in request body
-  let product = req.body.product;
-
-  // make API call for product_id
-  let apiProductId = apiUrl + `/products/${product}`;
-
-  // make API call for product styles
-  let apiProductStyles = apiUrl + `/products/${product}/styles`;
-
-  // make API call for related products
-  // Note: Subsequent product id calls will need be made for details on each related product
-  let apiProductRelated = apiUrl + `/products/${product}/related`;
-
-  // make API call for reviews
-  let apiProductReview = apiUrl + `/reviews?product_id=${product}`;
-
-  // make API call for reviews metadata
-  let apiProductReviewMeta = apiUrl + `/reviews/meta?product_id=${product}`;
-
-  // make API call for questions
-  // Note: Subsequent answers calls will need to be made for each individual answer
-  let apiProductQA = apiUrl + `/qa/questions?product_id=${product}`;
-
-});
-
-*/
-
-
 
 app.get('/products/:id', (req, res) => {
   // let id = req.body.id;
@@ -94,21 +51,20 @@ app.get('/products/:id/styles/', (req, res) => {
     });
 });
 
-
-
-
-
-
 /**************Server Calls for Ratings and Reviews********************************/
-app.get('/products/:id/reviews/', (req, res) => {
+app.get('/reviews', (req, res) => {
   let id = req.params.id;
 
-  console.log('this is id:', id);
-  console.log('this is req.url', req.url);
   console.log('this is req.query', req.query);
-  let sort = 'relevant'; //default
-  let apiProductReview = apiUrl + `/reviews?sort=${sort}&product_id=${id}&count=20`;
+  let params = {
+    page: req.query.page || 1,
+    count: req.query.count || 5,
+    sort: req.query.sort,
+    // eslint-disable-next-line camelcase
+    product_id: req.query.product_id
+  };
 
+  let apiProductReview = apiUrl + `/reviews?page =${params.page}&sort=${params.sort}&product_id=${params.product_id}&count=${params.count}`;
   apiGet(apiProductReview)
     .then(result => {
       // console.log('this is review data:', result.data);
@@ -175,12 +131,6 @@ app.put('/reviews/:review_id/report', (req, res) => {
     );
 
 });
-
-
-
-
-
-
 
 /*********** get average stars *******************/
 app.get('/products/:id/reviews/avg_star', (req, res) => {
@@ -252,7 +202,6 @@ app.put('/qa/answers/:id/report', (req, res) => {
 });
 
 var port = 3000;
-
 
 app.get('/*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));

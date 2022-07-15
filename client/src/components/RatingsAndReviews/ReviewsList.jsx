@@ -7,7 +7,7 @@ class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFilter: 'relevant', //default;
+      currentFilter: this.props.sortingKeyword,
       addReviewSeen: false
 
     };
@@ -15,8 +15,23 @@ class ReviewsList extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      currentFilter: this.props.sortingKeyword
+
+    });
 
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.sortingKeyword !== prevProps.sortingKeyword) {
+      this.componentDidMount();
+
+    }
+
+  }
+
+
+
 
   handleLoadMoreClick(e) {
     this.props.clickLoadMoreBtn(e);
@@ -34,6 +49,13 @@ class ReviewsList extends React.Component {
     });
   }
 
+  handleDropdownSelection(e) {
+    this.props.dropdownSelection(e);
+    this.setState({
+      currentFilter: this.props.sortingKeyword
+
+    });
+  }
 
 
 
@@ -45,7 +67,7 @@ class ReviewsList extends React.Component {
         <div className="sort-slect">
           <h2>Reviews List</h2>
           <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
-          <select data-testid='select' value={this.state.currentFilter} onChange ={e => { this.setState({currentFilter: e.target.value }); }} >
+          <select data-testid='select' value={this.state.currentFilter} onChange ={this.handleDropdownSelection.bind(this)} >
             <option value="relevant" name="Relevant">Relevant</option>
             <option value="newest" data-testid="select-newest">Newest</option>
             <option value="helpful" data-testid="select-helpful">Helpful</option>

@@ -7,37 +7,41 @@ import ProductOverview from './components/ProductOverview/index.jsx';
 import RelatedProductsAndOutfits from './components/RelatedProductsAndOutfits/index.jsx';
 import exampleData from './components/ProductOverview/exampleData.js';
 import exampleQuestions from './components/QuestionsAndAnswers/exampleData.js';
+import ErrorBoundary from './ErrorBoundary.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 71697,
+      currentId: 0,
       currentAvgRating: 0,
-      product: exampleData.product71697,
-      productStyle: exampleData.productStyle71697,
+      product: exampleData.productblank,
+      productStyle: exampleData.productStyleblank,
       questionsAndAnswers: exampleQuestions,
-      outfit: {},
+
+      outfit: JSON.parse(window.localStorage.getItem('outfit')) || {},
       relatedProductsIds: [],
       relatedProducts: [],
       relatedProductsStyles: {},
-      relatedProductsRatings: {}
+      relatedProductsRatings: {},
+      hasError: false,
+      reviewCount: 0
+
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
+    this.passReviewCount = this.passReviewCount.bind(this);
   }
 
   componentDidMount () {
     let currentPath = window.location.pathname;
     console.log('this is currentPath:', currentPath);
     let sampleId = currentPath.slice(1);
-    //this is the default home page display item;
-    //also need to handle invalid product id, error boundary?
     if (sampleId === '') {
       sampleId = this.state.currentId;
     }
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
-    this.getProductStyles(sampleId);
+    this.getProductStyles(sampleId, true);
     this.getQuestions(sampleId);
     this.getAvgRating(sampleId);
     this.getRelatedProductsIds(sampleId);
@@ -169,14 +173,20 @@ class App extends React.Component {
       })
       .catch(err => {
         console.log(err);
+        this.setState({hasError: true});
       });
   }
 
-  getProductStyles (id) {
+  getProductStyles (id, setCurrent, callback) {
     let url = `/products/${id}/styles`;
     axios.get(url)
       .then(result => {
-        this.setState({productStyle: result.data});
+        if (setCurrent) {
+          this.setState({productStyle: result.data});
+        }
+        if (callback) {
+          callback(result.data);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -214,7 +224,8 @@ class App extends React.Component {
         let outfit = this.state.outfit;
         this.getProduct(id, false, (item) => {
           outfit[id] = item;
-          this.setState({outfit: outfit});
+          window.localStorage.setItem('outfit', JSON.stringify(outfit));
+          super.setState(outfit);
         });
       }
     }
@@ -222,37 +233,58 @@ class App extends React.Component {
       if (this.state.outfit[id] !== undefined) {
         let outfit = this.state.outfit;
         delete outfit[id];
-        this.setState({outfit: outfit});
+        window.localStorage.setItem('outfit', JSON.stringify(outfit));
+        super.setState(outfit);
       }
     }
   }
 
+  passReviewCount(count) {
+    this.setState({
+      reviewCount: count
+    });
+  }
+
   render () {
-    return (
-      <div>
-        <ProductOverview
-          currentId={this.state.currentId}
-          product={this.state.product}
-          productStyle={this.state.productStyle}
-          avgRating={this.state.currentAvgRating}
-          outfit={this.state.outfit}
-          modifyOutfit={this.modifyOutfit}/>
 
-        {this.state.relatedProducts.length > 0 && Object.keys(this.state.relatedProductsStyles).length > 0 ? <RelatedProductsAndOutfits currentId={this.state.currentId}
-          relatedProductsIds={this.state.relatedProductsIds} relatedProducts={this.state.relatedProducts}
-          relatedProductsStyles = {this.state.relatedProductsStyles}
-          relatedProductsRatings = {this.state.relatedProductsRatings}
-          changeProduct={this.changeProduct.bind(this)}
-        /> : <div>RELATED PRODUCTS</div>}
+    const {reviewCount} = this.state;
+    if (this.state.hasError) {
+      return <h1>Oops! Product not found.</h1>;
+    } else {
+      return (
 
-        <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
-        <RatingsAndReviews
-          currentId = {this.state.currentId}
-          currentProductName = {this.state.product.name}
-        />
-      </div>
-
-    );
+        <div>
+          <ErrorBoundary>
+            <ProductOverview
+              currentId={this.state.currentId}
+              product={this.state.product}
+              productStyle={this.state.productStyle}
+              avgRating={this.state.currentAvgRating}
+              outfit={this.state.outfit}
+              modifyOutfit={this.modifyOutfit}
+              reviewCount={this.state.reviewCount}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            {this.state.relatedProducts.length > 0 && Object.keys(this.state.relatedProductsStyles).length > 0 ? <RelatedProductsAndOutfits currentId={this.state.currentId}
+              relatedProductsIds={this.state.relatedProductsIds} relatedProducts={this.state.relatedProducts}
+              relatedProductsStyles = {this.state.relatedProductsStyles}
+              relatedProductsRatings = {this.state.relatedProductsRatings}
+              changeProduct={this.changeProduct.bind(this)}
+            /> : <div>RELATED PRODUCTS</div>}
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <RatingsAndReviews
+              currentId = {this.state.currentId}
+              currentProductName = {this.state.product.name}
+              passReviewCount = {this.passReviewCount}
+            />
+          </ErrorBoundary>
+        </div>
+      );
+    }
   }
 }
 
