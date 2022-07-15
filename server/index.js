@@ -3,6 +3,7 @@ let app = express();
 const axios = require('axios');
 const apiGet = require('./apiHelper.js').apiGet;
 const apiPut = require('./apiHelper.js').apiPut;
+const apiPost = require('./apiHelper.js').apiPost;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
 
@@ -198,8 +199,24 @@ app.put('/qa/answers/:id/report', (req, res) => {
 });
 
 app.post('/qa/questions', (req, res) => {
-  console.log('posting question res', res.body);
-  console.log('posting question req', req.body);
+  let id = req.body.product_id;
+
+  var conversion = req.body;
+  var convertId = parseInt(req.body.product_id);
+  req.body.product_id = convertId;
+  console.log(req.body);
+
+  let apiProductQA = apiUrl + '/qa/questions';
+  apiPost(apiProductQA, req.body)
+    .then(result => {
+      console.log('qa post success', result.status);
+      res.status(201);
+    })
+    .catch(err => {
+      console.log('qa post error');
+      res.sendStatus(500);
+    });
+  res.redirect(`/${id}`);
 
 });
 

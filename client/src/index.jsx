@@ -113,26 +113,6 @@ class App extends React.Component {
   }
 
   render () {
-<<<<<<< HEAD
-    return (
-      <div>
-        <ProductOverview
-          currentId={this.state.currentId}
-          product={this.state.product}
-          productStyle={this.state.productStyle}
-          avgRating={this.state.currentAvgRating}
-          outfit={this.state.outfit}
-          modifyOutfit={this.modifyOutfit}/>
-        <RelatedProductsAndOutfits currentId={this.state.currentId}/>
-        <QuestionsAndAnswers questions={this.state.questionsAndAnswers} productName={this.state.product.name}/>
-        <RatingsAndReviews
-          currentId = {this.state.currentId}
-          currentProductName = {this.state.product.name}
-        />
-      </div>
-
-    );
-=======
     if (this.state.hasError) {
       return <h1>Oops! Product not found.</h1>;
     } else {
@@ -162,7 +142,6 @@ class App extends React.Component {
         </div>
       );
     }
->>>>>>> 3b8ad04f905565f6543b0a13273da767d75f58e9
   }
 }
 
