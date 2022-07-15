@@ -7,6 +7,7 @@ import style from './styles/QuestionsAndAnswers.module.css';
 import SearchQuestions from './SearchQuestions.jsx';
 import QuestionsList from './QuestionsList.jsx';
 import questionsAndAnswers from './exampleData.js';
+import AddQuestion from './AddQuestion.jsx';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -17,13 +18,14 @@ class QuestionsAndAnswers extends React.Component {
       results: questionsAndAnswers.results,
       numberResults: 2,
       totalResults: 4,
-      currentResults: questionsAndAnswers.results.slice(0, 2)
+      currentResults: questionsAndAnswers.results.slice(0, 2),
+      addQuestionForm: false
     };
     this.loadQuestions = this.loadQuestions.bind(this);
+    this.handleAddQuestionCancel = this.handleAddQuestionCancel.bind(this);
   }
 
   componentDidUpdate (previousProps, previousState) {
-    console.log('qa componenet', this.props.questions, this.state.product_id);
     if (this.props.questions.product_id !== this.state.product_id) {
       this.setState({
         // eslint-disable-next-line camelcase
@@ -65,13 +67,36 @@ class QuestionsAndAnswers extends React.Component {
       });
   }
 
+  handleAddQuestionClick(e) {
+    this.setState({
+      addQuestionForm: true
+    });
+  }
+
+  handleAddQuestionCancel(e) {
+    this.setState({
+      addQuestionForm: false
+    });
+  }
+
+  addQuestionButton (url, options) {
+    axios.post(url, options)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render () {
     return (
       <div className={style.questionsAndAnswers}>
         <h1>Questions And Answers</h1>
         <SearchQuestions/>
         <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton}/>
-        {this.loadQuestionsButton()}<button>Add a Question +</button>
+        {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
+        {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
       </div>
     );
   }

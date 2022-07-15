@@ -35,5 +35,21 @@ let apiPut = (url, id) => {
   });
 };
 
+let apiPost = (url, data) => {
+  let options = {
+    url: url,
+    method: 'post',
+    headers: {
+      'Authorization': `${config.TOKEN}`
+    },
+    data: data
+  };
+
+  return axios(options).catch((err) => {
+    console.log('api post error', err);
+  });
+};
+
 module.exports.apiGet = apiGet;
 module.exports.apiPut = apiPut;
+module.exports.apiPost = apiPost;
