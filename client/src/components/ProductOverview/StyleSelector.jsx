@@ -69,7 +69,11 @@ class StyleSelector extends React.Component {
       return (<div></div>);
     } else {
       let percent = Math.round((stars / 5) * 100);
-      return (<Stars percent={percent}/>);
+      let str = `Read all ${this.props.reviewCount} reviews`;
+      return (<div>
+        <Stars percent={percent}/>
+        <a className={css.reviewCount} href="#RatingsAndReviews">{str}</a>
+      </div>);
     }
   }
 
@@ -79,7 +83,7 @@ class StyleSelector extends React.Component {
     if (outfit[currentProductId]) {
       return (
         <div className={css.outfit} onClick={this.toggleOutfit}>
-          &#9733;
+          &#9825;
         </div>);
     } else {
       return (

@@ -23,10 +23,6 @@ class ProductOverview extends React.Component {
     this.resize = this.resize.bind(this);
   }
 
-  componentDidMount () {
-    this.changeStyle();
-  }
-
   componentDidUpdate(previousProps, previousState) {
     if (this.props.product.id !== this.state.productData.id) {
       this.setState({
@@ -39,27 +35,18 @@ class ProductOverview extends React.Component {
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
         currentImg: this.props.productStyle.results[0].photos[0],
-      }, () => {
-        this.changeStyle();
       });
     }
   }
 
   changeStyle (styleSelect) {
-    if (styleSelect === undefined) {
-      this.state.styleData.forEach((style) => {
-        if (style['default?'] === true) {
-          this.setState({selectedData: style});
-        }
-      });
-    } else {
-      this.state.styleData.forEach((style) => {
-        if (style.style_id === parseInt(styleSelect)) {
-          this.setState({selectedData: style, currentImg: style.photos[0], currentImgSize: 'mainImageFit'});
-        }
-      });
-    }
+    this.state.styleData.forEach((style) => {
+      if (style.style_id === parseInt(styleSelect)) {
+        this.setState({selectedData: style, currentImg: style.photos[0], currentImgSize: 'mainImageFit'});
+      }
+    });
   }
+
 
   changeImage (event) {
     let selectedThumb = event.target.name;
@@ -97,6 +84,7 @@ class ProductOverview extends React.Component {
           <ErrorBoundary>
             <StyleSelector
               avgRating = {this.props.avgRating}
+              reviewCount = {this.props.reviewCount}
               productData = {this.state.productData}
               styleData = {this.state.styleData}
               selectedData = {this.state.selectedData}

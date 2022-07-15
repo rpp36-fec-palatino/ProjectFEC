@@ -15,7 +15,7 @@ class AddToCart extends React.Component {
 
   changeSize(event) {
     let id = event.target.value;
-    this.setState({selectSize: this.props.skus[id].size, selectSizeId: id});
+    this.setState({selectSize: this.props.skus[id].size, selectSizeId: id, selectQty: 1});
   }
 
   changeQty(event) {

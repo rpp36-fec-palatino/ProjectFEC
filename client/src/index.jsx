@@ -13,15 +13,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 71697,
+      currentId: 0,
       currentAvgRating: 0,
       product: exampleData.productblank,
       productStyle: exampleData.productStyleblank,
       questionsAndAnswers: exampleQuestions,
       outfit: JSON.parse(window.localStorage.getItem('outfit')) || {},
-      hasError: false
+      hasError: false,
+      reviewCount: 0
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
+    this.passReviewCount = this.passReviewCount.bind(this);
   }
 
   componentDidMount () {
@@ -33,7 +35,7 @@ class App extends React.Component {
     }
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
-    this.getProductStyles(sampleId);
+    this.getProductStyles(sampleId, true);
     this.getQuestions(sampleId);
     this.getAvgRating(sampleId);
   }
@@ -55,11 +57,16 @@ class App extends React.Component {
       });
   }
 
-  getProductStyles (id) {
+  getProductStyles (id, setCurrent, callback) {
     let url = `/products/${id}/styles`;
     axios.get(url)
       .then(result => {
-        this.setState({productStyle: result.data});
+        if (setCurrent) {
+          this.setState({productStyle: result.data});
+        }
+        if (callback) {
+          callback(result.data);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -112,11 +119,19 @@ class App extends React.Component {
     }
   }
 
+  passReviewCount(count) {
+    this.setState({
+      reviewCount: count
+    });
+  }
+
   render () {
+    const {reviewCount} = this.state;
     if (this.state.hasError) {
       return <h1>Oops! Product not found.</h1>;
     } else {
       return (
+
         <div>
           <ErrorBoundary>
             <ProductOverview
@@ -125,7 +140,8 @@ class App extends React.Component {
               productStyle={this.state.productStyle}
               avgRating={this.state.currentAvgRating}
               outfit={this.state.outfit}
-              modifyOutfit={this.modifyOutfit}/>
+              modifyOutfit={this.modifyOutfit}
+              reviewCount={this.state.reviewCount}/>
           </ErrorBoundary>
           <ErrorBoundary>
             <RelatedProductsAndOutfits currentId={this.state.currentId}/>
@@ -137,6 +153,7 @@ class App extends React.Component {
             <RatingsAndReviews
               currentId = {this.state.currentId}
               currentProductName = {this.state.product.name}
+              passReviewCount = {this.passReviewCount}
             />
           </ErrorBoundary>
         </div>

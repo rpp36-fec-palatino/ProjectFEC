@@ -6,6 +6,30 @@ class ProductInformation extends React.Component {
     super(props);
     this.state = {
     };
+    this.renderFeatures = this.renderFeatures.bind(this);
+  }
+
+  renderFeatures (features) {
+    debugger;
+    let unique = {};
+    return features.map((feature) => {
+      if (!unique[feature.feature]) {
+        unique[feature.feature] = true;
+        if (feature.value) {
+          return (
+            <li key={feature.feature}><span>
+              {feature.feature + ' : ' + feature.value}
+            </span></li>
+          );
+        } else {
+          return (
+            <li key={feature.feature}><span>
+              {feature.feature}
+            </span></li>
+          );
+        }
+      }
+    });
   }
 
   render () {
@@ -17,11 +41,7 @@ class ProductInformation extends React.Component {
         </div>
         <div className={css.productInfoRight}>
           <ul>
-            {this.props.productData.features.map((feature) =>
-              <li key={feature.feature}>
-                {feature.feature + ' : ' + feature.value}
-              </li>
-            )}
+            {this.renderFeatures(this.props.productData.features)}
           </ul>
         </div>
       </div>
