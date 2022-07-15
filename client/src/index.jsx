@@ -48,8 +48,11 @@ class App extends React.Component {
   }
 
   changeProduct(event) {
-    console.log(event);
-    this.setState({currentId: event});
+    // let currentPath = window.location.pathname;
+    // currentPath += event;
+    // console.log('this is currentPath:', currentPath);
+    // let sampleId = currentPath.slice(1);
+    window.location.href = '/' + event;
   }
 
   getRelatedProductsIds (id) {
