@@ -6,17 +6,28 @@ class ImageGallery extends React.Component {
     super(props);
     this.state = {
     };
+    this.renderThumbnails = this.renderThumbnails.bind(this);
+  }
+
+  renderThumbnails (photos) {
+    let unique = {};
+    return photos.map((thumbnail) => {
+      if (!unique[thumbnail.thumbnail_url]) {
+        unique[thumbnail.thumbnail_url] = true;
+        return (
+          <div className={css.thumbnail} key={thumbnail.url} >
+            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+          </div>
+        );
+      }
+    });
   }
 
   render () {
     return (
       <div className={css.imageGallery}>
         <div className={css.thumbnailList}>
-          {this.props.photos.map((thumbnail) =>
-            <div className={css.thumbnail} key={thumbnail.url} >
-              <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
-            </div>
-          )}
+          {this.renderThumbnails(this.props.photos)}
         </div>
         <div id='mainImage' >
           <img src={this.props.currentImg.url} className={css[this.props.currentImgSize]} onClick={this.props.resize} />

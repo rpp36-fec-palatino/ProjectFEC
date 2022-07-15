@@ -23,6 +23,7 @@ class App extends React.Component {
       reviewCount: 0
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
+    this.passReviewCount = this.passReviewCount.bind(this);
   }
 
   componentDidMount () {
@@ -34,7 +35,7 @@ class App extends React.Component {
     }
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
-    this.getProductStyles(sampleId);
+    this.getProductStyles(sampleId, true);
     this.getQuestions(sampleId);
     this.getAvgRating(sampleId);
   }
@@ -56,11 +57,16 @@ class App extends React.Component {
       });
   }
 
-  getProductStyles (id) {
+  getProductStyles (id, setCurrent, callback) {
     let url = `/products/${id}/styles`;
     axios.get(url)
       .then(result => {
-        this.setState({productStyle: result.data});
+        if (setCurrent) {
+          this.setState({productStyle: result.data});
+        }
+        if (callback) {
+          callback(result.data);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -116,7 +122,6 @@ class App extends React.Component {
   passReviewCount(count) {
     this.setState({
       reviewCount: count
-
     });
   }
 
@@ -128,7 +133,6 @@ class App extends React.Component {
       return (
 
         <div>
-          <h1>current review count:{this.state.reviewCount}</h1>
           <ErrorBoundary>
             <ProductOverview
               currentId={this.state.currentId}
@@ -136,7 +140,8 @@ class App extends React.Component {
               productStyle={this.state.productStyle}
               avgRating={this.state.currentAvgRating}
               outfit={this.state.outfit}
-              modifyOutfit={this.modifyOutfit}/>
+              modifyOutfit={this.modifyOutfit}
+              reviewCount={this.state.reviewCount}/>
           </ErrorBoundary>
           <ErrorBoundary>
             <RelatedProductsAndOutfits currentId={this.state.currentId}/>
@@ -148,8 +153,7 @@ class App extends React.Component {
             <RatingsAndReviews
               currentId = {this.state.currentId}
               currentProductName = {this.state.product.name}
-              passReviewCount = {this.passReviewCount.bind(this)}
-
+              passReviewCount = {this.passReviewCount}
             />
           </ErrorBoundary>
         </div>

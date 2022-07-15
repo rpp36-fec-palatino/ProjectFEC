@@ -128,7 +128,7 @@ class RatingsAndReviews extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id="RatingsAndReviews">
         <h1>Ratings and Reviews</h1>
         <div className={ReviewsMainCSS.box}>
           <Ratings
