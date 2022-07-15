@@ -84,7 +84,18 @@ class ReviewsList extends React.Component {
 
           : <div className={ReviewsListCSS.reviewScroller} >
             {this.props.currentDisplayReviews.map(
-              review => <ReviewEntry key = {review.review_id} review = {review} />
+              review => <ReviewEntry
+                key = {review.review_id}
+                review = {review}
+                imgUrlCheck = {this.props.isValidUrl.bind(this)}
+                photos = {review.photos.filter(async ele => {
+                  console.log('url:', ele.url);
+                  console.log(await this.props.isValidUrl(ele.url));
+                  return (await this.props.isValidUrl(ele.url) );
+
+                })}
+
+              />
             )}
           </div>
 
