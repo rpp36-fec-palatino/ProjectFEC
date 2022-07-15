@@ -89,22 +89,25 @@ const ReviewEntry = (props) => {
       }
 
       {/* conditional rendering of review photos */}
-      {props.photos.length > 0
+      {props.review.photos.length > 0
         ? <div className={ReviewEntryCSS.box}>
-          {props.photos.map(
+          {props.review.photos.map(
             (photo, i) => (
 
 
               <div key ={photo.id} >
-                <span>{i + 1}:</span>
                 <img
+
                   alt = 'review-photo'
                   src = {photo.url}
+
                   className={ReviewEntryCSS.reviewPhotos}
                   onClick={() => {
                     setImagePop(!imagePop);
                     setImageUrl(photo.url);
                   }}
+                  onError= {props.addDefaultSrc}
+
                 />
 
               </div>

@@ -57,6 +57,11 @@ class ReviewsList extends React.Component {
     });
   }
 
+  addDefaultSrc(e) {
+    e.target.src = '/img/invalid_url.gif';
+    e.target.onClick = null;
+  }
+
 
 
 
@@ -87,13 +92,7 @@ class ReviewsList extends React.Component {
               review => <ReviewEntry
                 key = {review.review_id}
                 review = {review}
-                imgUrlCheck = {this.props.isValidUrl.bind(this)}
-                photos = {review.photos.filter(async ele => {
-                  console.log('url:', ele.url);
-                  console.log(await this.props.isValidUrl(ele.url));
-                  return (await this.props.isValidUrl(ele.url) );
-
-                })}
+                addDefaultSrc = {this.addDefaultSrc.bind(this)}
 
               />
             )}

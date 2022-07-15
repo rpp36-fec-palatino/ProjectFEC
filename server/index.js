@@ -6,7 +6,7 @@ const apiPut = require('./apiHelper.js').apiPut;
 const apiPost = require('./apiHelper.js').apiPost;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
-const isImageURL = require('image-url-validator').default;
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -228,20 +228,6 @@ app.post('/qa/questions', (req, res) => {
 
 var port = 3000;
 =======
-
-
-/******** image url validation ********************/
-app.get('/validation/imgUrl', (req, res) => {
-  console.log('req.body:', req.body);
-  console.log('req.query:', req.query);
-  let url = req.query.url;
-  isImageURL(url).then(result => {
-    console.log(typeof(result), result); //boolean
-    res.send(result);
-  }).catch(err => res.status(500).send(err));
-});
-
-
 
 
 

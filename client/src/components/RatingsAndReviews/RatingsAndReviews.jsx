@@ -114,20 +114,6 @@ class RatingsAndReviews extends React.Component {
 
   }
 
-  async isValidUrl (url) {
-    let response = await axios.get(`/validation/imgUrl?url=${url}`).then(
-      (result) => {
-        let booleanResult = result.data;
-        return booleanResult;
-
-      }
-    ).catch(err => console.log(err));
-    console.log('response:', response);
-
-    return response;
-
-
-  }
 
 
 
@@ -151,7 +137,7 @@ class RatingsAndReviews extends React.Component {
             currentProductName = {this.props.currentProductName}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
-            isValidUrl = {this.isValidUrl.bind(this)}
+
           />
 
 
