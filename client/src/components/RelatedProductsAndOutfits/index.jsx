@@ -9,38 +9,25 @@ class RelatedProductsAndOutfits extends React.Component {
     this.state = {
       // currentProduct: exampleData.productList[0],
       // relatedProductsIds: exampleData.id71697Related,
-      relatedProducts: [],
-      outfit: []
+      // relatedProducts: [],
+      // outfit: []
     };
   }
 
+  //can use ComponentDidMount after conditional render
   componentDidMount() {
-    let id = this.props.currentId;
-    let url = `/products/${id}/related`;
-    var relatedProducts = [];
-
-    axios.get(url)
-      .then(result => {
-        // this.setState({realtedProducts: result.data});
-
-        for (var i = 0; i < result.data.length; i++) {
-          var url = `/products/${result.data[i]}`;
-          axios.get(url)
-            .then(result => {
-              relatedProducts.push(result.data);
-            });
-        }
-        this.setState({realtedProducts: [...relatedProducts]});
-
-
-      });
   }
+
 
   render() {
     return (
       <div>
         RELATED PRODUCTS
-        <RelatedProducts /*relatedProducts={this.state.relatedProducts}*//>
+        <RelatedProducts relatedProducts={this.props.relatedProducts}
+          relatedProductsStyles={this.props.relatedProductsStyles}
+          relatedProductsRatings={this.props.relatedProductsRatings}
+          changeProduct={this.props.changeProduct}
+        />
       </div>
     );
   }
