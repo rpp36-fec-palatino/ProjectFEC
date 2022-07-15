@@ -17,7 +17,11 @@ class App extends React.Component {
       product: exampleData.product71697,
       productStyle: exampleData.productStyle71697,
       questionsAndAnswers: exampleQuestions,
-      outfit: {}
+      outfit: {},
+      relatedProductsIds: [],
+      relatedProducts: [],
+      relatedProductsStyles: {},
+      relatedProductsRatings: {}
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
   }
@@ -29,13 +33,127 @@ class App extends React.Component {
     //this is the default home page display item;
     //also need to handle invalid product id, error boundary?
     if (sampleId === '') {
-      sampleId = 71697;
+      sampleId = this.state.currentId;
     }
     this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
     this.getProductStyles(sampleId);
     this.getQuestions(sampleId);
     this.getAvgRating(sampleId);
+    this.getRelatedProductsIds(sampleId);
+    this.getRelatedProductsStyles(sampleId);
+    this.getRelatedProductsRatings(sampleId);
+  }
+
+  changeProduct(event) {
+    console.log(event);
+    this.setState({currentId: event});
+  }
+
+  getRelatedProductsIds (id) {
+    let url = `/products/${id}/related`;
+    axios.get(url)
+      .then(result => {
+        var relatedIds = result.data;
+        var relatedProducts = [];
+
+        for (var i = 0; i < relatedIds.length; i++) {
+          var url = `/products/${relatedIds[i]}`;
+          relatedProducts.push(new Promise((res, rej) => {
+            axios.get(url)
+              .then(result => {
+                res(result.data);
+              });
+          }));
+        }
+
+        Promise.all(relatedProducts)
+          .then(result => {
+            this.setState({
+              relatedProductsIds: relatedIds,
+              relatedProducts: result
+            });
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getRelatedProductsStyles (id) {
+    let url = `/products/${id}/related`;
+    axios.get(url)
+      .then(result => {
+        var relatedIds = result.data;
+        var relatedProductsStyles = [];
+
+        for (var i = 0; i < relatedIds.length; i++) {
+          var url = `/products/${relatedIds[i]}/styles`;
+          relatedProductsStyles.push(new Promise((res, rej) => {
+            axios.get(url)
+              .then(result => {
+                res(result.data);
+              });
+          }));
+        }
+
+        var relatedProductsStys = {};
+
+        Promise.all(relatedProductsStyles)
+          .then(result => {
+            for (var j = 0; j < result.length; j++) {
+              var noDefault = true;
+              for (var k = 0; k < result[j].results.length; k++) {
+                if (result[j].results[k]['default?']) {
+                  noDefault = false;
+                  relatedProductsStys[result[j].product_id] = result[j].results[k];
+                }
+              }
+              if (noDefault) {
+                relatedProductsStys[result[j].product_id] = result[j].results[0];
+              }
+              relatedProductsStys[result[j].product_id].rating = parseInt(result[j].product_id);
+            }
+
+            this.setState({
+              relatedProductsStyles: relatedProductsStys
+            });
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getRelatedProductsRatings (id) {
+    let url = `/products/${id}/related`;
+    axios.get(url)
+      .then(result => {
+        var relatedIds = result.data;
+        var relatedProductsRat = [];
+        var relatedProductsRats = {};
+
+        for (var i = 0; i < relatedIds.length; i++) {
+          let url = `/products/${relatedIds[i]}/reviews/avg_star`;
+          relatedProductsRat.push(new Promise((res, rej) => {
+            axios.get(url)
+              .then(result => {
+                res(result.data);
+              });
+          }));
+        }
+
+        Promise.all(relatedProductsRat)
+          .then(result => {
+            for (var j = 0; j < relatedIds.length; j++) {
+              relatedProductsRats[relatedIds[j]] = result[j];
+            }
+          });
+        this.setState({relatedProductsRatings: relatedProductsRats});
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getProduct (id, setCurrent, callback) {
@@ -119,7 +237,14 @@ class App extends React.Component {
           avgRating={this.state.currentAvgRating}
           outfit={this.state.outfit}
           modifyOutfit={this.modifyOutfit}/>
-        <RelatedProductsAndOutfits currentId={this.state.currentId}/>
+
+        {this.state.relatedProducts.length > 0 && Object.keys(this.state.relatedProductsStyles).length > 0 ? <RelatedProductsAndOutfits currentId={this.state.currentId}
+          relatedProductsIds={this.state.relatedProductsIds} relatedProducts={this.state.relatedProducts}
+          relatedProductsStyles = {this.state.relatedProductsStyles}
+          relatedProductsRatings = {this.state.relatedProductsRatings}
+          changeProduct={this.changeProduct.bind(this)}
+        /> : <div>RELATED PRODUCTS</div>}
+
         <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
         <RatingsAndReviews
           currentId = {this.state.currentId}

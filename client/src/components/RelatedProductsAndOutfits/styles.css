@@ -1,9 +1,4 @@
 
-/*
-https://www.youtube.com/watch?v=4KxHcbQ8GYQ
-https://www.youtube.com/watch?v=lgBsm42Fs4k
-https://github.com/akiran/react-slick/issues/167
-*/
 
 card-body {
  font-family: sans-serif;
@@ -17,11 +12,6 @@ card-body {
  justify-content: center;
 }
 
-/* .caro {
-  left: 2%;
-  right: 2%;
-  width: 96%;
-} */
 
 .card {
   overflow: hidden;
@@ -32,22 +22,14 @@ card-body {
   cursor: pointer;
 }
 
-/* /* .slick-prev:before {
+.card-sale-price {
+  color: red
+}
+
+.card-original-price {
   color: black;
-} */
-
-/* .slick-next:before, .slick-prev:before {
-  color: black;
-} */
-
-
-/* .slick-prev {
-  left: 5%;
-} */
-
-/* .slick-next {
-  right: 5%;
-} */
+  text-decoration: line-through;
+}
 
 
 
