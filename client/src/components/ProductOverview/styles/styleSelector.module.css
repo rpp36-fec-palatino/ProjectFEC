@@ -42,6 +42,12 @@ html {
   display: flex;
 }
 
+.styleIcon {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
 .styleIcon img {
   margin: 10px;
   object-fit: cover;
@@ -49,6 +55,20 @@ html {
   height: 90px;
   border-radius: 50%;
   border: 1px solid black;
+}
+
+.checkMark {
+  position: absolute;
+  top: 11px;
+  right: 9px;
+  display: block;
+  height: 21px;
+  width: 21px;
+  line-height: 23px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: white;
 }
 
 .bagOutfit {
