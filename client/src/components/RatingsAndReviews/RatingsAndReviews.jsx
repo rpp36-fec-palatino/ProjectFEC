@@ -130,6 +130,7 @@ class RatingsAndReviews extends React.Component {
 
           <ReviewsList
             currentReviews = {this.state.currentReviews}
+            currentMetaReview = {this.state.currentMetaReview}
             currentDisplayReviews = {this.state.currentDisplayedReviews}
             addReview = {this.state.addReview}
             loadMore = {this.state.loadMore}

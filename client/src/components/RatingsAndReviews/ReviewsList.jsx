@@ -114,6 +114,7 @@ class ReviewsList extends React.Component {
           ? <AddNewReviewModal
             currentName = {this.props.currentProductName}
             handleCancelClick = {this.handleCancelClick.bind(this)}
+            currentMeta = {this.props.currentMetaReview}
           />
           : null}
 
