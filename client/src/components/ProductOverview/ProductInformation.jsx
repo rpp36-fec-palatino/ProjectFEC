@@ -10,7 +10,7 @@ class ProductInformation extends React.Component {
   }
 
   renderFeatures (features) {
-    debugger;
+    //debugger;
     let unique = {};
     return features.map((feature) => {
       if (!unique[feature.feature]) {
