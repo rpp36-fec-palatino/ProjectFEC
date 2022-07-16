@@ -15,7 +15,7 @@ let AddStarRating = ({onChange}) => {
 
   const [rating, setRating] = useState(0);
   return (
-    <span>
+    <div>
       {[1, 2, 3, 4, 5].map((value) => (
         <SingleStar
           key={value}
@@ -23,8 +23,9 @@ let AddStarRating = ({onChange}) => {
           onClick={() => setRating(value)}
         />
       ))}
-      <p>{msg[rating + '']}</p>
-    </span>
+     &nbsp;&nbsp;&nbsp;&nbsp;
+      {rating ? <span>{msg[rating + '']}</span> : 'no rating selected'}
+    </div>
 
   );
 };

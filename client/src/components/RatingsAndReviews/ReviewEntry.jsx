@@ -4,6 +4,7 @@ import ReviewEntryCSS from './cssModule_Reviews/ReviewEntry.module.css';
 import Stars from './Stars.jsx';
 import HelpfulAndReport from './HelpfulAndReport.jsx';
 
+
 /*
     {
       'review_id': 1254282,
@@ -40,6 +41,7 @@ const ReviewEntry = (props) => {
   let percent = (props.review.rating / 5) * 100;
   const [imagePop, setImagePop] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+
 
 
 
@@ -91,16 +93,21 @@ const ReviewEntry = (props) => {
         ? <div className={ReviewEntryCSS.box}>
           {props.review.photos.map(
             (photo, i) => (
+
+
               <div key ={photo.id} >
-                <span>{i + 1}:</span>
                 <img
+
                   alt = 'review-photo'
                   src = {photo.url}
+
                   className={ReviewEntryCSS.reviewPhotos}
                   onClick={() => {
                     setImagePop(!imagePop);
                     setImageUrl(photo.url);
                   }}
+                  onError= {props.addDefaultSrc}
+
                 />
 
               </div>

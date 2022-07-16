@@ -7,6 +7,7 @@ const apiPost = require('./apiHelper.js').apiPost;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
 
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/../client/dist'));
@@ -207,6 +208,7 @@ app.post('/qa/questions', (req, res) => {
 
   var conversion = req.body;
   var convertId = parseInt(req.body.product_id);
+  // eslint-disable-next-line camelcase
   req.body.product_id = convertId;
   console.log(req.body);
 
@@ -224,11 +226,13 @@ app.post('/qa/questions', (req, res) => {
 
 });
 
-var port = 3000;
 
 app.get('/*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
 });
+
+
+var port = 3000;
 
 app.listen(port, () => {
   console.log('Listening on port: ', port);
