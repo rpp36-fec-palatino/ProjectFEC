@@ -26,7 +26,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   componentDidUpdate (previousProps, previousState) {
-    if (this.props.questions.product_id !== this.state.product_id) {
+    if (this.props.questions.product_id !== this.state.product_id || this.props.questions.results !== this.state.results) {
       this.setState({
         // eslint-disable-next-line camelcase
         product_id: this.props.questions.product_id,
@@ -90,6 +90,16 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   render () {
+    if (this.state.totalResults === 0) {
+      return (
+        <div className={style.questionsAndAnswers}>
+          <h1>Questions And Answers</h1>
+          <h3>No questions have been asked. Feel free to add a question</h3>
+          <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
+          {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
+        </div>
+      );
+    }
     return (
       <div className={style.questionsAndAnswers}>
         <h1>Questions And Answers</h1>
