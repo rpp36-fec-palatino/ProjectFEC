@@ -91,10 +91,11 @@ class App extends React.Component {
       .then(result => {
         this.setState({
           currentAvgRating: result.data
-        })
-          .catch(error => {
-            console.log(error);
-          });
+        });
+
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
