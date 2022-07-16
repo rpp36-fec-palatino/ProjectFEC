@@ -74,8 +74,8 @@ let recommendationRate = (recommendObj) => {
     return 0;
 
   }
-  let recommended = Number(recommendObj['true']);
-  let notRecommend = Number(recommendObj['false']);
+  let recommended = Number(recommendObj['true']) || 0;
+  let notRecommend = Number(recommendObj['false']) || 0;
   let recommendRate = Math.round((recommended / (recommended + notRecommend)) * 100);
   return recommendRate;
 
