@@ -57,6 +57,11 @@ class ReviewsList extends React.Component {
     });
   }
 
+  addDefaultSrc(e) {
+    e.target.src = '/img/invalid_url.gif';
+    e.target.onClick = null;
+  }
+
 
 
 
@@ -84,7 +89,12 @@ class ReviewsList extends React.Component {
 
           : <div className={ReviewsListCSS.reviewScroller} >
             {this.props.currentDisplayReviews.map(
-              review => <ReviewEntry key = {review.review_id} review = {review} />
+              review => <ReviewEntry
+                key = {review.review_id}
+                review = {review}
+                addDefaultSrc = {this.addDefaultSrc.bind(this)}
+
+              />
             )}
           </div>
 
@@ -104,6 +114,7 @@ class ReviewsList extends React.Component {
           ? <AddNewReviewModal
             currentName = {this.props.currentProductName}
             handleCancelClick = {this.handleCancelClick.bind(this)}
+            currentMeta = {this.props.currentMetaReview}
           />
           : null}
 

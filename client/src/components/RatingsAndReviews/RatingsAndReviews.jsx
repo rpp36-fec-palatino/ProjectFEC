@@ -7,6 +7,7 @@ import ReviewsMainCSS from './cssModule_Reviews/ReviewsMain.module.css';
 import axios from 'axios';
 
 
+
 class RatingsAndReviews extends React.Component {
   constructor(props) {
     super(props);
@@ -73,16 +74,6 @@ class RatingsAndReviews extends React.Component {
 
   }
 
-  // displayCurrentProductReviewsMeta = async(currentId) => {
-  //   let metaReviewData = await axios.get(`/products/${currentId}/reviews/meta`);
-  //   console.log('this is meta review', metaReviewData);
-  //   this.setState({
-  //     currentMetaReview: metaReviewData.data,
-  //     ratingObj: metaReviewData.data.ratings,
-  //     recommended: metaReviewData.data.recommended
-
-  //   })
-  // }
 
   displayCurrentProductReviewsMeta(currentId) {
     axios.get(`/products/${currentId}/reviews/meta`)
@@ -139,6 +130,7 @@ class RatingsAndReviews extends React.Component {
 
           <ReviewsList
             currentReviews = {this.state.currentReviews}
+            currentMetaReview = {this.state.currentMetaReview}
             currentDisplayReviews = {this.state.currentDisplayedReviews}
             addReview = {this.state.addReview}
             loadMore = {this.state.loadMore}
@@ -146,6 +138,7 @@ class RatingsAndReviews extends React.Component {
             currentProductName = {this.props.currentProductName}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
+
           />
 
 

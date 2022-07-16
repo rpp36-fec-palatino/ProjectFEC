@@ -1,6 +1,7 @@
 import React from 'react';
 import AddStarRating from './AddStarRating.jsx';
 import UploadImgModal from './UploadImgModal.jsx';
+import CharacteristicsForm from './CharacteristicsForm.jsx';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
@@ -48,39 +49,37 @@ class AddNewReviewModal extends React.Component {
         <h3 >Add a New Review</h3>
         <form>
           <div id="heading">
-            <div>Write Your Review</div>
+            <span>Write Your Review</span>
             <div style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
           </div>
 
           <div name="rating">
             <br />
-            <h4>Overall Rating *</h4>
+            <b>Overall Rating *</b>
             <AddStarRating />
           </div>
-
-
-          <span id="recommend">
-            <label>Do you recommend this product? * </label>
-            <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
-            <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
-          </span>
           <br />
 
 
-          {'===Add Characteristic component here==='}
-          <div id="characteristics">
-            <div>Characteristics *</div>
-
-
+          <div id="recommend">
+            <label><b>Do you recommend this product? *</b> </label>
+            <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
+            <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
           </div>
+          <br />
+
+
+          <CharacteristicsForm currentMeta = {this.props.currentMeta}/>
+          <br />
+
 
           <div>
-            <label>Summary </label>
+            <label><b>Summary</b> </label>
             <br />
             <input type="text" name="summary" placeholder="summary" maxLength='60'/>
           </div>
           <div>
-            <label>Review Body *</label>
+            <label><b>Review Body *</b></label>
             <br />
             <textarea id="body" type="text" name="body" placeholder="your review..." maxLength='1000' rows="4" />
           </div>
@@ -96,10 +95,10 @@ class AddNewReviewModal extends React.Component {
 
           </div>
           <div>
-            <label>Nick name *</label>
+            <label><b>Nickname *</b></label>
             <input type="text" name="name" placeholder="name" />
             <br />
-            <label>Email *</label>
+            <label><b>Email *</b></label>
             <input type="text" name="email" placeholder="email" />
             <br />
           </div>
