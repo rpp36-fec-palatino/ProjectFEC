@@ -203,12 +203,12 @@ app.put('/qa/answers/:id/report', (req, res) => {
 
 });
 
-<<<<<<< HEAD
 app.post('/qa/questions', (req, res) => {
   let id = req.body.product_id;
 
   var conversion = req.body;
   var convertId = parseInt(req.body.product_id);
+  // eslint-disable-next-line camelcase
   req.body.product_id = convertId;
   console.log(req.body);
 
@@ -226,24 +226,10 @@ app.post('/qa/questions', (req, res) => {
 
 });
 
-var port = 3000;
-=======
-
-
-
-
-
->>>>>>> 7966bf7 (image url validtion (WIP))
 
 app.get('/*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
 });
-
-
-
-
-
-
 
 
 var port = 3000;
