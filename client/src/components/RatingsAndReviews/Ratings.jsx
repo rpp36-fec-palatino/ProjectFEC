@@ -28,21 +28,38 @@ const Ratings = (props) => {
 
   return (
     <div className="rating-panel">
-      <h3>Rating Breakdown and Fitting stats</h3>
-      <h3>Ratings display for product_id: {props.currentMetaReview.product_id}</h3>
+      {/* <h3>Rating Breakdown and Characteristics</h3>
+      <h3>Ratings display for product_id: {props.currentMetaReview.product_id}</h3> */}
 
 
       <div id="rating-container">
         <div className="rantingBreakdown">
-          <div>
-            <span><h3>{avgStars}</h3></span>
-            <Stars percent = {percent}/>
-          </div>
 
-          <br />
-          <br />
-          <div>{recommendRate}% of reviews recommend this product</div>
-          <br />
+          {avgStars > 0
+            ? <div>
+              <div className={RatingBreakdownBarCSS.box}>
+                <span style={{'fontSize': '40px', 'fontFamily': 'Arial'}}><b>{avgStars}</b></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+                <Stars percent = {percent}/>
+              </div>
+              <br />
+              <br />
+              <div>{recommendRate}% of reviews recommend this product</div>
+              <br />
+
+
+            </div>
+
+
+
+            : <div><h2>This product has no ratings yet</h2></div>
+
+
+          }
+
+
+
+
 
           <div>
 
