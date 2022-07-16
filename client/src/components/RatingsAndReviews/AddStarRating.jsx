@@ -23,8 +23,8 @@ let AddStarRating = ({onChange}) => {
           onClick={() => setRating(value)}
         />
       ))}
-      {'   '}
-      <span>{msg[rating + '']}</span>
+     &nbsp;&nbsp;&nbsp;&nbsp;
+      {rating ? <span>{msg[rating + '']}</span> : 'no rating selected'}
     </div>
 
   );
