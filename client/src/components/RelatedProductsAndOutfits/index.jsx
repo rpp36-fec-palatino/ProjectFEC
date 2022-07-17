@@ -1,6 +1,7 @@
 import React from 'react';
 import exampleData from './exampleData.js';
 import RelatedProducts from './RelatedProducts.jsx';
+import Outfit from './Outfit.jsx';
 import axios from 'axios';
 
 class RelatedProductsAndOutfits extends React.Component {
@@ -27,6 +28,15 @@ class RelatedProductsAndOutfits extends React.Component {
           relatedProductsStyles={this.props.relatedProductsStyles}
           relatedProductsRatings={this.props.relatedProductsRatings}
           changeProduct={this.props.changeProduct}
+        />
+        YOUR OUTFIT
+        <Outfit
+          currentId={this.props.currentId}
+          outfits={this.props.outfits}
+          outfit={this.props.outfit}
+          outfitStyles={this.props.outfitStyles}
+          outfitRatings={this.props.outfitRatings}
+          modifyOutfit={this.props.modifyOutfit}
         />
       </div>
     );

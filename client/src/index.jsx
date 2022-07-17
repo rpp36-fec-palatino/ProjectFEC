@@ -19,12 +19,15 @@ class App extends React.Component {
       productStyle: exampleData.productStyleblank,
       questionsAndAnswers: exampleQuestions,
       outfit: JSON.parse(window.localStorage.getItem('outfit')) || {},
+      outfitStyles: JSON.parse(window.localStorage.getItem('outfitStyles')) || {},
+      outfitRatings: JSON.parse(window.localStorage.getItem('outfitRatings')) || {},
       hasError: false,
       reviewCount: 0,
       relatedProductsIds: [],
       relatedProducts: [],
       relatedProductsStyles: {},
-      relatedProductsRatings: {}
+      relatedProductsRatings: {},
+      productStyleId: 0
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
     this.passReviewCount = this.passReviewCount.bind(this);
@@ -45,6 +48,10 @@ class App extends React.Component {
     this.getRelatedProductsIds(sampleId);
     this.getRelatedProductsStyles(sampleId);
     this.getRelatedProductsRatings(sampleId);
+  }
+
+  getProductStyleNumber(event) {
+    this.setState({productStyleId: event});
   }
 
   changeProduct(event) {
@@ -153,8 +160,8 @@ class App extends React.Component {
             for (var j = 0; j < relatedIds.length; j++) {
               relatedProductsRats[relatedIds[j]] = result[j];
             }
+            this.setState({relatedProductsRatings: relatedProductsRats});
           });
-        this.setState({relatedProductsRatings: relatedProductsRats});
       })
       .catch(err => {
         console.log(err);
@@ -221,15 +228,43 @@ class App extends React.Component {
       });
   }
 
+  getProductRating (id, callback) {
+    let url = `/products/${id}/reviews/avg_star`;
+    axios.get(url)
+      .then(result => {
+        if (callback) {
+          callback(result.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   modifyOutfit (action, id) {
     if (action === 'add') {
       if (this.state.outfit[id] === undefined) {
         let outfit = this.state.outfit;
+        let outfitStyles = this.state.outfitStyles;
+        let outfitRatings = this.state.outfitRatings;
+
         this.getProduct(id, false, (item) => {
           outfit[id] = item;
           window.localStorage.setItem('outfit', JSON.stringify(outfit));
-          super.setState(outfit);
+          // super.setState(outfit);
         });
+        this.getProductStyles(id, false, (item) => {
+          outfitStyles[id] = item;
+          window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
+          // super.setState(outfit, outfitStyles);
+        });
+        this.getProductRating(id, (item) => {
+          outfitRatings[id] = item;
+          window.localStorage.setItem('outfitRatings', JSON.stringify(outfitRatings));
+          // super.setState(outfit, outfitStyles);
+        });
+
+        this.setState({outfit: outfit, outfitStyles: outfitStyles, outfitRatings: outfitRatings});
       }
     }
     if (action === 'remove') {
@@ -264,15 +299,22 @@ class App extends React.Component {
               avgRating={this.state.currentAvgRating}
               outfit={this.state.outfit}
               modifyOutfit={this.modifyOutfit}
-              reviewCount={this.state.reviewCount}/>
+              reviewCount={this.state.reviewCount}
+              getProductStyleNumber={this.getProductStyleNumber.bind(this)}/>
           </ErrorBoundary>
           <ErrorBoundary>
-            {this.state.relatedProducts.length > 0 && Object.keys(this.state.relatedProductsStyles).length > 0 ? <RelatedProductsAndOutfits currentId={this.state.currentId}
-              relatedProductsIds={this.state.relatedProductsIds} relatedProducts={this.state.relatedProducts}
-              relatedProductsStyles = {this.state.relatedProductsStyles}
-              relatedProductsRatings = {this.state.relatedProductsRatings}
-              changeProduct={this.changeProduct.bind(this)}
-            /> : <div>RELATED PRODUCTS</div>}
+            {this.state.relatedProducts.length > 0 && Object.keys(this.state.relatedProductsStyles).length > 0
+            && Object.keys(this.state.relatedProductsStyles).length > 0 ? <RelatedProductsAndOutfits currentId={this.state.currentId}
+                relatedProductsIds={this.state.relatedProductsIds} relatedProducts={this.state.relatedProducts}
+                relatedProductsStyles = {this.state.relatedProductsStyles}
+                relatedProductsRatings = {this.state.relatedProductsRatings}
+                changeProduct={this.changeProduct.bind(this)}
+                outfit={this.state.outfit}
+                outfitStyles={this.state.outfitStyles}
+                outfitRatings={this.state.outfitRatings}
+                outfits={Object.keys(this.state.outfit)}
+                modifyOutfit={this.modifyOutfit.bind(this)}
+              /> : <div>RELATED PRODUCTS</div>}
 
           </ErrorBoundary>
           <ErrorBoundary>
