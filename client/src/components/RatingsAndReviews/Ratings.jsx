@@ -37,7 +37,7 @@ const Ratings = (props) => {
 
           {avgStars > 0
             ? <div>
-              <div className={RatingBreakdownBarCSS.box}>
+              <div className={RatingBreakdownBarCSS.box2}>
                 <span style={{'fontSize': '40px', 'fontFamily': 'Arial'}}><b>{avgStars}</b></span>
           &nbsp;&nbsp;&nbsp;&nbsp;
                 <Stars percent = {percent}/>
@@ -61,8 +61,7 @@ const Ratings = (props) => {
 
 
 
-          <div>
-
+          <div className={RatingBreakdownBarCSS.barsBox}>
             <div className={RatingBreakdownBarCSS.box}>
               <a href='#'>5 stars:</a> <RatingBreakdownBar percentage = {percentage5} />
               {ratingsObj['5'] ? ratingsObj['5'] : 0 }
