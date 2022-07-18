@@ -10,6 +10,19 @@ const Answer = (props) => {
   const [helpfulVote, setHelpfulVote] = useState(false);
   const [helpfulNumber, setHelpfulNumber] = useState(props.answer.helpfulness);
 
+  if (props.answer.answerer_name === 'Seller') {
+    return (
+      <div className='answer'>
+        <p>A: {props.answer.body}</p>
+        {photos.map((item, index) => {
+          return (
+            <AnswerPhoto key={index} link={item}/>
+          );
+        })}
+        <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber}) | <a href="#0" onClick={() => props.helpful(reportUrl)}>Report</a></p>
+      </div>
+    );
+  }
   return (
     <div className='answer'>
       <p>A: {props.answer.body}</p>
