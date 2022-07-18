@@ -17,7 +17,7 @@ const AddAnswer = (props) => {
         <label for="email">Your email*</label><br></br>
         <input type="email" id="email" name="email" placeholder="Example: jack@email.com" maxLength="60" required></input><br></br>
         <label for="email">For authentication reasons, you will not be emailed</label><br></br>
-        <input type="submit" value="Submit"></input>
+        <input type="submit" value="Submit"></input><button onClick={() => props.cancel()}>Cancel</button>
       </form>
     </div>
   );
