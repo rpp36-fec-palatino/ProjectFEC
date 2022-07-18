@@ -199,7 +199,7 @@ class App extends React.Component {
     let url = `/products/${id}/questions/`;
     axios.get(url)
       .then(result => {
-        console.log('getQuestions', result.data);
+        result.data.results.sort((a, b) => (b.question_helpfulness - a.question_helpfulness));
         this.setState({questionsAndAnswers: result.data});
       })
       .catch(error => {

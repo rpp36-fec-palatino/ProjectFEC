@@ -4,7 +4,7 @@ import AddAnswer from './AddAnswer.jsx';
 import style from './styles/QuestionsAndAnswers.module.css';
 
 const Question = (props) => {
-  const [answers, setAnswers] = useState(Object.values(props.qAndA.answers));
+  const [answers, setAnswers] = useState(Object.values(props.qAndA.answers).sort((a, b) => (b.helpfulness - a.helpfulness)));
   const [answerCount, setAnswerCount] = useState(2);
   const [currentAnswers, setCurrentAnswers] = useState(answers.slice(0, answerCount));
   const [displayAddAnswer, setDisplayAddAnswer] = useState(false);
