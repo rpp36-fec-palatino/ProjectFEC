@@ -20,6 +20,12 @@ card-body {
    cursor: pointer;
  }
 
+ .card-icon {
+  color: black;
+  margin-left: 90%;
+  margin-top: 5%;
+ }
+
  .card-sale-price {
    color: red
  }

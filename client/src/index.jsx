@@ -27,7 +27,7 @@ class App extends React.Component {
       relatedProducts: [],
       relatedProductsStyles: {},
       relatedProductsRatings: {},
-      productStyleId: 0
+      productStyleId: 444218
     };
     this.modifyOutfit = this.modifyOutfit.bind(this);
     this.passReviewCount = this.passReviewCount.bind(this);
@@ -254,7 +254,15 @@ class App extends React.Component {
           // super.setState(outfit);
         });
         this.getProductStyles(id, false, (item) => {
-          outfitStyles[id] = item;
+          var item2 = {};
+          item2['product_id'] = item['product_id'];
+          item2['results'] = [];
+          for (var j = 0; j < item.results.length; j++) {
+            if (item.results[j].style_id === this.state.productStyleId) {
+              item2.results.push(item.results[j]);
+            }
+          }
+          outfitStyles[id] = item2;
           window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
           // super.setState(outfit, outfitStyles);
         });
@@ -269,10 +277,23 @@ class App extends React.Component {
     }
     if (action === 'remove') {
       if (this.state.outfit[id] !== undefined) {
+        // let outfit = this.state.outfit;
+        // delete outfit[id];
+        // window.localStorage.setItem('outfit', JSON.stringify(outfit));
+        // super.setState(outfit);
+
         let outfit = this.state.outfit;
+        let outfitStyles = this.state.outfitStyles;
+        let outfitRatings = this.state.outfitRatings;
+
         delete outfit[id];
         window.localStorage.setItem('outfit', JSON.stringify(outfit));
-        super.setState(outfit);
+        delete outfitStyles[id];
+        window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
+        delete outfitRatings[id];
+        window.localStorage.setItem('outfitRatings', JSON.stringify(outfitRatings));
+
+        this.setState({outfit: outfit, outfitStyles: outfitStyles, outfitRatings: outfitRatings});
       }
     }
   }
