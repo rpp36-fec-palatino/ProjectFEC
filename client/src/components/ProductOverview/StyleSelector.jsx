@@ -54,11 +54,20 @@ class StyleSelector extends React.Component {
     let styleRows = this.createStyleRows(styleData);
     return styleRows.map((row, index) =>
       <div key={'styleRow-' + index} className={css.styleRow}>
-        {row.map((style) =>
-          <div key={style.style_id} id={style.style_id} className={css.styleIcon} onClick={this.changeStyle}>
-            <img src={style.photos[0].thumbnail_url}/>
-          </div>
-        )}
+        {row.map((style) => {
+          if (style.style_id === this.props.selectedData.style_id) {
+            return (
+              <div key={style.style_id} id={style.style_id} className={css.styleIcon} onClick={this.changeStyle}>
+                <div className={css.checkMark}>&#10004;</div>
+                <img src={style.photos[0].thumbnail_url}/>
+              </div>);
+          } else {
+            return (
+              <div key={style.style_id} id={style.style_id} className={css.styleIcon} onClick={this.changeStyle}>
+                <img src={style.photos[0].thumbnail_url}/>
+              </div>);
+          }
+        })}
       </div>
     );
   }

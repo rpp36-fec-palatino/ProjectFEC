@@ -14,11 +14,20 @@ class ImageGallery extends React.Component {
     return photos.map((thumbnail) => {
       if (!unique[thumbnail.thumbnail_url]) {
         unique[thumbnail.thumbnail_url] = true;
-        return (
-          <div className={css.thumbnail} key={thumbnail.url} >
-            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
-          </div>
-        );
+        if (thumbnail.url === this.props.currentImg.url) {
+          return (
+            <div className={css.thumbnail} key={thumbnail.url} >
+              <div className={css.thumbnailSelected}></div>
+              <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+            </div>
+          );
+        } else {
+          return (
+            <div className={css.thumbnail} key={thumbnail.url} >
+              <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+            </div>
+          );
+        }
       }
     });
   }
