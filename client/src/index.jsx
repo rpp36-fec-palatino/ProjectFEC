@@ -276,7 +276,7 @@ class App extends React.Component {
 
           </ErrorBoundary>
           <ErrorBoundary>
-            <QuestionsAndAnswers questions={this.state.questionsAndAnswers}/>
+            <QuestionsAndAnswers questions={this.state.questionsAndAnswers} productName={this.state.product.name}/>
           </ErrorBoundary>
           <ErrorBoundary>
             <RatingsAndReviews
