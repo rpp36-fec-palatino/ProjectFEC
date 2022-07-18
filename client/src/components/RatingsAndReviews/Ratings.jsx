@@ -93,11 +93,12 @@ const Ratings = (props) => {
 
           <div className={RatingBreakdownBarCSS.barsBox}>
             {props.hasFilter
-              ? <div>
+              ? <div className={RatingBreakdownBarCSS.filterMsg}>
                 <span><i>Displaying reviews with highlighted ratings</i></span>
                 <br />
-                <button onClick={e => {props.removeFilterClick(e); resetFilter(); }}>Remove all filters</button>
-
+                <a href='null' onClick={e => {props.removeFilterClick(e); resetFilter(); }}>Remove all filters</a>
+                <br />
+                <br />
 
                  </div>
               : null

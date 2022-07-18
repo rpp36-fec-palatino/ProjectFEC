@@ -20,9 +20,7 @@
 
 
 .box:hover {
-  border: 2px solid grey;
-  border-radius: 20px;
-  background-color: #FAFF00;
+  background-color: cyan;
 
 }
 
@@ -41,4 +39,8 @@
 }
  .barsBox {
   padding-right: 30px;
+ }
+
+ .filterMsg {
+  font-family: Arial, Helvetica, sans-serif;
  }
