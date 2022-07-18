@@ -181,6 +181,7 @@ class RatingsAndReviews extends React.Component {
             recommended = {this.state.recommended}
             passRatingFilter = {this.passRatingFilter.bind(this)}
             hasFilter = {this.state.hasFilter}
+            removeFilterClick = {this.removeFilterClick.bind(this)}
           />
 
           <ReviewsList
@@ -193,7 +194,7 @@ class RatingsAndReviews extends React.Component {
             currentProductName = {this.props.currentProductName}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
-            removeFilterClick = {this.removeFilterClick.bind(this)}
+
 
           />
 

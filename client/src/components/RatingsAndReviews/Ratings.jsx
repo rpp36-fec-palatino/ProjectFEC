@@ -45,6 +45,16 @@ const Ratings = (props) => {
   }, [selectedFilter])
 
 
+ const resetFilter = () => {
+    setSelectedFilter({
+      '5': false,
+      '4': false,
+      '3': false,
+      '2': false,
+      '1': false
+
+    })
+  }
 
   return (
     <div className="rating-panel">
@@ -86,7 +96,7 @@ const Ratings = (props) => {
               ? <div>
                 <span><i>Displaying reviews with highlighted ratings</i></span>
                 <br />
-                <a href='' onClick={e => this.props.removeFilterClick(e)}>Remove all filters</a>
+                <button onClick={e => {props.removeFilterClick(e); resetFilter(); }}>Remove all filters</button>
 
 
                  </div>
