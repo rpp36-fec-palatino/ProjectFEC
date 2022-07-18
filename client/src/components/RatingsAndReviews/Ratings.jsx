@@ -1,8 +1,7 @@
-import React, { useState, useEffect} from 'react';
-// import RatingBreakdown from './RatingBreakdown.jsx';
+import React, { useState, useEffect } from 'react';
 import FittingStats from './FittingStats.jsx';
 
-import {avgStarScores, ratingPercentage, recommendationRate} from './helperFns/helper.js';
+import { avgStarScores, ratingPercentage, recommendationRate } from './helperFns/helper.js';
 import Stars from './Stars.jsx';
 import RatingBreakdownBar from './RatingBreakdownBar.jsx';
 import RatingBreakdownBarCSS from './cssModule_Reviews/RatingBreakdownBar.module.css';
@@ -24,6 +23,27 @@ const Ratings = (props) => {
   let percentage4 = ratingPercentageArr[3];
   let percentage5 = ratingPercentageArr[4];
 
+  const [selectedFilter, setSelectedFilter] = useState({
+    '5': false,
+    '4': false,
+    '3': false,
+    '2': false,
+    '1': false
+
+  });
+
+
+  const toggleFilterSelection = (e) => {
+    let clickedRating = e.currentTarget.id.split('-')[1];
+    console.log('clicked rating:', clickedRating);
+    setSelectedFilter(prevSelectedFilter => ({ ...prevSelectedFilter, [clickedRating]: !prevSelectedFilter[clickedRating] }));
+
+  }
+
+  useEffect(() => {
+      props.passRatingFilter(selectedFilter);
+  }, [selectedFilter])
+
 
 
   return (
@@ -38,9 +58,9 @@ const Ratings = (props) => {
           {avgStars > 0
             ? <div>
               <div className={RatingBreakdownBarCSS.box2}>
-                <span style={{'fontSize': '40px', 'fontFamily': 'Arial'}}><b>{avgStars}</b></span>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-                <Stars percent = {percent}/>
+                <span style={{ 'fontSize': '40px', 'fontFamily': 'Arial' }}><b>{avgStars}</b></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Stars percent={percent} />
               </div>
               <br />
               <br />
@@ -62,29 +82,63 @@ const Ratings = (props) => {
 
 
           <div className={RatingBreakdownBarCSS.barsBox}>
-            <div className={RatingBreakdownBarCSS.box}>
-              <a href='#'>5 stars:</a> <RatingBreakdownBar percentage = {percentage5} />
-              {ratingsObj['5'] ? ratingsObj['5'] : 0 }
+            {props.hasFilter
+              ? <div>
+                <span><i>Displaying reviews with highlighted ratings</i></span>
+                <br />
+                <a href='' onClick={e => this.props.removeFilterClick(e)}>Remove all filters</a>
+
+
+                 </div>
+              : null
+
+            }
+
+
+
+
+            <div
+              className={RatingBreakdownBarCSS.box}
+              id='box-5'
+              onClick={toggleFilterSelection}
+              style={{ background: selectedFilter['5'] ? "yellow" : null }}
+
+            >
+              <u>5 ★:</u> <RatingBreakdownBar percentage={percentage5} />
+              {ratingsObj['5'] ? ratingsObj['5'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box}>
-              <a href='#'>4 stars:</a> <RatingBreakdownBar percentage = {percentage4} />
-              {ratingsObj['4'] ? ratingsObj['4'] : 0 }
+
+            <div className={RatingBreakdownBarCSS.box} id='box-4'
+              onClick={toggleFilterSelection}
+              style={{ background: selectedFilter['4'] ? "yellow" : null }}>
+              <u>4 ★:</u> <RatingBreakdownBar percentage={percentage4} />
+              {ratingsObj['4'] ? ratingsObj['4'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box}>
-              <a href='#'>3 stars:</a> <RatingBreakdownBar percentage = {percentage3} />
-              {ratingsObj['3'] ? ratingsObj['3'] : 0 }
+            <div className={RatingBreakdownBarCSS.box} id='box-3'
+              onClick={toggleFilterSelection}
+              style={{ background: selectedFilter['3'] ? "yellow" : null }}
+            >
+              <u>3 ★:</u> <RatingBreakdownBar percentage={percentage3} />
+              {ratingsObj['3'] ? ratingsObj['3'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box}>
-              <a href='#'>2 stars:</a> <RatingBreakdownBar percentage = {percentage2} />
-              {ratingsObj['2'] ? ratingsObj['2'] : 0 }
+            <div className={RatingBreakdownBarCSS.box} id='box-2'
+              onClick={toggleFilterSelection}
+              style={{ background: selectedFilter['2'] ? "yellow" : null }}
+            >
+              <u>2 ★:</u> <RatingBreakdownBar percentage={percentage2} />
+              {ratingsObj['2'] ? ratingsObj['2'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box}>
-              <a href='#'>1 stars:</a> <RatingBreakdownBar percentage = {percentage1} />
-              {ratingsObj['1'] ? ratingsObj['1'] : 0 }
+            <div className={RatingBreakdownBarCSS.box} id='box-1'
+              onClick={toggleFilterSelection}
+              style={{ background: selectedFilter['1'] ? "yellow" : null }}
+
+            >
+              <u>1 ★:</u> <RatingBreakdownBar percentage={percentage1} />
+              {ratingsObj['1'] ? ratingsObj['1'] : 0}
 
             </div>
 
@@ -92,7 +146,7 @@ const Ratings = (props) => {
           </div>
 
         </div>
-        <FittingStats currentMeta = {props.currentMetaReview} />
+        <FittingStats currentMeta={props.currentMetaReview} />
       </div>
 
 
