@@ -59,12 +59,10 @@ const Ratings = (props) => {
   }
 
   return (
-    <WithTrackerHOC eventName={'Ratings '} >
-      {/* <Wrapper> */}
-      <div className="rating-panel" id='Rating-panel'>
 
-      <div id="rating-container">
-        <div className="rantingBreakdown">
+    <div id="rating-container">
+      <WithTrackerHOC eventName={'Ratings'} >
+        <div className="rantingBreakdown" id='rating-breakdown-bars'>
 
           {avgStars > 0
             ? <div id="avg-star-rating">
@@ -88,7 +86,7 @@ const Ratings = (props) => {
 
           }
 
-          <div className={RatingBreakdownBarCSS.barsBox}>
+          <div className={RatingBreakdownBarCSS.barsBox} id='bars-and-messages'>
             {props.hasFilter
               ? <div className={RatingBreakdownBarCSS.filterMsg}>
                 <span><i>Displaying reviews with highlighted ratings</i></span>
@@ -155,14 +153,15 @@ const Ratings = (props) => {
 
 
         </div>
+        </WithTrackerHOC>
+
+        <WithTrackerHOC eventName={'Ratings'}>
+        <div id='charateristics-rating-bars'>
         <FittingStats currentMeta={props.currentMetaReview} />
+        </div>
+        </WithTrackerHOC>
+
       </div>
-
-
-    </div>
-
-      {/* </Wrapper> */}
-    </WithTrackerHOC>
 
   );
 };
