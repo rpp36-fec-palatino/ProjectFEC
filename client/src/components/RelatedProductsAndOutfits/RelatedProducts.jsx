@@ -24,7 +24,8 @@ class RelatedProducts extends React.Component {
         <div className="card-deck">
 
 
-          {this.props.relatedProducts.map(relatedProduct => <div className="card" key={relatedProduct.id}>
+          {this.props.relatedProducts &&
+          this.props.relatedProducts.map(relatedProduct => <div className="card" key={relatedProduct.id}>
             <FaRegStar className="card-icon"/>
             <img className="card-img-top"
               src={this.props.relatedProductsStyles[relatedProduct.id].photos[0].thumbnail_url}

@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './styles.css';
 import Stars from '../RatingsAndReviews/Stars.jsx';
-import plus from '../../../dist/img/plus.png';
 import {FaRegTimesCircle} from 'react-icons/fa';
 
 
@@ -25,12 +24,13 @@ class Outfit extends React.Component {
         <div className="card-deck">
 
           <div className="card" onClick={() => this.props.modifyOutfit('add', this.props.currentId)}>
-            <img className="card-img-top" src={plus}></img>
+            <img className="card-img-top" src='/img/plus.png'></img>
           </div>
 
 
 
-          {this.props.outfits.map(item => <div className="card" key={item}>
+          {this.props.outfits &&
+          this.props.outfits.map(item => <div className="card" key={item}>
             <FaRegTimesCircle className="card-icon" onClick={() => this.props.modifyOutfit('remove', item)}/>
             <img className="card-img-top" src={this.props.outfitStyles[item].results[0].photos[0].thumbnail_url} alt="Card image cap"></img>
             <div className="card-body">
