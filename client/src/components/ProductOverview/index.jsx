@@ -15,6 +15,7 @@ class ProductOverview extends React.Component {
       productData: this.props.product,
       styleData: this.props.productStyle.results,
       selectedData: this.props.productStyle.results[0],
+      currentImgIndex: 0,
       currentImg: this.props.productStyle.results[0].photos[0],
       currentImgSize: 'mainImageFit'
     };
@@ -35,6 +36,7 @@ class ProductOverview extends React.Component {
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
         currentImg: this.props.productStyle.results[0].photos[0],
+        currentImgIndex: 0
       });
     }
   }
@@ -42,7 +44,11 @@ class ProductOverview extends React.Component {
   changeStyle (styleSelect) {
     this.state.styleData.forEach((style) => {
       if (style.style_id === parseInt(styleSelect)) {
-        this.setState({selectedData: style, currentImg: style.photos[0], currentImgSize: 'mainImageFit'});
+        if (style.photos.length > this.state.currentImgIndex) {
+          this.setState({selectedData: style, currentImg: style.photos[this.state.currentImgIndex], currentImgSize: 'mainImageFit'});
+        } else {
+          this.setState({selectedData: style, currentImg: style.photos[0], currentImgIndex: 0, currentImgSize: 'mainImageFit'});
+        }
       }
     });
   }
@@ -51,9 +57,9 @@ class ProductOverview extends React.Component {
   changeImage (event) {
     let selectedThumb = event.target.name;
     if (selectedThumb !== this.state.currentImg.url) {
-      this.state.selectedData.photos.forEach((photo) => {
+      this.state.selectedData.photos.forEach((photo, index) => {
         if (selectedThumb === photo.url) {
-          this.setState({currentImg: photo, currentImgSize: 'mainImageFit'});
+          this.setState({currentImg: photo, currentImgIndex: index, currentImgSize: 'mainImageFit'});
         }
       });
     }
@@ -77,6 +83,7 @@ class ProductOverview extends React.Component {
             <ImageGallery
               photos = {this.state.selectedData.photos}
               currentImg = {this.state.currentImg}
+              currentImgIndex = {this.state.currentImgIndex}
               currentImgSize = {this.state.currentImgSize}
               changeImage = {this.changeImage}
               resize = {this.resize}/>
