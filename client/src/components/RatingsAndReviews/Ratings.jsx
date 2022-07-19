@@ -5,6 +5,8 @@ import { avgStarScores, ratingPercentage, recommendationRate } from './helperFns
 import Stars from './Stars.jsx';
 import RatingBreakdownBar from './RatingBreakdownBar.jsx';
 import RatingBreakdownBarCSS from './cssModule_Reviews/RatingBreakdownBar.module.css';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx'
 
 
 
@@ -57,18 +59,17 @@ const Ratings = (props) => {
   }
 
   return (
-    <div className="rating-panel">
-      {/* <h3>Rating Breakdown and Characteristics</h3>
-      <h3>Ratings display for product_id: {props.currentMetaReview.product_id}</h3> */}
-
+    <WithTrackerHOC eventName={'Ratings '} >
+      {/* <Wrapper> */}
+      <div className="rating-panel" id='Rating-panel'>
 
       <div id="rating-container">
         <div className="rantingBreakdown">
 
           {avgStars > 0
-            ? <div>
-              <div className={RatingBreakdownBarCSS.box2}>
-                <span style={{ 'fontSize': '40px', 'fontFamily': 'Arial' }}><b>{avgStars}</b></span>
+            ? <div id="avg-star-rating">
+              <div className={RatingBreakdownBarCSS.box2} >
+                <span style={{ 'fontSize': '40px', 'fontFamily': 'Arial' }} id="avg-star-score"><b>{avgStars}</b></span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Stars percent={percent} />
               </div>
@@ -87,16 +88,12 @@ const Ratings = (props) => {
 
           }
 
-
-
-
-
           <div className={RatingBreakdownBarCSS.barsBox}>
             {props.hasFilter
               ? <div className={RatingBreakdownBarCSS.filterMsg}>
                 <span><i>Displaying reviews with highlighted ratings</i></span>
                 <br />
-                <a href='null' onClick={e => {props.removeFilterClick(e); resetFilter(); }}>Remove all filters</a>
+                <a href='null' id="remove-all-filter-link" onClick={e => {props.removeFilterClick(e); resetFilter(); }}>Remove all filters</a>
                 <br />
                 <br />
 
@@ -110,7 +107,7 @@ const Ratings = (props) => {
 
             <div
               className={RatingBreakdownBarCSS.box}
-              id='box-5'
+              id='ratingBar-5'
               onClick={toggleFilterSelection}
               style={{ background: selectedFilter['5'] ? "yellow" : null }}
 
@@ -120,14 +117,14 @@ const Ratings = (props) => {
 
             </div>
 
-            <div className={RatingBreakdownBarCSS.box} id='box-4'
+            <div className={RatingBreakdownBarCSS.box} id='ratingBar-4'
               onClick={toggleFilterSelection}
               style={{ background: selectedFilter['4'] ? "yellow" : null }}>
               <u>4 ★:</u> <RatingBreakdownBar percentage={percentage4} />
               {ratingsObj['4'] ? ratingsObj['4'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box} id='box-3'
+            <div className={RatingBreakdownBarCSS.box} id='ratingBar-3'
               onClick={toggleFilterSelection}
               style={{ background: selectedFilter['3'] ? "yellow" : null }}
             >
@@ -135,7 +132,7 @@ const Ratings = (props) => {
               {ratingsObj['3'] ? ratingsObj['3'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box} id='box-2'
+            <div className={RatingBreakdownBarCSS.box} id='ratingBar-2'
               onClick={toggleFilterSelection}
               style={{ background: selectedFilter['2'] ? "yellow" : null }}
             >
@@ -143,7 +140,7 @@ const Ratings = (props) => {
               {ratingsObj['2'] ? ratingsObj['2'] : 0}
 
             </div>
-            <div className={RatingBreakdownBarCSS.box} id='box-1'
+            <div className={RatingBreakdownBarCSS.box} id='ratingBar-1'
               onClick={toggleFilterSelection}
               style={{ background: selectedFilter['1'] ? "yellow" : null }}
 
@@ -156,31 +153,17 @@ const Ratings = (props) => {
 
           </div>
 
+
         </div>
         <FittingStats currentMeta={props.currentMetaReview} />
       </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
+
+      {/* </Wrapper> */}
+    </WithTrackerHOC>
+
   );
 };
 
