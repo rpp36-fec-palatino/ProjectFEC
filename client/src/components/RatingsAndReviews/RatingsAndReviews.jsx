@@ -14,6 +14,7 @@ class RatingsAndReviews extends React.Component {
     this.state = {
       currentProductId: 0,
       loadMore: true,
+      hasFilter: false,
       currentReviews: [],
       currentReviewCount: 0,
       currentDisplayedReviews: [],
@@ -22,7 +23,8 @@ class RatingsAndReviews extends React.Component {
       ratingObj: sampleMetaReview71697['ratings'],
       // recommended: {'false': '0', 'true': '0' },
       recommended: sampleMetaReview71697['recommended'],
-      sortingKeyword: 'relevant' //default
+      sortingKeyword: 'relevant', //default
+      ratingFilters: {'5': false, '4':false, '3': false, '2': false, '1': false}
 
 
 
@@ -48,12 +50,17 @@ class RatingsAndReviews extends React.Component {
     }
     if (this.state.sortingKeyword !== prevState.sortingKeyword) {
       this.displayCurrentProductReviews(this.props.currentId);
+      this.setState({loadMore: true});
 
     }
     if (this.state.currentReviewCount !== prevState.currentReviewCount) {
       this.props.passReviewCount(this.state.currentReviewCount);
 
     }
+    if(this.state.ratingFilters !== prevState.ratingFilters) {
+      this.displayRatingFilteredReviews(this.state.ratingFilters);
+    }
+
 
   }
 
@@ -64,6 +71,7 @@ class RatingsAndReviews extends React.Component {
       .then(response => {
 
         this.setState({
+          allReviews: response.data.results,
           currentReviews: response.data.results,
           currentReviewCount: response.data.results.length,
           currentDisplayedReviews: response.data.results.slice(0, 2)
@@ -114,6 +122,51 @@ class RatingsAndReviews extends React.Component {
 
   }
 
+  passRatingFilter(filterState) {
+    console.log('this is the filter state:', filterState);
+    this.setState({ratingFilters: filterState});
+  }
+
+  displayRatingFilteredReviews (currentFiltersObj) {
+    let values = Object.values(currentFiltersObj);
+    let allReviews = this.state.allReviews;
+    if(values.includes(true)) {
+
+      let filtered = [];
+      for(let key in currentFiltersObj) {
+        if(currentFiltersObj[key] === true) {
+          let curFiltered = allReviews.filter(ele => ele.rating === Number(key));
+          filtered = filtered.concat(curFiltered);
+          console.log('filtered:', filtered);
+          this.setState({
+            hasFilter: true,
+            currentReviews: filtered,
+            currentDisplayedReviews: filtered.slice(0, 2),
+            loadMore: true});
+
+        }
+      }
+
+
+
+    }
+    else {
+      this.displayCurrentProductReviews(this.props.currentId);
+      this.setState({loadMore: true, hasFilter: false});
+    }
+
+
+  }
+
+  removeFilterClick(e) {
+    e.preventDefault();
+    this.setState({
+      hasFilter: false,
+      ratingFilters: {'5': false, '4':false, '3': false, '2': false, '1': false}
+
+    })
+  }
+
 
 
 
@@ -126,6 +179,9 @@ class RatingsAndReviews extends React.Component {
             currentMetaReview = {this.state.currentMetaReview}
             ratingObj = {this.state.ratingObj}
             recommended = {this.state.recommended}
+            passRatingFilter = {this.passRatingFilter.bind(this)}
+            hasFilter = {this.state.hasFilter}
+            removeFilterClick = {this.removeFilterClick.bind(this)}
           />
 
           <ReviewsList
@@ -138,6 +194,7 @@ class RatingsAndReviews extends React.Component {
             currentProductName = {this.props.currentProductName}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
+
 
           />
 

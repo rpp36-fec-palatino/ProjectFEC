@@ -82,10 +82,11 @@ class ReviewsList extends React.Component {
         {'----------------------------------------------------------------------------------'}
 
         {this.props.currentReviews.length === 0
-          ? <div>This product has no review yet!
+          ? <div>No review to display!
             <br />
             <br />
           </div>
+
 
           : <div className={ReviewsListCSS.reviewScroller} >
             {this.props.currentDisplayReviews.map(
