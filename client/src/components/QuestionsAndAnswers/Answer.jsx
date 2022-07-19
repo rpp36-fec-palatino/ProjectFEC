@@ -7,7 +7,24 @@ const Answer = (props) => {
     .toLocaleDateString({}, {timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric'});
   const helpfulUrl = '/qa/answers/' + props.answer.id + '/helpful';
   const reportUrl = '/qa/answers/' + props.answer.id + '/report';
+  const [reportVote, setReportVote] = useState('Report');
+  const [helpfulVote, setHelpfulVote] = useState(false);
+  const [helpfulNumber, setHelpfulNumber] = useState(props.answer.helpfulness);
 
+  if (props.answer.answerer_name === 'Seller') {
+    return (
+      <div className='answer'>
+        <p>A: {props.answer.body}</p>
+        {photos.map((item, index) => {
+          return (
+            <AnswerPhoto key={index} link={item}/>
+          );
+        })}
+        <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+        | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
+      </div>
+    );
+  }
   return (
     <div className='answer'>
       <p>A: {props.answer.body}</p>
@@ -16,7 +33,8 @@ const Answer = (props) => {
           <AnswerPhoto key={index} link={item}/>
         );
       })}
-      <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => props.helpful(helpfulUrl)}>Yes</a>({props.answer.helpfulness}) | <a href="#0" onClick={() => props.helpful(reportUrl)}>Report</a></p>
+      <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+      | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
     </div>
   );
 };

@@ -203,6 +203,12 @@ app.put('/qa/answers/:id/report', (req, res) => {
 
 });
 
+app.post('/qa/questions/answers', (req, res) => {
+  console.log('hitting add answer');
+  let id = req.body.product_id;
+  res.redirect(`/${id}`);
+});
+
 app.post('/qa/questions', (req, res) => {
   let id = req.body.product_id;
 

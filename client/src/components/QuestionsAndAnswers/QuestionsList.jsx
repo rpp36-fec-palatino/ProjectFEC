@@ -6,7 +6,7 @@ const QuestionsList = (props) => {
     <div className='questions-list'>
       {props.results.map((item) => {
         return (
-          <Question key={item.question_id} qAndA={item} helpfulQ={props.helpfulQ}/>
+          <Question key={item.question_id} qAndA={item} helpfulQ={props.helpfulQ} productName={props.productName}/>
         );
       })}
     </div>
