@@ -11,6 +11,13 @@ import ReviewsList from '../ReviewsList.jsx';
 import Ratings from '../Ratings.jsx';
 import AddNewReviewModal from '../AddNewReviewModal.jsx';
 import {sampleReviews71698, sampleMetaReview71698} from '../../../../../sampleData/sampleReviewData.js';
+import { server } from './mocks/server.js';
+
+
+/************  API tests setup**************************/
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 
 // use describe, it pattern
@@ -40,7 +47,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
 
     />);
-    expect(screen.getByText(/Rating Breakdown and Fitting stats/i)).toBeInTheDocument();
+    expect(screen.findByText(/82% of reviews recommend this product/i)).toBeInTheDocument();
   });
   /*********** test modal pop *********************/
 
@@ -91,6 +98,9 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
 
 });
+
+
+
 
 
 
