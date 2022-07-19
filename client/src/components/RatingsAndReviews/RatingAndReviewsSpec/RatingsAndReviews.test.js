@@ -47,7 +47,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
   it('should render the add new review modal component if add new review button is clicked', () => {
     const mockOnClick = jest.fn();
     const {queryByText, getByTestId} = render(<ReviewsList currentReviews = {sampleReviews71698.results}
-      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)} onClick = {mockOnClick()}/>);
+      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)} currentMeta = {sampleMetaReview71698} onClick = {mockOnClick()}/>);
     const clickButton = getByTestId('popModal');
     fireEvent.click(clickButton);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -57,7 +57,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
   it('should render upload images modal component if corresponding button is clicked', () => {
     const mockOnClick = jest.fn();
-    const {queryByText, getByTestId} = render(<AddNewReviewModal onClick = {mockOnClick()}/>);
+    const {queryByText, getByTestId} = render(<AddNewReviewModal currentMeta = {sampleMetaReview71698} onClick = {mockOnClick()}/>);
     const clickButton1 = getByTestId('popUploadImg');
     fireEvent.click(clickButton1);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
