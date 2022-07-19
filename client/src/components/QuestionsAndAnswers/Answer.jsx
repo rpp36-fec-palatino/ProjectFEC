@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import AnswerPhoto from './AnswerPhoto.jsx';
+import style from './styles/AnswerPhoto.module.css';
 
 const Answer = (props) => {
   var photos = props.answer.photos;
@@ -15,11 +16,13 @@ const Answer = (props) => {
     return (
       <div className='answer'>
         <p>A: {props.answer.body}</p>
-        {photos.map((item, index) => {
-          return (
-            <AnswerPhoto key={index} link={item}/>
-          );
-        })}
+        <div className={style.row}>
+          {photos.map((item, index) => {
+            return (
+              <AnswerPhoto key={index} link={item}/>
+            );
+          })}
+        </div>
         <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
         | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
       </div>
@@ -28,11 +31,13 @@ const Answer = (props) => {
   return (
     <div className='answer'>
       <p>A: {props.answer.body}</p>
-      {photos.map((item, index) => {
-        return (
-          <AnswerPhoto key={index} link={item}/>
-        );
-      })}
+      <div className={style.row}>
+        {photos.map((item, index) => {
+          return (
+            <AnswerPhoto key={index} link={item}/>
+          );
+        })}
+      </div>
       <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
       | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
     </div>
