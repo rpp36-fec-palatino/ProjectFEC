@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import _ from 'underscore';
 
 import style from './styles/QuestionsAndAnswers.module.css';
 
@@ -24,6 +25,7 @@ class QuestionsAndAnswers extends React.Component {
     };
     this.loadQuestions = this.loadQuestions.bind(this);
     this.handleAddQuestionCancel = this.handleAddQuestionCancel.bind(this);
+    this.debounceSearch = _.debounce((e) => { this.setState({searchInput: e.target.value}); this.filterResults(e.target.value); }, 300);
   }
 
   componentDidUpdate (previousProps, previousState) {
@@ -35,6 +37,22 @@ class QuestionsAndAnswers extends React.Component {
         numberResults: 2,
         totalResults: this.props.questions.results.length,
         currentResults: this.props.questions.results.slice(0, 2)
+      });
+    }
+  }
+
+  filterResults (term) {
+    if (term.length > 2) {
+      console.log('searching', term);
+      var regex = new RegExp('\\b' + term + '\\b');
+      var matched = [];
+      this.state.results.forEach((item) => {
+        matched.push(item.question_body.match(regex));
+      });
+      console.log(matched);
+    } else {
+      this.setState ({
+        results: questionsAndAnswers.results
       });
     }
   }
@@ -90,6 +108,15 @@ class QuestionsAndAnswers extends React.Component {
       });
   }
 
+  debounceSearch(e) {
+    this.debounceSearch(e);
+  }
+
+  onSearchInput(e) {
+    e.persist();
+    this.debounceSearch(e);
+  }
+
   render () {
     if (this.state.totalResults === 0) {
       return (
@@ -104,7 +131,7 @@ class QuestionsAndAnswers extends React.Component {
     return (
       <div className={style.questionsAndAnswers}>
         <h1>Questions And Answers</h1>
-        <SearchQuestions />
+        <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
         <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName}/>
         {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
         {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
