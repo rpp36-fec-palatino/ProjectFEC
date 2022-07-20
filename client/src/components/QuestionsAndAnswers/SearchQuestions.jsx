@@ -1,14 +1,23 @@
 import React from 'react';
+import style from './styles/SearchQuestions.module.css';
 
-const SearchQuestions = (props) => {
-  return (
-    <div className='search-questions'>
-      <form>
-        <label for="search-questions">Search Questions</label>
-        <input type="text" id="search-questions" name="search-questions"></input>
-      </form>
-    </div>
-  );
-};
+class SearchQuestions extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+  render () {
+    return (
+      <div className={style.search}>
+        <form className={style.form} onSubmit={event.preventDefault()} role="search">
+          <input className={style.input} id="search" type="search" placeholder="Have a question? Search for answers..." autoFocus required />
+        </form>
+      </div>
+    );
+  }
+}
 
 export default SearchQuestions;
