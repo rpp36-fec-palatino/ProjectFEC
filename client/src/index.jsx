@@ -330,11 +330,12 @@ class App extends React.Component {
                 relatedProductsStyles = {this.state.relatedProductsStyles}
                 relatedProductsRatings = {this.state.relatedProductsRatings}
                 changeProduct={this.changeProduct.bind(this)}
+                outfits={Object.keys(this.state.outfit)}
                 outfit={this.state.outfit}
                 outfitStyles={this.state.outfitStyles}
                 outfitRatings={this.state.outfitRatings}
-                outfits={Object.keys(this.state.outfit)}
                 modifyOutfit={this.modifyOutfit.bind(this)}
+                product = {this.state.product}
               /> : <div>RELATED PRODUCTS</div>}
 
           </ErrorBoundary>

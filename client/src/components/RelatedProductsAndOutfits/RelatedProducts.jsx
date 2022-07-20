@@ -2,17 +2,30 @@ import React from 'react';
 import css from './styles.css';
 import Stars from '../RatingsAndReviews/Stars.jsx';
 import {FaRegStar} from 'react-icons/fa';
+import PopUp from './PopUp.jsx';
 
 
 class RelatedProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      popup: false,
+      relatedProduct: {}
     };
   }
 
   componentDidMount() {
-    // console.log(this.props);
+    // console.log('related props', this.props);
+  }
+
+  openPopup(event) {
+    if (!this.state.popup) {
+      this.setState({popup: true, relatedProduct: event});
+    }
+  }
+
+  closePopup() {
+    this.setState({popup: false});
   }
 
   render() {
@@ -26,7 +39,7 @@ class RelatedProducts extends React.Component {
 
           {this.props.relatedProducts &&
           this.props.relatedProducts.map(relatedProduct => <div className="card" key={relatedProduct.id}>
-            <FaRegStar className="card-icon"/>
+            <FaRegStar className="card-icon" onClick={() => this.openPopup(relatedProduct)}/>
             <img className="card-img-top"
               src={this.props.relatedProductsStyles[relatedProduct.id].photos[0].thumbnail_url}
               alt="Card image cap"
@@ -48,7 +61,11 @@ class RelatedProducts extends React.Component {
 
 
         </div>
-
+        {this.state.popup ? <PopUp
+          currentProduct={this.props.product}
+          relatedProduct={this.state.relatedProduct}
+          closePopup={this.closePopup.bind(this)}
+        /> : null}
       </div>
     );
   }
