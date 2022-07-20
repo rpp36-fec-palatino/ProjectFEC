@@ -37,6 +37,10 @@ class ProductOverview extends React.Component {
         currentImg: this.props.productStyle.results[0].photos[0],
       });
     }
+
+    setTimeout(() => {
+      this.props.getProductStyleNumber(this.state.selectedData.style_id);
+    }, 200);
   }
 
   changeStyle (styleSelect) {
