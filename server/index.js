@@ -134,6 +134,55 @@ app.put('/reviews/:review_id/report', (req, res) => {
 
 });
 
+//post a review
+
+app.post('/reviews', (req, res) => {
+  console.log('this is req.body in POST:', req.body);
+
+  let bodyParams = {
+    // eslint-disable-next-line camelcase
+    product_id: req.body.product_id,
+    rating: req.body.rating,
+    summary: req.body.summary,
+    body: req.body.body,
+    recommend: req.body.recommend,
+    name: req.body.name,
+    email: req.body.email,
+    photos: req.body.photos,
+    characteristics: req.body.characteristics
+
+  };
+  console.log('this is bodyParams:', bodyParams);
+  let options = {
+    method: 'POST',
+    url: apiUrl + '/reviews',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`
+    }
+  };
+
+  axios(options, bodyParams)
+    .then(response => {
+      res.status(201).send('Review posted!');
+    }).catch(err => {
+      console.log(err.message);
+      res.status(501).send('Err post new review!', err);
+
+
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
 /*********** get average stars *******************/
 app.get('/products/:id/reviews/avg_star', (req, res) => {
   let id = req.params.id;
