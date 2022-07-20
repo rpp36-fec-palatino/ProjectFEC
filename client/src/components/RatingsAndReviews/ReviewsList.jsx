@@ -2,6 +2,10 @@ import React from 'react';
 import ReviewEntry from './ReviewEntry.jsx';
 import AddNewReviewModal from './AddNewReviewModal.jsx';
 import ReviewsListCSS from './cssModule_Reviews/ReviewsList.module.css';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
+
+
 
 class ReviewsList extends React.Component {
   constructor(props) {
@@ -67,62 +71,69 @@ class ReviewsList extends React.Component {
 
   render() {
     return (
-      <div className={ReviewsListCSS.reviewListMain}>
+      <WithTrackerHOC eventName={'ReviewList'}>
+        <Wrapper>
+          <div className={ReviewsListCSS.reviewListMain} id='review-list-main'>
 
-        <div className="sort-slect">
-          <h2>Reviews List</h2>
-          <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
-          <select data-testid='select' value={this.state.currentFilter} onChange ={this.handleDropdownSelection.bind(this)} >
-            <option value="relevant" name="Relevant">Relevant</option>
-            <option value="newest" data-testid="select-newest">Newest</option>
-            <option value="helpful" data-testid="select-helpful">Helpful</option>
-          </select>
-        </div>
-        <br/>
-        {'----------------------------------------------------------------------------------'}
-
-        {this.props.currentReviews.length === 0
-          ? <div>This product has no review yet!
+            <div className="sort-slect">
+              <h2>Reviews List</h2>
+              <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
+              <select data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
+                <option value="relevant" name="Relevant">Relevant</option>
+                <option value="newest" data-testid="select-newest">Newest</option>
+                <option value="helpful" data-testid="select-helpful">Helpful</option>
+              </select>
+            </div>
             <br />
-            <br />
-          </div>
+            {'----------------------------------------------------------------------------------'}
 
-          : <div className={ReviewsListCSS.reviewScroller} >
-            {this.props.currentDisplayReviews.map(
-              review => <ReviewEntry
-                key = {review.review_id}
-                review = {review}
-                addDefaultSrc = {this.addDefaultSrc.bind(this)}
+            {this.props.currentReviews.length === 0
+              ? <div>No review to display!
+                <br />
+                <br />
+              </div>
 
+
+              : <div className={ReviewsListCSS.reviewScroller} >
+                {this.props.currentDisplayReviews.map(
+                  review => <ReviewEntry
+                    key={review.review_id}
+                    review={review}
+                    addDefaultSrc={this.addDefaultSrc.bind(this)}
+
+                  />
+                )}
+              </div>
+
+            }
+
+
+
+            {/* conditional rendering when there are more than 2 reviews */}
+            {this.props.currentReviews.length > 2 && this.props.loadMore
+              ? <button id='load-more-btn' onClick={this.handleLoadMoreClick.bind(this)}>MORE REVIEWS</button>
+              : null
+            }
+
+            <button data-testid="popModal" id='add-new-review-btn' onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
+
+            {this.state.addReviewSeen
+              ? <AddNewReviewModal
+                currentName={this.props.currentProductName}
+                handleCancelClick={this.handleCancelClick.bind(this)}
+                currentMeta={this.props.currentMetaReview}
               />
-            )}
+              : null}
+
+
+
+
+
           </div>
 
-        }
+        </Wrapper>
+      </WithTrackerHOC>
 
-
-
-        {/* conditional rendering when there are more than 2 reviews */}
-        {this.props.currentReviews.length > 2 && this.props.loadMore
-          ? <button onClick={this.handleLoadMoreClick.bind(this)}>MORE REVIEWS</button>
-          : null
-        }
-
-        <button data-testid="popModal" onClick={this.handleAddReviewClick.bind(this)}>ADD A NEW REVIEW +</button>
-
-        {this.state.addReviewSeen
-          ? <AddNewReviewModal
-            currentName = {this.props.currentProductName}
-            handleCancelClick = {this.handleCancelClick.bind(this)}
-            currentMeta = {this.props.currentMetaReview}
-          />
-          : null}
-
-
-
-
-
-      </div>
     );
   }
 

@@ -48,7 +48,7 @@ const ReviewEntry = (props) => {
 
 
   return (
-    <div className={ReviewEntryCSS.reviewEntryContainer}>
+    <div className={ReviewEntryCSS.reviewEntryContainer} id='review-entry'>
 
       {/* stars rating display */}
       <div>
