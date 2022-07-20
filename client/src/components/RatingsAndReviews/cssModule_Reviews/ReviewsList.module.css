@@ -15,3 +15,9 @@
   overflow-x:hidden;
   display: inline-flexbox;
 }
+
+.sortSelect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

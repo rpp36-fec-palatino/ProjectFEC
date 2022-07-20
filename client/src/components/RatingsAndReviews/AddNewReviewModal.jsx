@@ -1,6 +1,5 @@
 import React from 'react';
 import AddStarRating from './AddStarRating.jsx';
-import UploadImgModal from './UploadImgModal.jsx';
 import CharacteristicsForm from './CharacteristicsForm.jsx';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
@@ -16,7 +15,7 @@ class AddNewReviewModal extends React.Component {
 
       starRating: '', //default
 
-      uploadModal: false
+      images: []
 
     };
   }
@@ -34,13 +33,35 @@ class AddNewReviewModal extends React.Component {
     });
   }
 
-  uploadModalPop(e) {
-    e.preventDefault();
-    this.setState({
-      uploadModal: true
-    });
+  // uploadModalPop(e) {
+  //   e.preventDefault();
+  //   this.setState({
+  //     uploadModal: true
+  //   });
+  // }
+
+  onImageChange(e) {
+
+    if (e.target.files && e.target.files[0]) {
+      let img = e.target.files[0];
+      let results = this.state.images;
+      results.push(URL.createObjectURL(img));
+
+      this.setState({
+        images: results
+      });
+    }
   }
 
+  removeBtnClick(e) {
+    e.preventDefault();
+    console.log('e.currenttargetId:', e.currentTarget.id);
+    let idToFilter = e.currentTarget.id.split('-')[2];
+    let beforeRemove = this.state.images;
+    let afterRemove = beforeRemove.slice(0, idToFilter).concat(beforeRemove.slice(idToFilter + 1));
+    this.setState({images: afterRemove});
+
+  }
 
 
   render () {
@@ -85,15 +106,59 @@ class AddNewReviewModal extends React.Component {
           </div>
 
 
-          <div>
-            <button data-testid="popUploadImg" onClick = {e => this.uploadModalPop(e)}>Upload Images</button>
-            {this.state.uploadModal
-              ? <UploadImgModal/>
-              : null
+          <div id='imageUploader' >
+            <h4>Upload (up to 5) images </h4>
+            {this.state.images.length
+
+              ? <div className = {AddNewReviewModalCSS.imageBox}>
+                {this.state.images.map((photo, index) => (
+                  <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
+                    <span
+                      className = {AddNewReviewModalCSS.removeBtn}
+                      id={'remove-btn-' + index}
+                      onClick={
+                        e => {
+                          this.removeBtnClick(e);
+
+                        }
+                      }> &#215;</span>
+
+                    <img className = {AddNewReviewModalCSS.photoThumbnail} src={photo} />
+
+                  </div>
+
+
+
+                ))}
+
+
+              </div>
+              : <div>no photo yet<br /></div>
 
             }
 
+            {this.state.images.length < 5
+              ? <div>
+                <br />
+                <label htmlFor="fileUpload">
+
+
+                  <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
+  +
+                  </div>
+                </label>
+                <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)}/>
+
+              </div>
+              : null
+            }
+
+
+
           </div>
+          <br />
+
+
           <div>
             <label><b>Nickname *</b></label>
             <input type="text" name="name" placeholder="name" />
