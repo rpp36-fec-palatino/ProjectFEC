@@ -1,15 +1,18 @@
 .productInformation {
+  margin-top: 20px;
+  justify-content: center;
   display: flex;
 }
 
 .productInfoLeft {
   border-right: 1px solid black;
-  width: 790px;
+  width: 870px;
   padding-right: 20px;
 }
 
 .productInfoRight {
   text-align: left;
+  width: 480px;
 }
 
 ul {

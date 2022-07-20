@@ -17,7 +17,7 @@ class ProductOverview extends React.Component {
       selectedData: this.props.productStyle.results[0],
       currentImgIndex: 0,
       currentImg: this.props.productStyle.results[0].photos[0],
-      currentImgSize: 'mainImageFit'
+      currentImgSize: 668
     };
     this.changeStyle = this.changeStyle.bind(this);
     this.changeImage = this.changeImage.bind(this);
@@ -28,10 +28,12 @@ class ProductOverview extends React.Component {
     if (this.props.product.id !== this.state.productData.id) {
       this.setState({
         productData: this.props.product,
-        currentImgSize: 'mainImageFit'
+        currentImgSize: 668
       });
     }
-    if (this.props.productStyle.results.length !== 0 && this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id) {
+    let productStyleExist = this.props.productStyle.results.length !== 0;
+    let productStyleChanged = this.props.productStyle.results[0].style_id !== this.state.styleData[0].style_id;
+    if (productStyleExist && productStyleChanged) {
       this.setState({
         styleData: this.props.productStyle.results,
         selectedData: this.props.productStyle.results[0],
@@ -45,9 +47,18 @@ class ProductOverview extends React.Component {
     this.state.styleData.forEach((style) => {
       if (style.style_id === parseInt(styleSelect)) {
         if (style.photos.length > this.state.currentImgIndex) {
-          this.setState({selectedData: style, currentImg: style.photos[this.state.currentImgIndex], currentImgSize: 'mainImageFit'});
+          this.setState({
+            selectedData: style,
+            currentImg: style.photos[this.state.currentImgIndex],
+            currentImgSize: 668
+          });
         } else {
-          this.setState({selectedData: style, currentImg: style.photos[0], currentImgIndex: 0, currentImgSize: 'mainImageFit'});
+          this.setState({
+            selectedData: style,
+            currentImg: style.photos[0],
+            currentImgIndex: 0,
+            currentImgSize: 668
+          });
         }
       }
     });
@@ -59,26 +70,28 @@ class ProductOverview extends React.Component {
     if (selectedThumb !== this.state.currentImg.url) {
       this.state.selectedData.photos.forEach((photo, index) => {
         if (selectedThumb === photo.url) {
-          this.setState({currentImg: photo, currentImgIndex: index, currentImgSize: 'mainImageFit'});
+          this.setState({currentImg: photo, currentImgIndex: index});
         }
       });
     }
   }
 
   resize (event) {
-    if (this.state.currentImgSize === 'mainImageFit') {
-      this.setState({currentImgSize: 'mainImageExpand'});
+    if (this.state.currentImgSize === 668) {
+      this.setState({currentImgSize: 1400});
     } else {
-      this.setState({currentImgSize: 'mainImageFit'});
+      this.setState({currentImgSize: 668});
     }
   }
 
   render () {
     return (
       <div id='ProductOverview'>
-        <div>Logo  _______ search bar</div>
-        <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
-        <div className={css.topWindow}>
+        <div id='header' className={css.header}>
+          <div>Logo  _______ search bar</div>
+          <div>SITE-WIDE ANNOUNCEMENT MESSAGE! - SALE/DISCOUNT OFFER - NEW PRODUCT HIGHLIGHT</div>
+        </div>
+        <div id='topWindow' className={css.topWindow}>
           <ErrorBoundary>
             <ImageGallery
               photos = {this.state.selectedData.photos}
@@ -100,10 +113,12 @@ class ProductOverview extends React.Component {
               modifyOutfit = {this.props.modifyOutfit}/>
           </ErrorBoundary>
         </div>
-        <ErrorBoundary>
-          <ProductInformation
-            productData = {this.state.productData}/>
-        </ErrorBoundary>
+        <div id='bottomWindow' className={css.bottomWindow}>
+          <ErrorBoundary>
+            <ProductInformation
+              productData = {this.state.productData}/>
+          </ErrorBoundary>
+        </div>
       </div>
     );
   }

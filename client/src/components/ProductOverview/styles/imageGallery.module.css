@@ -1,12 +1,48 @@
 .imageGallery {
   display: flex;
   flex-direction: row;
+  background-color: rgb(220, 220, 220);
+}
+
+.thumbnailControl {
+  position: absolute;
+  width: 120px;
+}
+
+.thumbnailControlUp {
+  position: relative;
+  top: 10px;
+  transform: rotate(90deg);
+  text-align: center;
+  font-size: xx-large;
+  z-index: 200;
+}
+
+.thumbnailControlDown {
+  position: relative;
+  top: 810px;
+  transform: rotate(90deg);
+  text-align: center;
+  font-size: xx-large;
+  z-index: 201;
 }
 
 .thumbnailList {
+  position: relative;
+  height: 800px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 50px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.thumbnails {
+  position: relative;
+  height: 800px;
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  transition: 0.25s ease-in-out all;
 }
 
 .thumbnail {
@@ -19,7 +55,6 @@
   height: 90px;
   border: 1px solid black;
   margin-bottom: 20px;
-  margin-right: 20px;
 }
 
 .thumbnailSelected {
@@ -30,8 +65,3 @@
   bottom: 15px;
 }
 
-.mainImageFit {
-  height: 900px;
-  width: 668px;
-  object-fit: cover;
-}
