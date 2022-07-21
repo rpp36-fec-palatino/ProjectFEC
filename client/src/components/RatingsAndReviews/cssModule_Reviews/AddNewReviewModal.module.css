@@ -1,14 +1,14 @@
 .modalContainer {
-  position: fixed;
+  position: relative;
   z-index: 1;
-  left: 45%;
-  top: 10%;
+  left: 15%;
+  top: -80%;
   background-color: whitesmoke;
   border-radius: 5px;
   margin: auto;
   padding: 25px;
   border: 1px solid #888;
-  width: 30%;
+  width: 60%;
   z-index: 1;
   box-shadow: 3px 6px #888888;
 
@@ -16,12 +16,12 @@
 
 }
 
-.subModalContainer {
+/* .subModalContainer {
   position: fixed;
   z-index: 1;
   left: 45%;
-  bottom: 2%;
-  background-color: D6E0F0;
+  bottom: 45%;
+  background-color: white;
   border-radius: 5px;
   margin: auto;
   padding: 25px;
@@ -33,7 +33,7 @@
 
 
 
-}
+} */
 
 .characteristicsForm {
   position: relative;
@@ -48,4 +48,72 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.photoThumbnail {
+  width: 60px;
+  height: 60px;
+
+}
+
+.addBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: dashed 2pt grey;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 40px;
+  color: grey;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+
+
+
+}
+
+.imageBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.imageEntryContainer {
+  overflow: visible;
+  /* border: solid 1pt grey; */
+  position: relative;
+  border: solid 1pt grey;
+  border-radius: 10px;
+  padding-right: 10px;
+  box-shadow: 2px 3px #888888;
+}
+
+.removeBtn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1.5pt darkblue;
+  background-color: white;
+  border-radius: 30px;
+  color: darkblue;
+  font-size: 15px;
+  position: absolute;
+  z-index: 2;
+  right: -8px;
+  top: -8px;
+  font-size: 15px;
+
+
+}
+
+.removeBtn:hover {
+  color: red;
+  border: solid 1pt red;
+  cursor: pointer;
 }
