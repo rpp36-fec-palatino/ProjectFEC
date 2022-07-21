@@ -29,7 +29,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   componentDidUpdate (previousProps, previousState) {
-    if (this.props.questions.product_id !== this.state.product_id || this.props.questions.results !== this.state.results) {
+    if (this.props.questions.product_id !== this.state.product_id) {
       this.setState({
         // eslint-disable-next-line camelcase
         product_id: this.props.questions.product_id,
@@ -42,19 +42,32 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   filterResults (term) {
+    term = term.toLowerCase();
     if (term.length > 2) {
       console.log('searching', term);
-      var regex = new RegExp('\\b' + term + '\\b');
+      var regex = `.${term}.`;
       var matched = [];
-      this.state.results.forEach((item) => {
-        if (item.question_body.match(regex)) {
-          matched.push(item.question_body.match(regex));
+     this.props.questions.results.forEach((item) => {
+      var string = item.question_body.toLowerCase()
+      console.log(term, string);
+        if (string.match(regex)) {
+          console.log('matched');
+          matched.push(item);
         }
       });
-      console.log(matched);
+      console.log(matched)
+      this.setState ({
+        results: matched,
+        numberResults: 2,
+        totalResults: matched.length,
+        currentResults: matched.slice(0, 2)
+      })
     } else {
       this.setState ({
-        results: questionsAndAnswers.results
+        results: this.props.questions.results,
+        numberResults: 2,
+        totalResults: this.props.questions.results.length,
+        currentResults: this.props.questions.results.slice(0, 2)
       });
     }
   }
@@ -124,6 +137,7 @@ class QuestionsAndAnswers extends React.Component {
       return (
         <div className={style.questionsAndAnswers}>
           <h1>Questions And Answers</h1>
+          <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
           <p>No questions have been asked. Feel free to add a question.</p>
           <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
           {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
