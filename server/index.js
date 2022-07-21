@@ -139,7 +139,7 @@ app.put('/reviews/:review_id/report', (req, res) => {
 app.post('/reviews', (req, res) => {
   console.log('this is req.body in POST:', req.body);
 
-  let bodyParams = {
+  let reviewObj = {
     // eslint-disable-next-line camelcase
     product_id: req.body.product_id,
     rating: req.body.rating,
@@ -152,27 +152,26 @@ app.post('/reviews', (req, res) => {
     characteristics: req.body.characteristics
 
   };
-  console.log('this is bodyParams:', bodyParams);
+  console.log('this is reviewObj:', reviewObj);
   let options = {
     method: 'POST',
     url: apiUrl + '/reviews',
     headers: {
       'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      'Authorization': `${config.TOKEN}`,
+
+    },
+    data: reviewObj
   };
 
-  axios(options, bodyParams)
+  axios(options)
     .then(response => {
       res.status(201).send('Review posted!');
     }).catch(err => {
-      console.log(err.message);
-      res.status(501).send('Err post new review!', err);
-
+      console.log('post err:', err);
+      res.status(500).send('err posting review!');
 
     });
-
-
 
 });
 
