@@ -1,3 +1,13 @@
+.header {
+  text-align: center;
+}
+
 .topWindow {
   display: flex;
+  justify-content: center;
+}
+
+.bottomWindow {
+  display: flex;
+  justify-content: center;
 }

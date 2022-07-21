@@ -59,7 +59,7 @@ class AddToCart extends React.Component {
 
   render () {
     return (
-      <div className={css.sizeQty}>
+      <div id='AddToCart' className={css.sizeQty}>
         {this.renderSize(this.props.skus)}
         {this.renderQuantity(this.props.skus)}
       </div>

@@ -33,7 +33,7 @@ class ProductInformation extends React.Component {
 
   render () {
     return (
-      <div className={css.productInformation}>
+      <div id='ProductInformation' className={css.productInformation}>
         <div className={css.productInfoLeft}>
           <b>{this.props.productData.slogan}</b>
           <p>{this.props.productData.description}</p>
