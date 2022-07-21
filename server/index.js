@@ -53,7 +53,12 @@ app.get('/products/:id/styles/', (req, res) => {
     });
 });
 
-/**************Server Calls for Ratings and Reviews********************************/
+/****************************************************************************
+ *
+ *             ***  Server Calls for Ratings and Reviews  ***
+ *
+ * ***************************************************************************/
+
 app.get('/reviews', (req, res) => {
   let id = req.params.id;
 
@@ -182,7 +187,7 @@ app.post('/reviews', (req, res) => {
 
 
 
-/*********** get average stars *******************/
+/************************************** get average stars **********************************************************/
 app.get('/products/:id/reviews/avg_star', (req, res) => {
   let id = req.params.id;
   let apiProductReviewMeta = apiUrl + `/reviews/meta?product_id=${id}`;

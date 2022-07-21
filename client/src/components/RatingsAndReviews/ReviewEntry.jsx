@@ -141,7 +141,12 @@ const ReviewEntry = (props) => {
 
       }
 
-      <HelpfulAndReport count = {props.review.helpfulness} reviewId = {props.review.review_id}/>
+      <HelpfulAndReport
+        count = {props.review.helpfulness}
+        removeReportedReview = {props.removeReportedReview}
+        refresh = {props.refresh}
+
+        reviewId = {props.review.review_id}/>
 
 
 

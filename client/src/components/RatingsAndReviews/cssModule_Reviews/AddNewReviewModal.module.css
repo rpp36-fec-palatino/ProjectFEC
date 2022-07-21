@@ -1,14 +1,14 @@
 .modalContainer {
-  position: relative;
+  position: fixed;
   z-index: 1;
-  left: 15%;
-  top: -110%;
+  left: 35%;
+  top: 5%;
   background-color: whitesmoke;
   border-radius: 5px;
   margin: auto;
   padding: 25px;
   border: 1px solid #888;
-  width: 60%;
+  width: 50%;
   z-index: 1;
   box-shadow: 3px 6px #888888;
 

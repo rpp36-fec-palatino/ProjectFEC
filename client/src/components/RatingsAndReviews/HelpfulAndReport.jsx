@@ -42,6 +42,19 @@ class HelpfulAndReport extends React.Component {
 
   }
 
+  reportBtnClick(e) {
+    console.log('report btn clicked!');
+    let reviewId = e.currentTarget.id.split('-')[0];
+    axios.put(`/reviews/${reviewId}/report`)
+      .then(response => {
+        console.log(`review ${reviewId} has been reported! You should not see it in the list anymore!`);
+      }).catch(err => console.log('Err report the review!'));
+
+    this.props.removeReportedReview(reviewId);
+    this.props.refresh();
+
+  }
+
 
   render() {
     return (
@@ -58,7 +71,7 @@ class HelpfulAndReport extends React.Component {
 
         }
 
-        <button id={this.props.reviewId + '-report'}>Report</button>
+        <button id={this.props.reviewId + '-report'} onClick = {e => this.reportBtnClick(e)}>Report</button>
       </div>
     );
   }

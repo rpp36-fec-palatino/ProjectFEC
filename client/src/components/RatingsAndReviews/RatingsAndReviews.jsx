@@ -53,6 +53,7 @@ class RatingsAndReviews extends React.Component {
     if (this.state.currentMetaReview !== prevState.currentMetaReview) {
       this.displayCurrentProductReviews(this.props.currentId);
     }
+
     if (this.state.sortingKeyword !== prevState.sortingKeyword) {
       this.displayCurrentProductReviews(this.props.currentId);
       this.setState({loadMore: true});
@@ -202,6 +203,16 @@ class RatingsAndReviews extends React.Component {
 
   }
 
+  removeReportedReview(reviewId) {
+    let currentReviews = this.state.allReviews;
+    let removed = currentReviews.filter(ele => ele.review_id !== reviewId);
+    this.setState({
+      currentReviews: removed,
+      currentDisplayedReviews: removed.slice(0, 2)
+    });
+
+  }
+
 
 
   render () {
@@ -231,6 +242,7 @@ class RatingsAndReviews extends React.Component {
             sortingKeyword = {this.state.sortingKeyword}
             passSearchKeyword = {this.passSearchKeyword.bind(this)}
             refresh={this.refresh.bind(this)}
+            removeReportedReview = {this.removeReportedReview.bind(this)}
 
 
           />

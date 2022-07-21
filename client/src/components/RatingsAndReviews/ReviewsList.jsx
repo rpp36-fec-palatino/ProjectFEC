@@ -133,6 +133,8 @@ class ReviewsList extends React.Component {
                     key={review.review_id}
                     review={review}
                     addDefaultSrc={this.addDefaultSrc.bind(this)}
+                    removeReportedReview = {this.props.removeReportedReview}
+                    refresh = {this.props.refresh}
 
                   />
                 )}
