@@ -43,6 +43,12 @@ class AddNewReviewModal extends React.Component {
   }
 
 
+  componentDidUpdate(prevState) {
+
+
+  }
+
+
   onValueChange(e) {
     this.setState({
       recommendStatus: e.target.value
@@ -130,6 +136,7 @@ class AddNewReviewModal extends React.Component {
 
     this.postReview(reviewObj);
     this.setState({posted: true});
+    this.props.refresh();
 
 
 

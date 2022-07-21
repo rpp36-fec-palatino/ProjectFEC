@@ -156,6 +156,7 @@ class ReviewsList extends React.Component {
                 handleCancelClick={this.handleCancelClick.bind(this)}
                 currentMeta={this.props.currentMetaReview}
                 currentProductId = {this.props.currentProductId}
+                refresh = {this.props.refresh}
               />
               : null}
 

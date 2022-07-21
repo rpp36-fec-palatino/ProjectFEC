@@ -50,6 +50,9 @@ class RatingsAndReviews extends React.Component {
       this.componentDidMount();
 
     }
+    if (this.state.currentMetaReview !== prevState.currentMetaReview) {
+      this.displayCurrentProductReviews(this.props.currentId);
+    }
     if (this.state.sortingKeyword !== prevState.sortingKeyword) {
       this.displayCurrentProductReviews(this.props.currentId);
       this.setState({loadMore: true});
@@ -193,6 +196,11 @@ class RatingsAndReviews extends React.Component {
 
   }
 
+  refresh() {
+    this.displayCurrentProductReviews(this.props.currentId);
+    this.displayCurrentProductReviewsMeta(this.props.currentId);
+
+  }
 
 
 
@@ -222,6 +230,7 @@ class RatingsAndReviews extends React.Component {
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
             passSearchKeyword = {this.passSearchKeyword.bind(this)}
+            refresh={this.refresh.bind(this)}
 
 
           />
