@@ -7,10 +7,16 @@ class AddToCart extends React.Component {
     this.state = {
       selectSize: 'default',
       selectSizeId: '',
-      selectQty: 1
+      selectQty: 'default'
     };
     this.changeSize = this.changeSize.bind(this);
     this.changeQty = this.changeQty.bind(this);
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps.styleId !== this.props.styleId) {
+      this.setState({selectSize: 'default', selectSizeId: '', selectQty: 'default'});
+    }
   }
 
   changeSize(event) {
@@ -42,18 +48,27 @@ class AddToCart extends React.Component {
   renderQuantity (skus) {
     if (!skus.null) {
       let qtyArr = [];
-      let skuQty = ((this.state.selectSizeId !== '') && (this.props.skus[this.state.selectSizeId])) ? this.props.skus[this.state.selectSizeId].quantity : 1;
+      let skuQty = ((this.state.selectSizeId !== '') && (this.props.skus[this.state.selectSizeId])) ? this.props.skus[this.state.selectSizeId].quantity : 0;
       if (skuQty > 15) {
         skuQty = 15;
       }
       for (var i = 1; i <= skuQty; i++) {
         qtyArr.push(i);
       }
-      return (<div>
-        <select className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
-          {qtyArr.map((qty) => <option value={qty} key={'qty-' + qty}>{qty}</option>)}
-        </select>
-      </div>);
+      if (this.state.selectSize === 'default' || qtyArr.length === 0) {
+        return (<div>
+          <select className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
+            <option value='default' key='default'>-</option>
+          </select>
+        </div>);
+      } else {
+        return (<div>
+          <select className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
+            {qtyArr.map((qty) => <option value={qty} key={'qty-' + qty}>{qty}</option>)}
+          </select>
+        </div>);
+      }
+
     }
   }
 

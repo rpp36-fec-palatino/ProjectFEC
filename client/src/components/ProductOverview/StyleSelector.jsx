@@ -125,7 +125,8 @@ class StyleSelector extends React.Component {
         </div>
         {this.renderStyles(this.props.styleData)}
         <AddToCart
-          skus = {this.props.selectedData.skus}/>
+          skus={this.props.selectedData.skus}
+          styleId={this.props.selectedData.style_id}/>
         <div className={css.bagOutfit}>
           <div className={css.addToBag}>
             <div className={css.bag}>ADD TO BAG</div>
