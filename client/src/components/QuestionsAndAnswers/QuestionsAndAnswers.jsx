@@ -47,7 +47,9 @@ class QuestionsAndAnswers extends React.Component {
       var regex = new RegExp('\\b' + term + '\\b');
       var matched = [];
       this.state.results.forEach((item) => {
-        matched.push(item.question_body.match(regex));
+        if (item.question_body.match(regex)) {
+          matched.push(item.question_body.match(regex));
+        }
       });
       console.log(matched);
     } else {
@@ -68,7 +70,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   loadQuestionsButton () {
-    if (this.state.numberResults === this.state.totalResults) {
+    if (this.state.numberResults === this.state.totalResults || this.state.numberResults > this.state.totalResults) {
       return null;
     }
     return (
@@ -122,7 +124,7 @@ class QuestionsAndAnswers extends React.Component {
       return (
         <div className={style.questionsAndAnswers}>
           <h1>Questions And Answers</h1>
-          <h3>No questions have been asked. Feel free to add a question</h3>
+          <p>No questions have been asked. Feel free to add a question.</p>
           <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
           {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
         </div>
