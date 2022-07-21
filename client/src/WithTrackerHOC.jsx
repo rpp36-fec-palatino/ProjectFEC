@@ -5,17 +5,23 @@ class WithTrackerHOC extends React.Component {
     super(props);
   }
 
-  onClick = e => {
+  onClick = (e) =>  {
     let result = {};
     var date = new Date();
     date.setTime(e.timeStamp);
     // console.log(`[track click] ${this.props.eventName}`);
     // console.log(`[track timestamp] ${new Date().toLocaleString()}`);
     result.clickedComponent = this.props.eventName;
-    result.element = e.currentTarget.id;
+    if (e.target.id ) {
+      result.element = e.target.id;
+    } else {
+      result.element = e.currentTarget.id;
+    }
+
     result.timeStamp = new Date();
-    console.log('e.currentTarget.id:', e.currentTarget.id)
-    console.log('e.target.id:', e.target.id)
+    console.log('e.currentTarget.id:', e.currentTarget.id);
+    console.log('e.target.id:', e.target.id);
+    console.log('event.target:', e.target);
 
     console.log(result);
   }

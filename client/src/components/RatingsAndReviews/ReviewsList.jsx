@@ -74,16 +74,23 @@ class ReviewsList extends React.Component {
       <WithTrackerHOC eventName={'ReviewList'}>
         <Wrapper>
           <div className={ReviewsListCSS.reviewListMain} id='review-list-main'>
+            <h2>Reviews List</h2>
 
-            <div className="sort-slect">
-              <h2>Reviews List</h2>
-              <h3> {this.props.currentReviews.length} reviews, sorted by </h3>
-              <select data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
-                <option value="relevant" name="Relevant">Relevant</option>
-                <option value="newest" data-testid="select-newest">Newest</option>
-                <option value="helpful" data-testid="select-helpful">Helpful</option>
-              </select>
-            </div>
+            {this.props.currentReviews.length
+              ? <div className={ReviewsListCSS.sortSelect} >
+
+                <div> {this.props.currentReviews.length} reviews, sorted by </div>
+                &nbsp;&nbsp;
+                <select data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
+                  <option value="relevant" name="Relevant">Relevant</option>
+                  <option value="newest" data-testid="select-newest">Newest</option>
+                  <option value="helpful" data-testid="select-helpful">Helpful</option>
+                </select>
+              </div>
+              : null
+            }
+
+
             <br />
             {'----------------------------------------------------------------------------------'}
 

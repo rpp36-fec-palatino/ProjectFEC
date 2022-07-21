@@ -11,6 +11,13 @@ import ReviewsList from '../ReviewsList.jsx';
 import Ratings from '../Ratings.jsx';
 import AddNewReviewModal from '../AddNewReviewModal.jsx';
 import {sampleReviews71698, sampleMetaReview71698} from '../../../../../sampleData/sampleReviewData.js';
+import { server } from './mocks/server.js';
+
+
+/************  API tests setup**************************/
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 
 // use describe, it pattern
@@ -40,14 +47,14 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
 
     />);
-    expect(screen.getByText(/Rating Breakdown and Fitting stats/i)).toBeInTheDocument();
+    expect(screen.findByText(/82% of reviews recommend this product/i)).toBeInTheDocument();
   });
   /*********** test modal pop *********************/
 
   it('should render the add new review modal component if add new review button is clicked', () => {
     const mockOnClick = jest.fn();
     const {queryByText, getByTestId} = render(<ReviewsList currentReviews = {sampleReviews71698.results}
-      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)} onClick = {mockOnClick()}/>);
+      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)} currentMeta = {sampleMetaReview71698} onClick = {mockOnClick()}/>);
     const clickButton = getByTestId('popModal');
     fireEvent.click(clickButton);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -57,7 +64,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
   it('should render upload images modal component if corresponding button is clicked', () => {
     const mockOnClick = jest.fn();
-    const {queryByText, getByTestId} = render(<AddNewReviewModal onClick = {mockOnClick()}/>);
+    const {queryByText, getByTestId} = render(<AddNewReviewModal currentMeta = {sampleMetaReview71698} onClick = {mockOnClick()}/>);
     const clickButton1 = getByTestId('popUploadImg');
     fireEvent.click(clickButton1);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -91,6 +98,9 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
 
 
 });
+
+
+
 
 
 
