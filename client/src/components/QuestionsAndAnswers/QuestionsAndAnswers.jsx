@@ -45,17 +45,14 @@ class QuestionsAndAnswers extends React.Component {
     term = term.toLowerCase();
     if (term.length > 2) {
       console.log('searching', term);
-      var regex = `.${term}.`;
+      var regex = `${term}.`;
       var matched = [];
      this.props.questions.results.forEach((item) => {
       var string = item.question_body.toLowerCase()
-      console.log(term, string);
         if (string.match(regex)) {
-          console.log('matched');
           matched.push(item);
         }
       });
-      console.log(matched)
       this.setState ({
         results: matched,
         numberResults: 2,
