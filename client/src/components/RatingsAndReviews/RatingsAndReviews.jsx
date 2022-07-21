@@ -25,7 +25,8 @@ class RatingsAndReviews extends React.Component {
       // recommended: {'false': '0', 'true': '0' },
       recommended: sampleMetaReview71697['recommended'],
       sortingKeyword: 'relevant', //default
-      ratingFilters: {'5': false, '4': false, '3': false, '2': false, '1': false}
+      ratingFilters: {'5': false, '4': false, '3': false, '2': false, '1': false},
+      searchKeyword: ''
 
 
 
@@ -60,6 +61,9 @@ class RatingsAndReviews extends React.Component {
     }
     if (this.state.ratingFilters !== prevState.ratingFilters) {
       this.displayRatingFilteredReviews(this.state.ratingFilters);
+    }
+    if (this.state.searchKeyword !== prevState.searchKeyword) {
+      this.searchByKeyword(this.state.searchKeyword);
     }
 
 
@@ -167,6 +171,28 @@ class RatingsAndReviews extends React.Component {
     });
   }
 
+  passSearchKeyword(keyword) {
+    this.setState({searchKeyword: keyword});
+  }
+
+
+  searchByKeyword(keyword) {
+    let prev = this.state.allReviews;
+    let filtered = prev;
+    if (keyword) {
+      filtered = prev.filter(ele => {
+        return (ele.body.toLowerCase().includes(keyword.toLowerCase()) || ele.summary.toLowerCase().includes(keyword.toLowerCase()));
+      } );
+
+    }
+
+    this.setState({
+      currentReviews: filtered,
+      currentDisplayedReviews: filtered.slice(0, 2)
+    });
+
+  }
+
 
 
 
@@ -195,6 +221,7 @@ class RatingsAndReviews extends React.Component {
             currentProductId = {this.state.currentProductId}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
+            passSearchKeyword = {this.passSearchKeyword.bind(this)}
 
 
           />

@@ -66,6 +66,17 @@ class ReviewsList extends React.Component {
     e.target.onClick = null;
   }
 
+  searchOnChange(e) {
+    if (e.target.value.length >= 3) {
+      console.log('current search:', e.target.value);
+
+      this.props.passSearchKeyword(e.target.value);
+
+    } else {
+      this.props.passSearchKeyword('');
+
+    }
+  }
 
 
 
@@ -77,7 +88,7 @@ class ReviewsList extends React.Component {
             <h2>Reviews List</h2>
             <div id='search-form' className={ReviewsListCSS.box}>
               <FaSearch />
-              <input className={ReviewsListCSS.searchForm} type="text" name="search" placeholder="Search reviews by keywords here...">
+              <input onChange ={e => this.searchOnChange(e)} id='search-input' className={ReviewsListCSS.searchForm} type="text" name="search" placeholder="Search reviews by keywords here...">
 
               </input>
             </div>
