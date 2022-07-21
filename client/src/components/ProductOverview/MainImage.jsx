@@ -20,7 +20,7 @@ class MainImage extends React.Component {
       <div id='mainImage' className={css.mainImage}>
         <div id='mainImageContainer' className={css.mainImageContainer}>
             <div id='imageControlLeft'
-              className={css.imageControl}
+              className={css.imageControlLeft}
               onClick={this.scrollleft}
               style={{visibility: this.state.toggleScrollLeft}}>
               &#60;
@@ -32,7 +32,7 @@ class MainImage extends React.Component {
               onClick={this.props.resize}
             />
             <div id='imageControlRight'
-              className={css.imageControl}
+              className={css.imageControlRight}
               onClick={this.scrollright}
               style={{visibility: this.state.toggleScrollRight}}>
               &#62;

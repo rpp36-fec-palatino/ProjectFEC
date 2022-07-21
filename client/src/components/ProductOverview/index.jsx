@@ -78,7 +78,7 @@ class ProductOverview extends React.Component {
 
   resize (event) {
     if (this.state.currentImgSize === 668) {
-      this.setState({currentImgSize: 1400});
+      this.setState({currentImgSize: 1350});
     } else {
       this.setState({currentImgSize: 668});
     }

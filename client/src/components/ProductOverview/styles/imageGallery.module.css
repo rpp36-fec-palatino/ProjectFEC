@@ -6,12 +6,12 @@
 
 .thumbnailControl {
   position: absolute;
-  width: 120px;
 }
 
 .thumbnailControlUp {
   position: relative;
   top: 10px;
+  left: 65px;
   transform: rotate(90deg);
   text-align: center;
   font-size: xx-large;
@@ -21,6 +21,7 @@
 .thumbnailControlDown {
   position: relative;
   top: 810px;
+  left: 65px;
   transform: rotate(90deg);
   text-align: center;
   font-size: xx-large;
@@ -30,10 +31,9 @@
 .thumbnailList {
   position: relative;
   height: 800px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
   margin-top: 50px;
-  margin-right: 10px;
   overflow: hidden;
 }
 

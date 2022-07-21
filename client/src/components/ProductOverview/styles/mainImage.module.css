@@ -10,9 +10,19 @@
   background-color: rgb(220, 220, 220);
 }
 
-.imageControl {
-  padding-top: 400px;
-  padding-bottom: 400px;
+.imageControlLeft {
+  padding-top: 425px;
+  padding-bottom: 425px;
+  padding-left: 20px;
+  width: 121px;
+  text-align: center;
+  font-size: xx-large;
+  background-color: rgb(220, 220, 220);
+}
+
+.imageControlRight {
+  padding-top: 425px;
+  padding-bottom: 425px;
   padding-right: 20px;
   width: 121px;
   text-align: center;
