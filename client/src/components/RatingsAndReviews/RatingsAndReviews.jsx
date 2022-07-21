@@ -192,6 +192,7 @@ class RatingsAndReviews extends React.Component {
             loadMore = {this.state.loadMore}
             clickLoadMoreBtn = {this.clickLoadMoreBtn.bind(this)}
             currentProductName = {this.props.currentProductName}
+            currentProductId = {this.state.currentProductId}
             dropdownSelection = {this.selectOption.bind(this)}
             sortingKeyword = {this.state.sortingKeyword}
 

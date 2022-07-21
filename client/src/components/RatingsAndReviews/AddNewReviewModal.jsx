@@ -1,6 +1,7 @@
 import React from 'react';
 import AddStarRating from './AddStarRating.jsx';
 import CharacteristicsForm from './CharacteristicsForm.jsx';
+import axios from 'axios';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
@@ -11,18 +12,33 @@ class AddNewReviewModal extends React.Component {
 
       currentItemName: '',
 
+      currentItemId: 0,
+
       recommendStatus: 'yes', //default
 
       starRating: '', //default
 
-      images: []
+      characteristics: {},
+
+      summary: '',
+
+      ReviewBody: '',
+
+      images: [],
+
+      nickeName: '',
+
+      Email: '',
+
+      posted: false
 
     };
   }
 
   componentDidMount () {
     this.setState({
-      currentItemName: this.props.currentName
+      currentItemName: this.props.currentName,
+      currentItemId: this.props.currentProductId
     });
   }
 
@@ -32,13 +48,6 @@ class AddNewReviewModal extends React.Component {
       recommendStatus: e.target.value
     });
   }
-
-  // uploadModalPop(e) {
-  //   e.preventDefault();
-  //   this.setState({
-  //     uploadModal: true
-  //   });
-  // }
 
   onImageChange(e) {
 
@@ -63,6 +72,76 @@ class AddNewReviewModal extends React.Component {
 
   }
 
+  passStarRating(overallRating) {
+    console.log('this is the overall rating:', overallRating);
+    this.setState({starRating: overallRating});
+  }
+
+  passCharRating(charRating) {
+    console.log('this is the characteristics rating data:', charRating);
+    //convert the key to the corresponding id:
+    let charRatingConverted = {};
+    for (let key in charRating) {
+      if (charRating[key].length) {
+        let charKeyId = this.props.currentMeta.characteristics[key].id;
+        charRatingConverted[charKeyId] = Number(charRating[key]);
+      }
+    }
+    console.log('this is processed:', charRatingConverted);
+    this.setState({characteristics: charRatingConverted});
+  }
+
+
+
+
+
+
+
+
+
+  postReview(reviewObj) {
+
+    axios.post('/reviews', reviewObj)
+      .then(response => {
+        console.log('Review posted!', response);
+      }).catch(err => console.log('can not post review!', err));
+
+  }
+
+  submitBtnClick(e) {
+    e.preventDefault();
+
+    let reviewObj = {};
+    // eslint-disable-next-line camelcase
+    reviewObj.product_id = Number(this.state.currentItemId);
+    reviewObj.rating = this.state.starRating;
+    reviewObj.summary = this.state.summary;
+    reviewObj.body = this.state.ReviewBody;
+    if (this.state.recommendStatus === 'yes') {
+      reviewObj.recommend = true;
+    } else {
+      reviewObj.recommend = false;
+    }
+    reviewObj.name = this.state.nickeName;
+    reviewObj.email = this.state.Email;
+    reviewObj.photos = this.state.images;
+    reviewObj.characteristics = this.state.characteristics;
+    console.log(reviewObj);
+
+    this.postReview(reviewObj);
+    this.setState({posted: true});
+
+
+
+  }
+
+
+
+
+
+
+
+
 
   render () {
     return (
@@ -77,7 +156,7 @@ class AddNewReviewModal extends React.Component {
           <div name="rating">
             <br />
             <b>Overall Rating *</b>
-            <AddStarRating />
+            <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
           </div>
           <br />
 
@@ -90,24 +169,24 @@ class AddNewReviewModal extends React.Component {
           <br />
 
 
-          <CharacteristicsForm currentMeta = {this.props.currentMeta}/>
+          <CharacteristicsForm currentMeta = {this.props.currentMeta} passCharRating = {this.passCharRating.bind(this)}/>
           <br />
 
 
           <div>
-            <label><b>Summary</b> </label>
+            <label><b>Review Summary</b> </label>
             <br />
-            <input type="text" name="summary" placeholder="summary" maxLength='60'/>
+            <textarea type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
           </div>
           <div>
             <label><b>Review Body *</b></label>
             <br />
-            <textarea id="body" type="text" name="body" placeholder="your review..." maxLength='1000' rows="4" />
+            <textarea id="body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
           </div>
 
 
           <div id='imageUploader' >
-            <h4>Upload (up to 5) images </h4>
+            <h4>Upload your photos (up to 5) </h4>
             {this.state.images.length
 
               ? <div className = {AddNewReviewModalCSS.imageBox}>
@@ -160,19 +239,18 @@ class AddNewReviewModal extends React.Component {
 
 
           <div>
-            <label><b>Nickname *</b></label>
-            <input type="text" name="name" placeholder="name" />
+            <label><b>What is your nickname *</b></label>
+            <input type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
             <br />
-            <label><b>Email *</b></label>
-            <input type="text" name="email" placeholder="email" />
-            <br />
+            <label><b>Your Email *</b></label>
+            <input type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
+            <p>For authentication reasons, you will not be emailed</p>
+
           </div>
+          {this.state.posted ? <div>Review posted!</div> : null}
 
-
-          <br />
-
-          <button>Submit Review</button>
-          <button onClick = {e => this.props.handleCancelClick(e)}>cancel</button>
+          <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
+          <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import SingleStar from './SingleStar.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
-let AddStarRating = ({onChange}) => {
+let AddStarRating = ({passStarRating}) => {
   const msg = {
     '1': 'Poor',
     '2': 'Fair',
@@ -14,8 +14,12 @@ let AddStarRating = ({onChange}) => {
   };
 
   const [rating, setRating] = useState(0);
+  useEffect(() => {
+    passStarRating(rating);
+  }, [rating]);
+
   return (
-    <div>
+    <div id="add-star-rating">
       {[1, 2, 3, 4, 5].map((value) => (
         <SingleStar
           key={value}

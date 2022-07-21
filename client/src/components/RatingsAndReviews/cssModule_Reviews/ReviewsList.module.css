@@ -7,7 +7,7 @@
 }
 
 .reviewScroller {
-  height:400px;
+  height:500px;
   width: auto;
   background-color: #ffffff;
   padding: 5px, 5px, 5px;
@@ -20,4 +20,32 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.searchForm {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 12px 12px 12px;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+  width: 95%;
+  font-family: Arial, Helvetica, sans-serif;
+  border: solid 3pt #ccc;
+  padding-left: 10px;
+  color: Grey;
+  box-shadow: 2px 3px #888888;
+  border-radius: 10px;
+
 }

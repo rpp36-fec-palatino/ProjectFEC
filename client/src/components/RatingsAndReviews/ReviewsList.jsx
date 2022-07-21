@@ -4,7 +4,7 @@ import AddNewReviewModal from './AddNewReviewModal.jsx';
 import ReviewsListCSS from './cssModule_Reviews/ReviewsList.module.css';
 import WithTrackerHOC from '../../WithTrackerHOC.jsx';
 import Wrapper from '../../Wrapper.jsx';
-
+import { FaSearch } from 'react-icons/fa';
 
 
 class ReviewsList extends React.Component {
@@ -75,13 +75,21 @@ class ReviewsList extends React.Component {
         <Wrapper>
           <div className={ReviewsListCSS.reviewListMain} id='review-list-main'>
             <h2>Reviews List</h2>
+            <div id='search-form' className={ReviewsListCSS.box}>
+              <FaSearch />
+              <input className={ReviewsListCSS.searchForm} type="text" name="search" placeholder="Search reviews by keywords here...">
+
+              </input>
+            </div>
+            <br />
+
 
             {this.props.currentReviews.length
               ? <div className={ReviewsListCSS.sortSelect} >
 
                 <div> {this.props.currentReviews.length} reviews, sorted by </div>
                 &nbsp;&nbsp;
-                <select data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
+                <select id='dropdown-menu' data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
                   <option value="relevant" name="Relevant">Relevant</option>
                   <option value="newest" data-testid="select-newest">Newest</option>
                   <option value="helpful" data-testid="select-helpful">Helpful</option>
@@ -92,7 +100,14 @@ class ReviewsList extends React.Component {
 
 
             <br />
-            {'----------------------------------------------------------------------------------'}
+            <hr
+              style={{
+                'background': 'grey',
+                'color': 'grey',
+                'borderColor': 'white',
+                'height': '1px',
+                'marginRight': '35px'
+              }}/>
 
             {this.props.currentReviews.length === 0
               ? <div>No review to display!
@@ -129,6 +144,7 @@ class ReviewsList extends React.Component {
                 currentName={this.props.currentProductName}
                 handleCancelClick={this.handleCancelClick.bind(this)}
                 currentMeta={this.props.currentMetaReview}
+                currentProductId = {this.props.currentProductId}
               />
               : null}
 
