@@ -17,11 +17,13 @@ class ImageGallery extends React.Component {
     this.scrollup = this.scrollup.bind(this);
     this.renderScrollUp = this.renderScrollUp.bind(this);
     this.renderScrollDown = this.renderScrollDown.bind(this);
+    this.focusThumbnail = this.focusThumbnail.bind(this);
   }
 
   componentDidMount () {
     this.renderScrollUp();
     this.renderScrollDown();
+    this.focusThumbnail();
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -33,8 +35,8 @@ class ImageGallery extends React.Component {
       this.renderScrollDown();
     }
 
-    if (previousProps.currentImgIndex !== this.props.currentImgIndex && this.props.currentImgIndex === 0) {
-      this.setState({thumbnailScroll: 0, scrollCount: 0})
+    if (previousProps.currentImgIndex !== this.props.currentImgIndex) {
+      this.focusThumbnail();
     }
   }
 
@@ -42,37 +44,37 @@ class ImageGallery extends React.Component {
     let unique = 0;
     return photos.map((thumbnail) => {
       unique++;
-        if (thumbnail.url === this.props.currentImg.url) {
-          return (
-            <div className={css.thumbnail} key={unique + thumbnail.url} >
-              <div className={css.thumbnailSelected}></div>
-              <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
-            </div>
-          );
-        } else {
-          return (
-            <div className={css.thumbnail} key={unique + thumbnail.url} >
-              <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
-            </div>
-          );
-        }
+      if (thumbnail.url === this.props.currentImg.url) {
+        return (
+          <div className={css.thumbnail} key={unique + thumbnail.url} >
+            <div className={css.thumbnailSelected}></div>
+            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+          </div>
+        );
+      } else {
+        return (
+          <div className={css.thumbnail} key={unique + thumbnail.url} >
+            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+          </div>
+        );
+      }
     });
   }
 
   renderScrollUp () {
     if (this.state.scrollCount > 0) {
-      this.setState({toggleScrollUp: 'visible'})
+      this.setState({toggleScrollUp: 'visible'});
     } else {
-      this.setState({toggleScrollUp: 'hidden'})
+      this.setState({toggleScrollUp: 'hidden'});
     }
   }
 
   renderScrollDown () {
     let photosQty = this.state.photos.length;
     if (photosQty > 7 && this.state.scrollCount < photosQty - 7) {
-      this.setState({toggleScrollDown: 'visible'})
+      this.setState({toggleScrollDown: 'visible'});
     } else {
-      this.setState({toggleScrollDown: 'hidden'})
+      this.setState({toggleScrollDown: 'hidden'});
     }
   }
 
@@ -80,14 +82,36 @@ class ImageGallery extends React.Component {
     let thumbnailScroll = this.state.thumbnailScroll - 115;
     let scrollCount = this.state.scrollCount;
     scrollCount++;
-    this.setState({thumbnailScroll, scrollCount})
+    this.setState({thumbnailScroll, scrollCount});
+    if (this.props.currentImgIndex - scrollCount < 0) {
+      this.props.changeImage(null, 'next');
+    }
   }
 
-  scrollup () {
+  scrollup (scrollMultiplier = 1) {
     let thumbnailScroll = this.state.thumbnailScroll + 115;
     let scrollCount = this.state.scrollCount;
     scrollCount--;
-    this.setState({thumbnailScroll, scrollCount})
+    this.setState({thumbnailScroll, scrollCount});
+    if (this.props.currentImgIndex - 6 > scrollCount) {
+      this.props.changeImage(null, 'previous');
+    }
+  }
+
+  focusThumbnail () {
+    let currentImgIndex = this.props.currentImgIndex;
+    let scrollCount = this.state.scrollCount;
+    let scrollMultiplier;
+    if (currentImgIndex > 6 + scrollCount) {
+      scrollMultiplier = currentImgIndex - 6 - scrollCount;
+    } else if (currentImgIndex < scrollCount) {
+      scrollMultiplier = currentImgIndex - scrollCount;
+    }
+    if (scrollMultiplier) {
+      let thumbnailScroll = this.state.thumbnailScroll - 115 * scrollMultiplier;
+      let scrollCount = this.state.scrollCount + scrollMultiplier;
+      this.setState({thumbnailScroll, scrollCount});
+    }
   }
 
   render () {
@@ -113,9 +137,10 @@ class ImageGallery extends React.Component {
           </div>
         </div>
         <MainImage
-        currentImg={this.props.currentImg}
-        currentImgSize={this.props.currentImgSize}
-        resize={this.props.resize}/>
+          currentImg={this.props.currentImg}
+          currentImgIndex={this.props.currentImgIndex}
+          changeImage={this.props.changeImage}
+          photosLength={this.props.photos.length}/>
       </div>
     );
   }

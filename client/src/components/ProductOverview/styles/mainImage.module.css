@@ -30,8 +30,13 @@
   background-color: rgb(220, 220, 220);
 }
 
-.currentImage {
+.currentImageContainer {
   border: solid 25px rgb(220, 220, 220);
+  height: 850px;
+  object-fit: cover;
+}
+
+.currentImage {
   height: 850px;
   object-fit: cover;
   transition: 0.25s ease-in-out all;
