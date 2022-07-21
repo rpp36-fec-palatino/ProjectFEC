@@ -88,7 +88,7 @@ class ImageGallery extends React.Component {
     }
   }
 
-  scrollup (scrollMultiplier = 1) {
+  scrollup () {
     let thumbnailScroll = this.state.thumbnailScroll + 115;
     let scrollCount = this.state.scrollCount;
     scrollCount--;
