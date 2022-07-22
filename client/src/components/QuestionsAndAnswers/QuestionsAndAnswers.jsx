@@ -9,6 +9,8 @@ import SearchQuestions from './SearchQuestions.jsx';
 import QuestionsList from './QuestionsList.jsx';
 import questionsAndAnswers from './exampleData.js';
 import AddQuestion from './AddQuestion.jsx';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -132,23 +134,31 @@ class QuestionsAndAnswers extends React.Component {
   render () {
     if (this.state.totalResults === 0) {
       return (
-        <div className={style.questionsAndAnswers}>
-          <h1>Questions And Answers</h1>
-          <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
-          <p>No questions have been asked. Feel free to add a question.</p>
-          <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
-          {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
-        </div>
+        <WithTrackerHOC eventName={'QuestionsAndAnswers->Overview'}>
+          <Wrapper>
+            <div className={style.questionsAndAnswers} id="qAndA">
+              <h1 id="qAndATitle">Questions And Answers</h1>
+              <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
+              <p>No questions have been asked. Feel free to add a question.</p>
+              <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
+              {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
+            </div>
+          </Wrapper>
+        </WithTrackerHOC>
       );
     }
     return (
-      <div className={style.questionsAndAnswers}>
-        <h1>Questions And Answers</h1>
-        <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
-        <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName} addAns={this.addQuestionButton.bind(this)}/>
-        {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
-        {this.state.addQuestionForm ? <AddQuestion addQ={this.addQuestionButton.bind(this)} productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
-      </div>
+      <WithTrackerHOC eventName={'QuestionsAndAnswers->Overview'}>
+        <Wrapper>
+          <div className={style.questionsAndAnswers} id="qAndA">
+            <h1 id="qAndATitle">Questions And Answers</h1>
+            <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
+            <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName} addAns={this.addQuestionButton.bind(this)}/>
+            {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
+            {this.state.addQuestionForm ? <AddQuestion addQ={this.addQuestionButton.bind(this)} productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
+          </div>
+        </Wrapper>
+      </WithTrackerHOC>
     );
   }
 }
