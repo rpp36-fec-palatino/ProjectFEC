@@ -8,7 +8,7 @@ const QuestionsList = (props) => {
       <div className={style.questionListScroller}>
         {props.results.map((item) => {
           return (
-            <Question key={item.question_id} qAndA={item} helpfulQ={props.helpfulQ} productName={props.productName}/>
+            <Question key={item.question_id} qAndA={item} helpfulQ={props.helpfulQ} productName={props.productName} addAns={props.addAns}/>
           );
         })}
       </div>

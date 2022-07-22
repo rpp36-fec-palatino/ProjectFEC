@@ -145,9 +145,9 @@ class QuestionsAndAnswers extends React.Component {
       <div className={style.questionsAndAnswers}>
         <h1>Questions And Answers</h1>
         <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
-        <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName}/>
+        <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName} addAns={this.addQuestionButton.bind(this)}/>
         {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
-        {this.state.addQuestionForm ? <AddQuestion productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
+        {this.state.addQuestionForm ? <AddQuestion addQ={this.addQuestionButton.bind(this)} productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
       </div>
     );
   }
