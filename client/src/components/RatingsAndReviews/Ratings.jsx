@@ -81,7 +81,7 @@ const Ratings = (props) => {
 
 
 
-            : <div><h2>This product has no ratings yet</h2></div>
+            : <div style={{ 'fontSize': '30px', 'fontFamily': 'Arial'}}>This product has no ratings yet</div>
 
 
           }

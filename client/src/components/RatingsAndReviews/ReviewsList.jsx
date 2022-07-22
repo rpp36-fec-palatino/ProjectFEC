@@ -121,7 +121,7 @@ class ReviewsList extends React.Component {
               }}/>
 
             {this.props.currentReviews.length === 0
-              ? <div>No review to display!
+              ? <div style={{ 'fontSize': '20px'}}>No review to display!
                 <br />
                 <br />
               </div>
