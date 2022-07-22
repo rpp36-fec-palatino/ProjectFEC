@@ -26,6 +26,10 @@ class AddNewReviewModal extends React.Component {
 
       images: [],
 
+      uploadedImages: [],
+
+      // uploaded: false,
+
       nickeName: '',
 
       Email: '',
@@ -43,10 +47,14 @@ class AddNewReviewModal extends React.Component {
   }
 
 
-  componentDidUpdate(prevState) {
+  // componentDidUpdate(prevState) {
+  //   if (this.state.images !== prevState.images) {
+  //     this.imageUpload();
+
+  //   }
 
 
-  }
+  // }
 
 
   onValueChange(e) {
@@ -60,13 +68,29 @@ class AddNewReviewModal extends React.Component {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0];
       let results = this.state.images;
+      let preUploadStatus = this.state.uploaded;
       results.push(URL.createObjectURL(img));
 
       this.setState({
-        images: results
+        images: results,
+        // uploaded: !preUploadStatus
       });
     }
   }
+
+  // imageUpload() {
+  //   this.state.images.forEach(image => {
+  //     let formData = new FormData();
+  //     formData.append('image', image);
+  //     axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
+  //       .then(response => {
+  //         let updated = this.state.uploadedImages.concat(response.data.url);
+  //         this.setState({
+  //           uploadedImages: updated
+  //         });
+  //       });
+  //   });
+  // }
 
   removeBtnClick(e) {
     e.preventDefault();
@@ -233,7 +257,7 @@ class AddNewReviewModal extends React.Component {
   +
                   </div>
                 </label>
-                <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)}/>
+                <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
 
               </div>
               : null
