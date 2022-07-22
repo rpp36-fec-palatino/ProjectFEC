@@ -47,8 +47,8 @@ class QuestionsAndAnswers extends React.Component {
       console.log('searching', term);
       var regex = `${term}.`;
       var matched = [];
-     this.props.questions.results.forEach((item) => {
-      var string = item.question_body.toLowerCase()
+      this.props.questions.results.forEach((item) => {
+        var string = item.question_body.toLowerCase();
         if (string.match(regex)) {
           matched.push(item);
         }
@@ -58,7 +58,7 @@ class QuestionsAndAnswers extends React.Component {
         numberResults: 2,
         totalResults: matched.length,
         currentResults: matched.slice(0, 2)
-      })
+      });
     } else {
       this.setState ({
         results: this.props.questions.results,
