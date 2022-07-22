@@ -181,7 +181,8 @@ class RatingsAndReviews extends React.Component {
 
 
   searchByKeyword(keyword) {
-    let prev = this.state.allReviews;
+    let prev = this.state.currentReviews;
+    let allReviews = this.state.allReviews;
     let filtered = prev;
     if (keyword) {
       filtered = prev.filter(ele => {
@@ -191,7 +192,7 @@ class RatingsAndReviews extends React.Component {
     }
 
     this.setState({
-      currentReviews: filtered,
+      currentReviews: prev,
       currentDisplayedReviews: filtered.slice(0, 2)
     });
 
