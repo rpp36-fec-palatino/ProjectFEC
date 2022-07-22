@@ -19,9 +19,9 @@ class WithTrackerHOC extends React.Component {
     }
 
     result.timeStamp = new Date();
-    console.log('e.currentTarget.id:', e.currentTarget.id);
-    console.log('e.target.id:', e.target.id);
-    console.log('event.target:', e.target);
+    // console.log('e.currentTarget.id:', e.currentTarget.id);
+    // console.log('e.target.id:', e.target.id);
+    // console.log('event.target:', e.target);
 
     console.log(result);
   }

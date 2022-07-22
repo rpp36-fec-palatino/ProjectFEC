@@ -1,6 +1,8 @@
 import React from 'react';
 import css from './styles/imageGallery.module.css';
 import MainImage from './MainImage.jsx';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
 
 class ImageGallery extends React.Component {
   constructor(props) {
@@ -48,13 +50,23 @@ class ImageGallery extends React.Component {
         return (
           <div className={css.thumbnail} key={unique + thumbnail.url} >
             <div className={css.thumbnailSelected}></div>
-            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+            <img
+              id={unique + thumbnail.url}
+              src={thumbnail.thumbnail_url}
+              name={thumbnail.url}
+              onClick={this.props.changeImage}
+            />
           </div>
         );
       } else {
         return (
           <div className={css.thumbnail} key={unique + thumbnail.url} >
-            <img src={thumbnail.thumbnail_url} name={thumbnail.url} onClick={this.props.changeImage}/>
+            <img
+              id={unique + thumbnail.url}
+              src={thumbnail.thumbnail_url}
+              name={thumbnail.url}
+              onClick={this.props.changeImage}
+            />
           </div>
         );
       }
@@ -117,24 +129,32 @@ class ImageGallery extends React.Component {
   render () {
     return (
       <div id='ImageGallery' className={css.imageGallery}>
-        <div id='thumbnailControl' className={css.thumbnailControl}>
-          <div id='thumbnailControlUp'
-            className={css.thumbnailControlUp}
-            onClick={this.scrollup}
-            style={{visibility: this.state.toggleScrollUp}}>
-            &#60;
-          </div>
-          <div id='thumbnailControlDown'
-            className={css.thumbnailControlDown}
-            onClick={this.scrolldown}
-            style={{visibility: this.state.toggleScrollDown}}>
-            &#62;
-          </div>
-        </div>
+        <WithTrackerHOC eventName={'ProductOverview->ImageGallery->ThumbnailList'}>
+          <Wrapper>
+            <div className={css.thumbnailControl}>
+              <div id='thumbnailControlUp'
+                className={css.thumbnailControlUp}
+                onClick={this.scrollup}
+                style={{visibility: this.state.toggleScrollUp}}>
+                &#60;
+              </div>
+              <div id='thumbnailControlDown'
+                className={css.thumbnailControlDown}
+                onClick={this.scrolldown}
+                style={{visibility: this.state.toggleScrollDown}}>
+                &#62;
+              </div>
+            </div>
+          </Wrapper>
+        </WithTrackerHOC>
         <div id='thumbnailList' className={css.thumbnailList}>
-          <div className={css.thumbnails} style={{top: this.state.thumbnailScroll}}>
-            {this.renderThumbnails(this.props.photos)}
-          </div>
+          <WithTrackerHOC eventName={'ProductOverview->ImageGallery->ThumbnailList'}>
+            <Wrapper>
+              <div className={css.thumbnails} style={{top: this.state.thumbnailScroll}}>
+                {this.renderThumbnails(this.props.photos)}
+              </div>
+            </Wrapper>
+          </WithTrackerHOC>
         </div>
         <MainImage
           currentImg={this.props.currentImg}
