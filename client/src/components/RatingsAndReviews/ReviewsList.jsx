@@ -159,6 +159,7 @@ class ReviewsList extends React.Component {
                 currentMeta={this.props.currentMetaReview}
                 currentProductId = {this.props.currentProductId}
                 refresh = {this.props.refresh}
+
               />
               : null}
 

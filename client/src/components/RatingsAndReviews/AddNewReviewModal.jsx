@@ -176,121 +176,125 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <div data-testid="addNewModal" id="add-new-review-title" className = {AddNewReviewModalCSS.modalContainer}>
-        <h3 >Add a New Review</h3>
-        <form>
-          <div id="heading">
-            <span>Write Your Review</span>
-            <div style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
-          </div>
+      <>
+        <div className = {AddNewReviewModalCSS.dimmerBg}>lalala</div>
+        <div data-testid="addNewModal" id="add-new-review-title" className = {AddNewReviewModalCSS.modalContainer} >
+          <h3 >Add a New Review</h3>
+          <form>
+            <div id="heading">
+              <span>Write Your Review</span>
+              <div style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
+            </div>
 
-          <div name="rating">
+            <div name="rating">
+              <br />
+              <b>Overall Rating *</b>
+              <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
+            </div>
             <br />
-            <b>Overall Rating *</b>
-            <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
-          </div>
-          <br />
 
 
-          <div id="recommend">
-            <label><b>Do you recommend this product? *</b> </label>
-            <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
-            <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
-          </div>
-          <br />
-
-
-          <CharacteristicsForm currentMeta = {this.props.currentMeta} passCharRating = {this.passCharRating.bind(this)}/>
-          <br />
-
-
-          <div>
-            <label><b>Review Summary</b> </label>
+            <div id="recommend">
+              <label><b>Do you recommend this product? *</b> </label>
+              <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
+              <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
+            </div>
             <br />
-            <textarea type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
-          </div>
-          <div>
-            <label><b>Review Body *</b></label>
+
+
+            <CharacteristicsForm currentMeta = {this.props.currentMeta} passCharRating = {this.passCharRating.bind(this)}/>
             <br />
-            <textarea id="body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
-          </div>
 
 
-          <div id='imageUploader' >
-            <h4>Upload your photos (up to 5) </h4>
-            {this.state.images.length
-
-              ? <div className = {AddNewReviewModalCSS.imageBox}>
-                {this.state.images.map((photo, index) => (
-                  <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
-                    <span
-                      className = {AddNewReviewModalCSS.removeBtn}
-                      id={'remove-btn-' + index}
-                      onClick={
-                        e => {
-                          this.removeBtnClick(e);
-
-                        }
-                      }> &#215;</span>
-
-                    <img className = {AddNewReviewModalCSS.photoThumbnail} src={photo} />
-
-                  </div>
+            <div>
+              <label><b>Review Summary</b> </label>
+              <br />
+              <textarea type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
+            </div>
+            <div>
+              <label><b>Review Body *</b></label>
+              <br />
+              <textarea id="body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+            </div>
 
 
+            <div id='imageUploader' >
+              <h4>Upload your photos (up to 5) </h4>
+              {this.state.images.length
 
-                ))}
+                ? <div className = {AddNewReviewModalCSS.imageBox}>
+                  {this.state.images.map((photo, index) => (
+                    <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
+                      <span
+                        className = {AddNewReviewModalCSS.removeBtn}
+                        id={'remove-btn-' + index}
+                        onClick={
+                          e => {
+                            this.removeBtnClick(e);
+
+                          }
+                        }> &#215;</span>
+
+                      <img className = {AddNewReviewModalCSS.photoThumbnail} src={photo} />
+
+                    </div>
 
 
-              </div>
-              : <div>no photo yet<br /></div>
 
-            }
-
-            {this.state.images.length < 5
-              ? <div>
-                <br />
-                <label htmlFor="fileUpload">
+                  ))}
 
 
-                  <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
+                </div>
+                : <div>no photo yet<br /></div>
+
+              }
+
+              {this.state.images.length < 5
+                ? <div>
+                  <br />
+                  <label htmlFor="fileUpload">
+
+
+                    <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
   +
-                  </div>
-                </label>
-                <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
+                    </div>
+                  </label>
+                  <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
 
-              </div>
-              : null
-            }
-
-
-
-          </div>
-          <br />
+                </div>
+                : null
+              }
 
 
-          <div>
-            <label><b>What is your nickname *</b></label>
-            <input type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
+
+            </div>
             <br />
-            <label><b>Your Email *</b></label>
-            <input type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
-            <p>For authentication reasons, you will not be emailed</p>
-
-          </div>
-          {this.state.posted ? <div>Review posted!</div> : null}
-
-          <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
-          <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
+            <div>
+              <label><b>What is your nickname *</b></label>
+              <input type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
+              <br />
+              <label><b>Your Email *</b></label>
+              <input type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
+              <p>For authentication reasons, you will not be emailed</p>
+
+            </div>
+            {this.state.posted ? <div>Review posted!</div> : null}
+
+            <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
+            <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
 
-        </form>
 
 
-      </div>
+          </form>
+
+
+        </div>
+      </>
+
     );
   }
 }
