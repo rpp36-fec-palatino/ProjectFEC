@@ -2,6 +2,8 @@ import React from 'react';
 import AddToCart from './AddToCart.jsx';
 import css from './styles/styleSelector.module.css';
 import Stars from '../RatingsAndReviews/Stars.jsx';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -22,15 +24,15 @@ class StyleSelector extends React.Component {
   currentPrice (style) {
     if (parseInt(style.original_price) !== 0) {
       if (style.sale_price !== null) {
-        return (<div className={css.price}>
+        return (<div id='price' className={css.price}>
           <div className={css.original}>${style.original_price}</div>
           <div>${style.sale_price}</div>
         </div>);
       } else {
-        return (<div className={css.price}>${style.original_price}</div>);
+        return (<div id='price' className={css.price}>${style.original_price}</div>);
       }
     } else {
-      return (<div className={css.price}>${this.props.productData.default_price}</div>);
+      return (<div id='price' className={css.price}>${this.props.productData.default_price}</div>);
     }
   }
 
@@ -59,12 +61,12 @@ class StyleSelector extends React.Component {
             return (
               <div key={style.style_id} id={style.style_id} className={css.styleIcon} onClick={this.changeStyle}>
                 <div className={css.checkMark}>&#10004;</div>
-                <img src={style.photos[0].thumbnail_url}/>
+                <img id={'style: ' + style.style_id} src={style.photos[0].thumbnail_url}/>
               </div>);
           } else {
             return (
               <div key={style.style_id} id={style.style_id} className={css.styleIcon} onClick={this.changeStyle}>
-                <img src={style.photos[0].thumbnail_url}/>
+                <img id={'style: ' + style.style_id} src={style.photos[0].thumbnail_url}/>
               </div>);
           }
         })}
@@ -81,7 +83,7 @@ class StyleSelector extends React.Component {
       let str = `Read all ${this.props.reviewCount} reviews`;
       return (<div>
         <Stars percent={percent}/>
-        <a className={css.reviewCount} href="#RatingsAndReviews">{str}</a>
+        <a id='scrollToReviews' className={css.reviewCount} href="#RatingsAndReviews">{str}</a>
       </div>);
     }
   }
@@ -91,12 +93,12 @@ class StyleSelector extends React.Component {
     let currentProductId = this.props.productData.id;
     if (outfit[currentProductId]) {
       return (
-        <div className={css.outfit} onClick={this.toggleOutfit}>
+        <div id='toggleOutfit' className={css.outfit} onClick={this.toggleOutfit}>
           &#9825;
         </div>);
     } else {
       return (
-        <div className={css.outfit} onClick={this.toggleOutfit}>
+        <div id='toggleOutfit' className={css.outfit} onClick={this.toggleOutfit}>
           &#9734;
         </div>);
     }
@@ -114,26 +116,31 @@ class StyleSelector extends React.Component {
 
   render () {
     return (
-      <div id='StyleSelector' className={css.styleSelector}>
-        {this.renderRating()}
-        <div className={css.category}>{this.props.productData.category}</div>
-        <div className={css.productName}>{this.props.productData.name}</div>
-        {this.currentPrice(this.props.selectedData)}
-        <div className={css.style}>
-          <b>{'STYLE > '}</b>
-          {this.props.selectedData.name}
-        </div>
-        {this.renderStyles(this.props.styleData)}
-        <AddToCart
-          skus = {this.props.selectedData.skus}/>
-        <div className={css.bagOutfit}>
-          <div className={css.addToBag}>
-            <div className={css.bag}>ADD TO BAG</div>
-            <div className={css.plus}>+</div>
+      <WithTrackerHOC eventName={'ProductOverview->StyleSelector'}>
+        <Wrapper>
+          <div id='StyleSelector' className={css.styleSelector}>
+            {this.renderRating()}
+            <div id='category' className={css.category}>{this.props.productData.category}</div>
+            <div id='productName' className={css.productName}>{this.props.productData.name}</div>
+            {this.currentPrice(this.props.selectedData)}
+            <div id='style' className={css.style}>
+              <b>{'STYLE > '}</b>
+              {this.props.selectedData.name}
+            </div>
+            {this.renderStyles(this.props.styleData)}
+            <AddToCart
+              skus={this.props.selectedData.skus}
+              styleId={this.props.selectedData.style_id}/>
+            <div className={css.bagOutfit}>
+              <div className={css.addToBag}>
+                <div id='addToBag' className={css.bag}>ADD TO BAG</div>
+                <div className={css.plus}>+</div>
+              </div>
+              {this.renderOutfit()}
+            </div>
           </div>
-          {this.renderOutfit()}
-        </div>
-      </div>
+        </Wrapper>
+      </WithTrackerHOC>
     );
   }
 }

@@ -7,7 +7,6 @@ import css from './styles/index.module.css';
 import ErrorBoundary from '../../ErrorBoundary.jsx';
 import exampleData from './exampleData.js';
 
-
 class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
@@ -17,18 +16,15 @@ class ProductOverview extends React.Component {
       selectedData: this.props.productStyle.results[0],
       currentImgIndex: 0,
       currentImg: this.props.productStyle.results[0].photos[0],
-      currentImgSize: 668
     };
     this.changeStyle = this.changeStyle.bind(this);
     this.changeImage = this.changeImage.bind(this);
-    this.resize = this.resize.bind(this);
   }
 
   componentDidUpdate(previousProps, previousState) {
     if (this.props.product.id !== this.state.productData.id) {
       this.setState({
         productData: this.props.product,
-        currentImgSize: 668
       });
     }
     let productStyleExist = this.props.productStyle.results.length !== 0;
@@ -41,10 +37,6 @@ class ProductOverview extends React.Component {
         currentImgIndex: 0
       });
     }
-
-    setTimeout(() => {
-      this.props.getProductStyleNumber(this.state.selectedData.style_id);
-    }, 200);
   }
 
   changeStyle (styleSelect) {
@@ -54,37 +46,40 @@ class ProductOverview extends React.Component {
           this.setState({
             selectedData: style,
             currentImg: style.photos[this.state.currentImgIndex],
-            currentImgSize: 668
           });
         } else {
           this.setState({
             selectedData: style,
             currentImg: style.photos[0],
             currentImgIndex: 0,
-            currentImgSize: 668
           });
         }
+        this.props.getProductStyleNumber(style.style_id);
       }
     });
   }
 
-
-  changeImage (event) {
-    let selectedThumb = event.target.name;
-    if (selectedThumb !== this.state.currentImg.url) {
-      this.state.selectedData.photos.forEach((photo, index) => {
-        if (selectedThumb === photo.url) {
-          this.setState({currentImg: photo, currentImgIndex: index});
-        }
-      });
-    }
-  }
-
-  resize (event) {
-    if (this.state.currentImgSize === 668) {
-      this.setState({currentImgSize: 1350});
+  changeImage (event, direction) {
+    if (event) {
+      let selectedThumb = event.target.name;
+      if (selectedThumb !== this.state.currentImg.url) {
+        this.state.selectedData.photos.forEach((photo, index) => {
+          if (selectedThumb === photo.url) {
+            this.setState({currentImg: photo, currentImgIndex: index});
+          }
+        });
+      }
     } else {
-      this.setState({currentImgSize: 668});
+      let currentImgIndex = this.state.currentImgIndex;
+      if (direction === 'previous') {
+        currentImgIndex--;
+        let currentImg = this.state.selectedData.photos[currentImgIndex];
+        this.setState({currentImgIndex, currentImg});
+      } else if (direction === 'next') {
+        currentImgIndex++;
+        let currentImg = this.state.selectedData.photos[currentImgIndex];
+        this.setState({currentImgIndex, currentImg});
+      }
     }
   }
 
@@ -101,9 +96,7 @@ class ProductOverview extends React.Component {
               photos = {this.state.selectedData.photos}
               currentImg = {this.state.currentImg}
               currentImgIndex = {this.state.currentImgIndex}
-              currentImgSize = {this.state.currentImgSize}
-              changeImage = {this.changeImage}
-              resize = {this.resize}/>
+              changeImage = {this.changeImage}/>
           </ErrorBoundary>
           <ErrorBoundary>
             <StyleSelector

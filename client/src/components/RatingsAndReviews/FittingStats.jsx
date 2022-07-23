@@ -73,8 +73,10 @@ const FittingStats = (props) => {
       {Object.keys(props.currentMeta.characteristics).map(
         key => (
           <div key = {key} className = {CharacteristicsCSS.box1}>
-            <div>{key}</div>
+
             <div>
+              <label id={key + '-label'}>{key}</label>
+              <br />
               <input
                 className = {CharacteristicsCSS.bar}
                 key={key}

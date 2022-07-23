@@ -53,7 +53,12 @@ app.get('/products/:id/styles/', (req, res) => {
     });
 });
 
-/**************Server Calls for Ratings and Reviews********************************/
+/****************************************************************************
+ *
+ *             ***  Server Calls for Ratings and Reviews  ***
+ *
+ * ***************************************************************************/
+
 app.get('/reviews', (req, res) => {
   let id = req.params.id;
 
@@ -174,6 +179,34 @@ app.post('/reviews', (req, res) => {
     });
 
 });
+/****************************************************************************
+ *
+ *             *** imgbb api calls  ***
+ *
+ * ***************************************************************************/
+
+// app.post('/upload/images', (req, res) => {
+//   console.log('this is req.body in image POST:', req.body);
+//   let imageData = req.body;
+//   let options = {
+//     method: 'POST',
+//     url: `https://api.imgbb.com/1/upload?key=${config.IMGBB_KEY}`,
+//     headers: {
+//       'User-Agent': 'request'
+
+//     },
+//     data: imageData.image
+//   };
+//   axios.post(options)
+//     .then(response => {
+//       console.log('Image post success!', response.data);
+//       res.status(201).send(reponse.data.url);
+//     }).catch(err => {
+//       console.log(err);
+//       res.status(500).send('err.message');
+//     });
+
+// });
 
 
 
@@ -181,8 +214,7 @@ app.post('/reviews', (req, res) => {
 
 
 
-
-/*********** get average stars *******************/
+/************************************** get average stars **********************************************************/
 app.get('/products/:id/reviews/avg_star', (req, res) => {
   let id = req.params.id;
   let apiProductReviewMeta = apiUrl + `/reviews/meta?product_id=${id}`;

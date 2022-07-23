@@ -52,23 +52,24 @@ const ReviewEntry = (props) => {
 
       {/* stars rating display */}
       <div>
-        Stars rating: {props.review.rating}
+        {/* Stars rating: {props.review.rating} */}
         < Stars percent = {percent}/>
+        <br />
 
       </div>
 
       <div className={ReviewEntryCSS.usernameTimestamp}>
-        <span>{props.review.reviewer_name}</span>
+        <span id='reviewer-name'>{props.review.reviewer_name}</span>
         {',    '}
-        <span>{reviewDate}</span>
+        <span id='review-timestamp'>{reviewDate}</span>
       </div>
 
       <h3> {props.review.summary}</h3>
-      <p> {props.review.body} </p>
+      <p id='review-body'> {props.review.body} </p>
 
       {/* conditional rendering of recommendation */}
       {props.review.recommend
-        ? <div className={ReviewEntryCSS.recommendation}>
+        ? <div id='recomended-message' className={ReviewEntryCSS.recommendation}>
         &#10004; I recommend this product
         </div>
         : null
@@ -77,7 +78,7 @@ const ReviewEntry = (props) => {
 
       {/* conditional rendering of seller's response */}
       {props.review.response && props.review.response.length
-        ? <div className={ReviewEntryCSS.sellerResponse} style={{'backgroundColor': 'lightgrey'}}>
+        ? <div id='seller-response' className={ReviewEntryCSS.sellerResponse} style={{'backgroundColor': 'lightgrey'}}>
           <b>Response from seller:</b>
           <br />
           <br />
@@ -97,6 +98,7 @@ const ReviewEntry = (props) => {
 
               <div key ={photo.id} >
                 <img
+                  id={'review-photo-' + photo.id}
 
                   alt = 'review-photo'
                   src = {photo.url}
@@ -116,11 +118,11 @@ const ReviewEntry = (props) => {
 
           )}
           {imagePop
-            ? <div
+            ? <div id='image-pop-modal'
               className={ReviewEntryCSS.photoModal}
             >
               <div className={ReviewEntryCSS.photoModalScroller}>
-                <img
+                <img id='full-resolution-image'
 
                   onClick={() => setImagePop(!imagePop)}
                   alt = 'full-photo'
@@ -139,20 +141,24 @@ const ReviewEntry = (props) => {
 
       }
 
-      <HelpfulAndReport count = {props.review.helpfulness} reviewId = {props.review.review_id}/>
+      <HelpfulAndReport
+        count = {props.review.helpfulness}
+        removeReportedReview = {props.removeReportedReview}
+        refresh = {props.refresh}
+
+        reviewId = {props.review.review_id}/>
 
 
 
 
       <hr
         style={{
-          background: 'grey',
-          color: 'grey',
-          borderColor: 'grey',
-          height: '1px',
-        }}
-      />
-      {/* {'============================================='} */}
+          'background': 'grey',
+          'color': 'grey',
+          'borderColor': 'grey',
+          'height': '1px',
+          'marginRight': '35px'
+        }}/>
 
     </div>
 

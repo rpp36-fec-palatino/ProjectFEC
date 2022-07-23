@@ -8,30 +8,32 @@
 .mainImageContainer {
   display: flex;
   background-color: rgb(220, 220, 220);
+  transition: 0.25s ease-in-out all;
 }
 
-.imageControlLeft {
-  padding-top: 425px;
-  padding-bottom: 425px;
+.imageControlContainer {
+  padding-top: 420px;
+  padding-bottom: 420px;
   padding-left: 20px;
-  width: 121px;
+  padding-right: 20px;
   text-align: center;
-  font-size: xx-large;
   background-color: rgb(220, 220, 220);
 }
 
-.imageControlRight {
-  padding-top: 425px;
-  padding-bottom: 425px;
-  padding-right: 20px;
-  width: 121px;
+.imageControl {
   text-align: center;
-  font-size: xx-large;
-  background-color: rgb(220, 220, 220);
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.currentImageContainer {
+  border-top: solid 25px rgb(220, 220, 220);;
+  border-bottom: solid 25px rgb(220, 220, 220);;
+  height: 850px;
+  object-fit: cover;
 }
 
 .currentImage {
-  border: solid 25px rgb(220, 220, 220);
   height: 850px;
   object-fit: cover;
   transition: 0.25s ease-in-out all;

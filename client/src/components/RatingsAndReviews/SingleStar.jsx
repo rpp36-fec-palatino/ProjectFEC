@@ -6,6 +6,7 @@ let SingleStar = ({ filled, onClick }) => {
   return (
     <FaStar
       color={filled ? 'orange' : 'lightgray'}
+      size="25px"
       onClick={onClick} />
   );
 };
