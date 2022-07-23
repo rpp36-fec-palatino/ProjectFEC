@@ -8,7 +8,7 @@
 let avgStarScores = (ratingsObj) => {
 
   if (Object.keys(ratingsObj).length === 0) {
-    return 0.0;
+    return Number((0.0).toFixed(1));
   } else {
     let numberArr = Object.values(ratingsObj).map(ele => Number(ele));
     let totalCount = numberArr.reduce((a, b) => a + b );
@@ -70,7 +70,7 @@ let ratingPercentage = (ratingsObj) => {
 
 let recommendationRate = (recommendObj) => {
 
-  if (Object.keys(recommendObj) === 0) {
+  if (Object.keys(recommendObj).length === 0) {
     return 0;
 
   }

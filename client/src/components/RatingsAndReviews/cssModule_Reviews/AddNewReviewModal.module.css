@@ -1,18 +1,28 @@
 .modalContainer {
-  position: relative;
-  z-index: 1;
-  left: 15%;
-  top: -80%;
+  position: fixed;
+  z-index: 2;
+  left: 35%;
+  top: 5%;
   background-color: whitesmoke;
   border-radius: 5px;
   margin: auto;
   padding: 25px;
   border: 1px solid #888;
-  width: 60%;
-  z-index: 1;
+  width: 50%;
   box-shadow: 3px 6px #888888;
 
 
+
+}
+.dimmerBg {
+  position: fixed;
+  z-index: 1;
+  left: 0%;
+  top: 0%;
+  background-color: Grey;
+  opacity: 60%;
+  width: 100%;
+  height: 100%;
 
 }
 
@@ -102,7 +112,6 @@
   background-color: white;
   border-radius: 30px;
   color: darkblue;
-  font-size: 15px;
   position: absolute;
   z-index: 2;
   right: -8px;
@@ -115,5 +124,33 @@
 .removeBtn:hover {
   color: red;
   border: solid 1pt red;
+  cursor: pointer;
+}
+
+.removeBtn2 {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 3pt grey;
+  background-color: white;
+  border-radius: 30px;
+  color: grey;
+  font-size: 25px;
+  font-weight: bolder;
+  position: absolute;
+  z-index: 2;
+  right: -10px;
+  top: -10px;
+
+
+}
+
+.removeBtn2:hover {
+  color: red;
+  border: solid 3pt red;
+  font-size: 25px;
+  font-weight: bolder;
   cursor: pointer;
 }

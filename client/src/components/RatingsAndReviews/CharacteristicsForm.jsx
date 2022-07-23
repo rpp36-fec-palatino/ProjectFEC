@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
@@ -64,14 +64,19 @@ const CharacteristicsForm = (props) => {
 
   const changeSelection = (e) => {
     setSelected((prevSelected) => ({ ...prevSelected, [e.target.name]: e.target.value }));
-    console.log("whats in e.target: ", e.target.name, e.target.value)
-  }
+    console.log('whats in e.target: ', e.target.name, e.target.value);
+  };
 
+  useEffect(() => {
+
+    props.passCharRating(selected);
+
+  }, [selected]);
 
 
 
   return (
-    <div id="characteristicsForm" >
+    <div id="characteristicsForm" id="characteristics-form">
       <span><b>Characteristics * </b></span>
       <div className={AddNewReviewModalCSS.characteristicsForm}>
         {Object.keys(props.currentMeta.characteristics).map(
@@ -83,33 +88,33 @@ const CharacteristicsForm = (props) => {
 
 
                   <div className={AddNewReviewModalCSS.box1}>
-                  <div><b>{charKey}</b></div>
-                  <div>{": "}</div>
+                    <div><b>{charKey}</b></div>
+                    <div>{': '}</div>
                   &nbsp;&nbsp;
-                  <div id="radio-selections">
-                    {Object.keys(charLabels[charKey]).map((ratingKey) => (
-                      <span key={charKey + ratingKey + '-span'}>
-                        <label key={charKey + ratingKey}>
-                          {ratingKey}
-                        </label>
-                        <input type="radio" name={charKey} value={ratingKey} onChange={changeSelection}>
+                    <div id="radio-selections">
+                      {Object.keys(charLabels[charKey]).map((ratingKey) => (
+                        <span key={charKey + ratingKey + '-span'}>
+                          <label key={charKey + ratingKey}>
+                            {ratingKey}
+                          </label>
+                          <input id={'radio-' + charKey + '-' + ratingKey} type="radio" name={charKey} value={ratingKey} onChange={changeSelection}>
 
-                        </input>
-
-
-                      </span>
+                          </input>
 
 
-                    ))}
+                        </span>
 
 
-                  </div>
+                      ))}
 
-                  <div id="selectedMsg">
-                    {selected[charKey]
-                      ? <i>{charLabels[charKey][selected[charKey]]}</i>
-                      : 'none selected'}
-                  </div>
+
+                    </div>
+
+                    <div id="selectedMsg">
+                      {selected[charKey]
+                        ? <i>{charLabels[charKey][selected[charKey]]}</i>
+                        : 'none selected'}
+                    </div>
 
                   </div>
 
@@ -119,7 +124,7 @@ const CharacteristicsForm = (props) => {
 
               </div>
 
-            )
+            );
           }
 
         )}
