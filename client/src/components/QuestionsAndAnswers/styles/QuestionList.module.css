@@ -1,0 +1,12 @@
+.questionListMain {
+  width: 100%;
+  height: auto;
+}
+
+.questionListScroller {
+  height: 600px;
+  width: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: inline-flexbox;
+}

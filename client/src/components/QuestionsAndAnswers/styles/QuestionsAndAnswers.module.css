@@ -1,7 +1,20 @@
+.question {
+  white-space: nowrap;
+}
+
 .questionsAndAnswers {
   flex-direction: column;
 }
 
 .questionHelpAdd {
-  justify-content: space-around;
+  display: inline;
+  text-align: right;
+  height: 3px;
+}
+
+.voteAdd {
+  display: inline;
+  text-align: right;
+  font-weight: normal;
+  height: 3px;
 }

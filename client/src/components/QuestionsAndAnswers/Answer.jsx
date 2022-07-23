@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import AnswerPhoto from './AnswerPhoto.jsx';
+import style from './styles/AnswerPhoto.module.css';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
 
 const Answer = (props) => {
   var photos = props.answer.photos;
@@ -13,29 +16,41 @@ const Answer = (props) => {
 
   if (props.answer.answerer_name === 'Seller') {
     return (
-      <div className='answer'>
-        <p>A: {props.answer.body}</p>
-        {photos.map((item, index) => {
-          return (
-            <AnswerPhoto key={index} link={item}/>
-          );
-        })}
-        <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+      <WithTrackerHOC eventName={'QuestionsAndAnswers->Answer'}>
+        <Wrapper>
+          <div className='answer' id="answer">
+            <p>A: {props.answer.body}</p>
+            <div className={style.row}>
+              {photos.map((item, index) => {
+                return (
+                  <AnswerPhoto key={index} link={item}/>
+                );
+              })}
+            </div>
+            <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
         | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
-      </div>
+          </div>
+        </Wrapper>
+      </WithTrackerHOC>
     );
   }
   return (
-    <div className='answer'>
-      <p>A: {props.answer.body}</p>
-      {photos.map((item, index) => {
-        return (
-          <AnswerPhoto key={index} link={item}/>
-        );
-      })}
-      <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+    <WithTrackerHOC eventName={'QuestionsAndAnswers->Answer'}>
+      <Wrapper>
+        <div className='answer' id="answer">
+          <p>A: {props.answer.body}</p>
+          <div className={style.row}>
+            {photos.map((item, index) => {
+              return (
+                <AnswerPhoto key={index} link={item}/>
+              );
+            })}
+          </div>
+          <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
       | <a href="#0" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
-    </div>
+        </div>
+      </Wrapper>
+    </WithTrackerHOC>
   );
 };
 

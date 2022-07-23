@@ -65,7 +65,7 @@
 // };
 
 var questionsAndAnswers = {
-  'product_id': '71701',
+  'product_id': '0',
   'results': [
     {
       'question_id': 0,

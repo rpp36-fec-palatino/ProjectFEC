@@ -232,6 +232,7 @@ app.get('/products/:id/reviews/avg_star', (req, res) => {
 });
 
 /**************Server Calls for Questions and Answers********************************/
+// get questions
 app.get('/products/:id/questions/', (req, res) => {
   let id = req.params.id;
   let apiProductQA = apiUrl + `/qa/questions?product_id=${id}`;
@@ -244,6 +245,7 @@ app.get('/products/:id/questions/', (req, res) => {
     });
 });
 
+// mark question helpful
 app.put('/qa/questions/:id/helpful', (req, res) => {
   let id = req.params.id;
   let apiProductQA = apiUrl + `/qa/questions/${id}/helpful`;
@@ -257,6 +259,7 @@ app.put('/qa/questions/:id/helpful', (req, res) => {
 
 });
 
+// mark answer helpful
 app.put('/qa/answers/:id/helpful', (req, res) => {
   let id = req.params.id;
   let apiProductQA = apiUrl + `/qa/answers/${id}/helpful`;
@@ -270,6 +273,7 @@ app.put('/qa/answers/:id/helpful', (req, res) => {
 
 });
 
+// report answer
 app.put('/qa/answers/:id/report', (req, res) => {
   let id = req.params.id;
   let apiProductQA = apiUrl + `/qa/answers/${id}/report`;
@@ -283,12 +287,30 @@ app.put('/qa/answers/:id/report', (req, res) => {
 
 });
 
+// post answer
 app.post('/qa/questions/answers', (req, res) => {
-  console.log('hitting add answer');
-  let id = req.body.product_id;
+  let id = req.body.question_id;
+
+  var conversion = req.body;
+  var convertId = parseInt(req.body.question_id);
+  // eslint-disable-next-line camelcase
+  req.body.question_id = convertId;
+  console.log(req.body);
+
+  let apiProductQA = apiUrl + `/qa/questions/${id}/answers`;
+  apiPost(apiProductQA, req.body)
+    .then(result => {
+      console.log('answer post success', result.status);
+      res.status(201);
+    })
+    .catch(err => {
+      console.log('answer post error');
+      res.status(500);
+    });
   res.redirect(`/${id}`);
 });
 
+// post question
 app.post('/qa/questions', (req, res) => {
   let id = req.body.product_id;
 
