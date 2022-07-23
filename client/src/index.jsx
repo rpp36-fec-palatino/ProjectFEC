@@ -242,38 +242,78 @@ class App extends React.Component {
       });
   }
 
+  getOutfits(id) {
+    var result1 = axios.get(`/products/${id}`);
+    var result2 = axios.get(`/products/${id}/styles`);
+    var result3 = axios.get(`/products/${id}/reviews/avg_star`);
+
+    let outfit = this.state.outfit;
+    let outfitStyles = this.state.outfitStyles;
+    let outfitRatings = this.state.outfitRatings;
+
+    Promise.all([result1, result2, result3])
+      .then(result => {
+        outfit[id] = result[0].data;
+        window.localStorage.setItem('outfit', JSON.stringify(outfit));
+
+        var item = {};
+        item['product_id'] = result[1].data.product_id;
+        item['results'] = [];
+
+        for (var j = 0; j < result[1].data.results.length; j++) {
+          if (result[1].data.results[j].style_id === this.state.productStyleId) {
+            item.results.push(result[1].data.results[j]);
+          }
+        }
+        if (item.results.length === 0) {
+          item.results.push(result[1].data.results[0]);
+        }
+        outfitStyles[id] = item;
+        window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
+
+
+
+        outfitRatings[id] = result[2].data;
+        window.localStorage.setItem('outfitRatings', JSON.stringify(outfitRatings));
+
+        this.setState({outfit: outfit, outfitStyles: outfitStyles, outfitRatings: outfitRatings});
+      });
+  }
+
   modifyOutfit (action, id) {
     if (action === 'add') {
       if (this.state.outfit[id] === undefined) {
-        let outfit = this.state.outfit;
-        let outfitStyles = this.state.outfitStyles;
-        let outfitRatings = this.state.outfitRatings;
+        // let outfit = this.state.outfit;
+        // let outfitStyles = this.state.outfitStyles;
+        // let outfitRatings = this.state.outfitRatings;
 
-        this.getProduct(id, false, (item) => {
-          outfit[id] = item;
-          window.localStorage.setItem('outfit', JSON.stringify(outfit));
-          // super.setState(outfit);
-        });
-        this.getProductStyles(id, false, (item) => {
-          var item2 = {};
-          item2['product_id'] = item['product_id'];
-          item2['results'] = [];
-          for (var j = 0; j < item.results.length; j++) {
-            if (item.results[j].style_id === this.state.productStyleId) {
-              item2.results.push(item.results[j]);
-            }
-          }
-          outfitStyles[id] = item2;
-          window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
-          // super.setState(outfit, outfitStyles);
-        });
-        this.getProductRating(id, (item) => {
-          outfitRatings[id] = item;
-          window.localStorage.setItem('outfitRatings', JSON.stringify(outfitRatings));
-          // super.setState(outfit, outfitStyles);
-        });
+        // this.getProduct(id, false, (item) => {
+        //   outfit[id] = item;
+        //   window.localStorage.setItem('outfit', JSON.stringify(outfit));
+        //   // super.setState(outfit);
+        // });
+        // this.getProductStyles(id, false, (item) => {
+        //   var item2 = {};
+        //   item2['product_id'] = item['product_id'];
+        //   item2['results'] = [];
+        //   for (var j = 0; j < item.results.length; j++) {
+        //     if (item.results[j].style_id === this.state.productStyleId) {
+        //       item2.results.push(item.results[j]);
+        //     }
+        //   }
+        //   outfitStyles[id] = item2;
+        //   window.localStorage.setItem('outfitStyles', JSON.stringify(outfitStyles));
+        //   // super.setState(outfit, outfitStyles);
+        // });
+        // this.getProductRating(id, (item) => {
+        //   outfitRatings[id] = item;
+        //   window.localStorage.setItem('outfitRatings', JSON.stringify(outfitRatings));
+        //   // super.setState(outfit, outfitStyles);
+        // });
 
-        this.setState({outfit: outfit, outfitStyles: outfitStyles, outfitRatings: outfitRatings});
+        this.getOutfits(id);
+
+        // this.setState({outfit: outfit, outfitStyles: outfitStyles, outfitRatings: outfitRatings});
       }
     }
     if (action === 'remove') {
