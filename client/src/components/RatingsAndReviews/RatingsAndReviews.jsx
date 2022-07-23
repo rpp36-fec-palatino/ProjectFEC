@@ -201,6 +201,7 @@ class RatingsAndReviews extends React.Component {
   refresh() {
     this.displayCurrentProductReviews(this.props.currentId);
     this.displayCurrentProductReviewsMeta(this.props.currentId);
+    this.setState({sortingKeyword: 'newest'});
 
   }
 
