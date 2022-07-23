@@ -246,10 +246,38 @@ let sampleMetaReview71697 =
 };
 
 
+//empty data (fake data for tests)
+let emptyReviewsData =
+{
+  'product': '88888',
+  'page': 0,
+  'count': 0,
+  'results': []
+};
+
+let emptyReviewsMetaData =
+{
+  'product_id': '88888',
+  'ratings': {
+
+  },
+  'recommended': {
+
+  },
+  'characteristics': {
+
+  }
+};
+
+
+
 module.exports =
 {
   sampleReviews71697,
   sampleReviews71698,
   sampleMetaReview71697,
-  sampleMetaReview71698
+  sampleMetaReview71698,
+  emptyReviewsData,
+  emptyReviewsMetaData
+
 };
