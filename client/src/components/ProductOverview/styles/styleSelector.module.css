@@ -14,6 +14,7 @@ html {
 }
 
 .category {
+  margin-top: 20px;
   font-size: 1.5em;
 }
 
@@ -39,6 +40,8 @@ html {
 }
 
 .styleRow {
+  margin-top: 5px;
+  margin-bottom: 5px;
   display: flex;
 }
 
@@ -55,6 +58,7 @@ html {
   height: 90px;
   border-radius: 50%;
   border: 1px solid black;
+  cursor: pointer;
 }
 
 .checkMark {
@@ -90,6 +94,7 @@ html {
   padding-bottom: 25px;
   width: 300px;
   font-size: medium;
+  cursor: not-allowed;
 }
 
 .plus {
@@ -106,4 +111,5 @@ html {
   border: 1px solid black;
   font-size: x-large;
   text-align: center;
+  cursor: pointer;
 }

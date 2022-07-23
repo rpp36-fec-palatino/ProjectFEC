@@ -35,7 +35,7 @@ class AddToCart extends React.Component {
       </div>);
     } else {
       return (<div>
-        <select className={css.selectSize} value={this.state.selectSizeId} onChange={this.changeSize}>
+        <select id='selectSize' className={css.selectSize} value={this.state.selectSizeId} onChange={this.changeSize}>
           <option value='default' key='default'>SELECT SIZE</option>
           {Object.keys(skus).map((id) => <option value={id} key={id} label={skus[id].size}>
             {skus[id].size}
@@ -57,18 +57,17 @@ class AddToCart extends React.Component {
       }
       if (this.state.selectSize === 'default' || qtyArr.length === 0) {
         return (<div>
-          <select className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
+          <select id='selectQty' className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
             <option value='default' key='default'>-</option>
           </select>
         </div>);
       } else {
         return (<div>
-          <select className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
+          <select id='selectQty' className={css.selectQty} value={this.state.selectQty} onChange={this.changeQty}>
             {qtyArr.map((qty) => <option value={qty} key={'qty-' + qty}>{qty}</option>)}
           </select>
         </div>);
       }
-
     }
   }
 

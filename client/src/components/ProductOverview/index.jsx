@@ -7,7 +7,6 @@ import css from './styles/index.module.css';
 import ErrorBoundary from '../../ErrorBoundary.jsx';
 import exampleData from './exampleData.js';
 
-
 class ProductOverview extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +58,6 @@ class ProductOverview extends React.Component {
       }
     });
   }
-
 
   changeImage (event, direction) {
     if (event) {

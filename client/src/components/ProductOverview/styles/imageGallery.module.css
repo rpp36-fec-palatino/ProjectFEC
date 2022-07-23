@@ -16,6 +16,7 @@
   text-align: center;
   font-size: xx-large;
   z-index: 200;
+  cursor: pointer;
 }
 
 .thumbnailControlDown {
@@ -26,6 +27,7 @@
   text-align: center;
   font-size: xx-large;
   z-index: 201;
+  cursor: pointer;
 }
 
 .thumbnailList {
@@ -55,6 +57,7 @@
   height: 90px;
   border: 1px solid black;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .thumbnailSelected {
