@@ -4,6 +4,8 @@ import CharacteristicsForm from './CharacteristicsForm.jsx';
 import axios from 'axios';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
+import Wrapper from '../../Wrapper.jsx';
 
 class AddNewReviewModal extends React.Component {
   constructor(props) {
@@ -176,20 +178,23 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <>
-        <div className = {AddNewReviewModalCSS.dimmerBg}>lalala</div>
-        <div data-testid="addNewModal" id="add-new-review-title" className = {AddNewReviewModalCSS.modalContainer} >
+      <WithTrackerHOC eventName={'AddNewReviewModal-index-2'}>
+        <div className = {AddNewReviewModalCSS.dimmerBg}></div>
+        <div data-testid="addNewModal" id="add-new-review-main" className = {AddNewReviewModalCSS.modalContainer} >
           <h3 >Add a New Review</h3>
           <form>
             <div id="heading">
               <span>Write Your Review</span>
-              <div style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
+              <div id="product-name" style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
             </div>
 
-            <div name="rating">
+            <div name="rating" id='Overall-star-rating'>
               <br />
               <b>Overall Rating *</b>
+
               <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
+
+
             </div>
             <br />
 
@@ -206,15 +211,15 @@ class AddNewReviewModal extends React.Component {
             <br />
 
 
-            <div>
+            <div id='review-content'>
               <label><b>Review Summary</b> </label>
               <br />
-              <textarea type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
+              <textarea id='review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
             </div>
             <div>
               <label><b>Review Body *</b></label>
               <br />
-              <textarea id="body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+              <textarea id="review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
             </div>
 
 
@@ -271,12 +276,12 @@ class AddNewReviewModal extends React.Component {
             <br />
 
 
-            <div>
+            <div id='user-info'>
               <label><b>What is your nickname *</b></label>
-              <input type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
+              <input id='nickname-input' type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
               <br />
               <label><b>Your Email *</b></label>
-              <input type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
+              <input id='email-input' type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
               <p>For authentication reasons, you will not be emailed</p>
 
             </div>
@@ -293,7 +298,7 @@ class AddNewReviewModal extends React.Component {
 
 
         </div>
-      </>
+      </WithTrackerHOC>
 
     );
   }

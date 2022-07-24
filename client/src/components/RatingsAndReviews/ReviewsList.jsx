@@ -82,7 +82,7 @@ class ReviewsList extends React.Component {
 
   render() {
     return (
-      <WithTrackerHOC eventName={'ReviewList'}>
+      <WithTrackerHOC eventName={'ReviewList-index-1'}>
         <Wrapper>
           <div className={ReviewsListCSS.reviewListMain} id='review-list-main'>
             <h2>Reviews List</h2>

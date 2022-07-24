@@ -1,6 +1,7 @@
 import React from 'react';
 import SingleStar from './SingleStar.jsx';
 import { useState, useEffect } from 'react';
+import WithTrackerHOC from '../../WithTrackerHOC.jsx';
 
 
 let AddStarRating = ({passStarRating}) => {
@@ -19,17 +20,21 @@ let AddStarRating = ({passStarRating}) => {
   }, [rating]);
 
   return (
-    <div id="add-star-rating">
-      {[1, 2, 3, 4, 5].map((value) => (
-        <SingleStar
-          key={value}
-          filled={value <= rating}
-          onClick={() => setRating(value)}
-        />
-      ))}
+    <WithTrackerHOC eventName='AddNewReviewModal-index-2'>
+      <div id="add-star-rating">
+        {[1, 2, 3, 4, 5].map((value) => (
+          <SingleStar
+            key={value}
+            filled={value <= rating}
+            onClick={() => setRating(value)}
+          />
+        ))}
      &nbsp;&nbsp;&nbsp;&nbsp;
-      {rating ? <span>{msg[rating + '']}</span> : 'no rating selected'}
-    </div>
+        {rating ? <span>{msg[rating + '']}</span> : 'no rating selected'}
+      </div>
+
+    </WithTrackerHOC>
+
 
   );
 };
