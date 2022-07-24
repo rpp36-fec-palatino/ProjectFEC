@@ -220,6 +220,11 @@ class AddNewReviewModal extends React.Component {
               <label><b>Review Body *</b></label>
               <br />
               <textarea id="review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+              {this.state.ReviewBody.length < 50
+                ? <span>Minimun required characters left: {50 - this.state.ReviewBody.length}</span>
+                : <span>Minimun reached!</span>
+
+              }
             </div>
 
 
