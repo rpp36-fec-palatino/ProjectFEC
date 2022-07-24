@@ -36,7 +36,21 @@ class AddNewReviewModal extends React.Component {
 
       Email: '',
 
-      posted: false
+      posted: false,
+
+      overallRatingErr: true,
+
+      CharacteristicsErr: true,
+
+      reviewBodyErr: true,
+
+      nickenameErr: true,
+
+      EmailEmpty: true,
+
+      EmailFormatErr: true,
+
+      hasError: false
 
     };
   }
@@ -49,14 +63,10 @@ class AddNewReviewModal extends React.Component {
   }
 
 
-  // componentDidUpdate(prevState) {
-  //   if (this.state.images !== prevState.images) {
-  //     this.imageUpload();
-
-  //   }
+  componentDidUpdate(prevState, prevProps) {
 
 
-  // }
+  }
 
 
   onValueChange(e) {
@@ -140,29 +150,83 @@ class AddNewReviewModal extends React.Component {
 
   }
 
-  submitBtnClick(e) {
-    e.preventDefault();
-
-    let reviewObj = {};
-    // eslint-disable-next-line camelcase
-    reviewObj.product_id = Number(this.state.currentItemId);
-    reviewObj.rating = this.state.starRating;
-    reviewObj.summary = this.state.summary;
-    reviewObj.body = this.state.ReviewBody;
-    if (this.state.recommendStatus === 'yes') {
-      reviewObj.recommend = true;
-    } else {
-      reviewObj.recommend = false;
+  validationInput() {
+    if (this.state.starRating ) {
+      this.setState({
+        overallRatingErr: false
+      });
     }
-    reviewObj.name = this.state.nickeName;
-    reviewObj.email = this.state.Email;
-    reviewObj.photos = this.state.images;
-    reviewObj.characteristics = this.state.characteristics;
-    console.log(reviewObj);
+    if (Object.keys(this.state.characteristics).length === Object.keys(this.props.currentMeta.characteristics).length ) {
+      this.setState({
+        CharacteristicsErr: false
+      });
 
-    this.postReview(reviewObj);
-    this.setState({posted: true});
-    this.props.refresh();
+    }
+    if (this.state.ReviewBody.length >= 50 ) {
+      this.setState({
+        reviewBodyErr: false
+      });
+    }
+    if (this.state.nickeName ) {
+      this.setState({
+        nickenameErr: false
+      });
+    }
+    if (this.state.Email ) {
+      this.setState({
+        EmailEmpty: false
+      });
+    }
+    if (this.state.Email ) {
+
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.Email)) {
+        this.setState({
+          EmailFormatErr: false
+        });
+
+      }
+
+    }
+  }
+
+
+
+
+
+
+
+
+  async submitBtnClick(e) {
+    e.preventDefault();
+    await(this.validationInput());
+
+    if ( this.state.overallRatingErr || this.state.CharacteristicsErr || this.state.reviewBodyErr || this.state.nickenameErr || this.state.EmailEmpty || this.state.EmailFormatErr) {
+      this.setState({hasError: true});
+    } else {
+      let reviewObj = {};
+      // eslint-disable-next-line camelcase
+      reviewObj.product_id = Number(this.state.currentItemId);
+      reviewObj.rating = this.state.starRating;
+      reviewObj.summary = this.state.summary;
+      reviewObj.body = this.state.ReviewBody;
+      if (this.state.recommendStatus === 'yes') {
+        reviewObj.recommend = true;
+      } else {
+        reviewObj.recommend = false;
+      }
+      reviewObj.name = this.state.nickeName;
+      reviewObj.email = this.state.Email;
+      reviewObj.photos = this.state.images;
+      reviewObj.characteristics = this.state.characteristics;
+      console.log(reviewObj);
+
+      this.postReview(reviewObj);
+      this.setState({posted: true, hasError: false});
+      this.props.refresh();
+
+    }
+
+
 
 
 
@@ -293,6 +357,55 @@ class AddNewReviewModal extends React.Component {
             {this.state.posted ? <div>Review posted!</div> : null}
 
             <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
+
+            {/* input content validation */}
+            {this.state.hasError
+              ? <div id='submissionError' className = {AddNewReviewModalCSS.errMsg}>
+            You must enter the following or fix:
+                <br />
+                {this.state.overallRatingErr
+                  ? <li>OverallRating</li>
+                  : null
+
+                }
+                {this.state.CharacteristicsErr
+                  ? <li>Characteristics</li>
+                  : null
+
+                }
+                {this.state.reviewBodyErr
+                  ? <li>Review Body more than 50 chars</li>
+                  : null
+
+                }
+                {this.state.nickenameErr
+                  ? <li>Nickname</li>
+                  : null
+
+                }
+                {this.state.EmailEmpty
+                  ? <li>Email</li>
+                  : null
+
+                }
+                {this.state.EmailFormatErr
+                  ? <li>Email format Error</li>
+                  : null
+
+                }
+
+              </div>
+
+              : null
+
+
+
+            }
+
+
+
+
+
             <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
