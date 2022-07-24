@@ -1,9 +1,9 @@
 const express = require('express');
 let app = express();
 const axios = require('axios');
-const apiGet = require('./apiHelper.js').apiGet;
-const apiPut = require('./apiHelper.js').apiPut;
-const apiPost = require('./apiHelper.js').apiPost;
+const apiGet = require('./ApiHelper.js').apiGet;
+const apiPut = require('./ApiHelper.js').apiPut;
+const apiPost = require('./ApiHelper.js').apiPost;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
 
