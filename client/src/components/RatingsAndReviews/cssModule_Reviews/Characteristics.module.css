@@ -8,9 +8,9 @@
 }
 
 .bar {
-  width: 80%;
+  width: 90%;
   -webkit-appearance: none;
-  height: 8px;
+  height: 10px;
   background: lightgrey;
   outline: none;
   opacity: 0.7;
@@ -34,7 +34,7 @@
   flex-direction: row;
   justify-content: space-between;
   font-size: 12px;
-  width: 80%;
+  width: 90%;
   font-family: Arial, Helvetica, sans-serif;
 
 }
