@@ -62,9 +62,10 @@ const ReviewEntry = (props) => {
         <span id='reviewer-name'>{props.review.reviewer_name}</span>
         {',    '}
         <span id='review-timestamp'>{reviewDate}</span>
+
       </div>
 
-      <h3> {props.review.summary}</h3>
+      <h3 style={{'fontFamily': 'Montserrat'}}> {props.review.summary}</h3>
       <p id='review-body'> {props.review.body} </p>
 
       {/* conditional rendering of recommendation */}

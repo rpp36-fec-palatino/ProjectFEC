@@ -245,174 +245,178 @@ class AddNewReviewModal extends React.Component {
       <WithTrackerHOC eventName={'AddNewReviewModal-index-2'}>
         <div className = {AddNewReviewModalCSS.dimmerBg}></div>
         <div data-testid="addNewModal" id="add-new-review-main" className = {AddNewReviewModalCSS.modalContainer} >
-          <h3 >Add a New Review</h3>
-          <form>
-            <div id="heading">
-              <span>Write Your Review</span>
-              <div id="product-name" style={{'color': '#00334E'}}>About  {this.state.currentItemName}</div>
-            </div>
+          <h3 >Write Your Review</h3>
+          <div className = {AddNewReviewModalCSS.ModalScroller}>
+            <form>
 
-            <div name="rating" id='Overall-star-rating'>
-              <br />
-              <b>Overall Rating *</b>
-
-              <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
+              <div id="product-name" >About  <span style={{'color': 'blue', 'fontWeight': 'bolder'}}>{this.state.currentItemName}</span></div>
 
 
-            </div>
-            <br />
-
-
-            <div id="recommend">
-              <label><b>Do you recommend this product? *</b> </label>
-              <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
-              <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
-            </div>
-            <br />
-
-
-            <CharacteristicsForm currentMeta = {this.props.currentMeta} passCharRating = {this.passCharRating.bind(this)}/>
-            <br />
-
-
-            <div id='review-content'>
-              <label><b>Review Summary</b> </label>
-              <br />
-              <textarea id='review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
-            </div>
-            <div>
-              <label><b>Review Body *</b></label>
-              <br />
-              <textarea id="review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
-              {this.state.ReviewBody.length < 50
-                ? <span>Minimun required characters left: {50 - this.state.ReviewBody.length}</span>
-                : <span>Minimun reached!</span>
-
-              }
-            </div>
-
-
-            <div id='imageUploader' >
-              <h4>Upload your photos (up to 5) </h4>
-              {this.state.images.length
-
-                ? <div className = {AddNewReviewModalCSS.imageBox}>
-                  {this.state.images.map((photo, index) => (
-                    <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
-                      <span
-                        className = {AddNewReviewModalCSS.removeBtn}
-                        id={'remove-btn-' + index}
-                        onClick={
-                          e => {
-                            this.removeBtnClick(e);
-
-                          }
-                        }> &#215;</span>
-
-                      <img className = {AddNewReviewModalCSS.photoThumbnail} src={photo} />
-
-                    </div>
-
-
-
-                  ))}
-
-
-                </div>
-                : <div>no photo yet<br /></div>
-
-              }
-
-              {this.state.images.length < 5
-                ? <div>
-                  <br />
-                  <label htmlFor="fileUpload">
-
-
-                    <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
-  +
-                    </div>
-                  </label>
-                  <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
-
-                </div>
-                : null
-              }
-
-
-
-            </div>
-            <br />
-
-
-            <div id='user-info'>
-              <label><b>What is your nickname *</b></label>
-              <input id='nickname-input' type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
-              <br />
-              <label><b>Your Email *</b></label>
-              <input id='email-input' type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
-              <p>For authentication reasons, you will not be emailed</p>
-
-            </div>
-            {this.state.posted ? <div>Review posted!</div> : null}
-
-            <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
-
-            {/* input content validation */}
-            {this.state.hasError
-              ? <div id='submissionError' className = {AddNewReviewModalCSS.errMsg}>
-            You must enter the following or fix:
+              <div name="rating" id='Overall-star-rating'>
                 <br />
-                {this.state.overallRatingErr
-                  ? <li>OverallRating</li>
-                  : null
+                <b>Overall Rating *</b>
 
-                }
-                {this.state.CharacteristicsErr
-                  ? <li>Characteristics</li>
-                  : null
+                <AddStarRating passStarRating={this.passStarRating.bind(this)}/>
 
-                }
-                {this.state.reviewBodyErr
-                  ? <li>Review Body more than 50 chars</li>
-                  : null
-
-                }
-                {this.state.nickenameErr
-                  ? <li>Nickname</li>
-                  : null
-
-                }
-                {this.state.EmailEmpty
-                  ? <li>Email</li>
-                  : null
-
-                }
-                {this.state.EmailFormatErr
-                  ? <li>Email format Error</li>
-                  : null
-
-                }
 
               </div>
-
-              : null
-
+              <br />
 
 
-            }
+              <div id="recommend">
+                <label><b>Do you recommend this product? *</b> </label>
+                <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
+                <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
+              </div>
+              <br />
+
+
+              <CharacteristicsForm currentMeta = {this.props.currentMeta} passCharRating = {this.passCharRating.bind(this)}/>
+              <br />
+
+
+              <div id='review-content'>
+                <label><b>Review Summary</b> </label>
+                <br />
+                <textarea id='review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
+              </div>
+              <div>
+                <label><b>Review Body *</b></label>
+                <br />
+                <textarea id="review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+                <br />
+                {this.state.ReviewBody.length < 50
+                  ? <span style={{'color': 'red', 'fontSize': '10pt'}}><i>Minimum required characters left: {50 - this.state.ReviewBody.length}</i></span>
+                  : <span style={{'color': 'blue', 'fontSize': '10pt'}}>Minimum reached!</span>
+
+                }
+              </div>
+
+
+              <div id='imageUploader' >
+                <h4>Upload your photos (up to 5) </h4>
+                {this.state.images.length
+
+                  ? <div className = {AddNewReviewModalCSS.imageBox}>
+                    {this.state.images.map((photo, index) => (
+                      <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
+                        <span
+                          className = {AddNewReviewModalCSS.removeBtn}
+                          id={'remove-btn-' + index}
+                          onClick={
+                            e => {
+                              this.removeBtnClick(e);
+
+                            }
+                          }> &#215;</span>
+
+                        <img className = {AddNewReviewModalCSS.photoThumbnail} src={photo} />
+
+                      </div>
+
+
+
+                    ))}
+
+
+                  </div>
+                  : <div>no photo yet<br /></div>
+
+                }
+
+                {this.state.images.length < 5
+                  ? <div>
+                    <br />
+                    <label htmlFor="fileUpload">
+
+
+                      <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
+  +
+                      </div>
+                    </label>
+                    <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
+
+                  </div>
+                  : null
+                }
+
+
+
+              </div>
+              <br />
+
+
+              <div id='user-info'>
+                <label><b>What is your nickname *</b></label>
+                <input id='nickname-input' type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
+                <br />
+                <label><b>Your Email *</b></label>
+                <input id='email-input' type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
+                <p style={{'fontSize': '10pt'}}>For authentication reasons, you will not be emailed</p>
+
+              </div>
+              {this.state.posted ? <div>Review posted!</div> : null}
+
+              <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
+
+              {/* input content validation */}
+              {this.state.hasError
+                ? <div id='submissionError' className = {AddNewReviewModalCSS.errMsg}>
+            You must fix the following errors:
+                  <br />
+                  {this.state.overallRatingErr
+                    ? <li>OverallRating empty</li>
+                    : null
+
+                  }
+                  {this.state.CharacteristicsErr
+                    ? <li>Characteristics empty</li>
+                    : null
+
+                  }
+                  {this.state.reviewBodyErr
+                    ? <li>Review Body is less than 50 chars</li>
+                    : null
+
+                  }
+                  {this.state.nickenameErr
+                    ? <li>Nickname empty</li>
+                    : null
+
+                  }
+                  {this.state.EmailEmpty
+                    ? <li>Email empty</li>
+                    : null
+
+                  }
+                  {this.state.EmailFormatErr
+                    ? <li>Email format Error</li>
+                    : null
+
+                  }
+
+                </div>
+
+                : null
+
+
+
+              }
 
 
 
 
 
-            <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
+              <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
 
 
 
-          </form>
+            </form>
+
+          </div>
+
 
 
         </div>

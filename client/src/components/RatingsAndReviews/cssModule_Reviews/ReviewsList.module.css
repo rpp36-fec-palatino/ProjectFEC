@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700;900&display=swap');
+
+
+
+
 .reviewListMain {
   background-color: #DDDDDD;
   padding-left: 20px;
   padding-right: 20px;
   width:70%;
   height: 750px;
+  font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .reviewScroller {

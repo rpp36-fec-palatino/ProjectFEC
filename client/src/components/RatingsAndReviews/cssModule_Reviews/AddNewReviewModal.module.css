@@ -1,20 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700;900&display=swap');
+
 .modalContainer {
   position: fixed;
   z-index: 2;
   left: 35%;
-  top: 5%;
-  background-color: whitesmoke;
+  top: 3%;
+  background-color: lightsteelblue;
   border-radius: 5px;
-  margin: auto;
-  padding: 25px;
+  margin-top: 15px;
   border: 1px solid #888;
-  width: 50%;
+  width: 40%;
+  height: 900px;
   box-shadow: 3px 6px #888888;
-
-
-
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
 
 }
+
+.modalContainer h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20pt;
+}
+
+.modalContainer li {
+  text-align: left;
+  position: relative;
+
+  left: 40%;
+
+}
+
+
 .dimmerBg {
   position: fixed;
   z-index: 1;
@@ -48,11 +64,10 @@
 
 .characteristicsForm {
   position: relative;
-  font-family:Arial, Helvetica, sans-serif;
   font-size: 10pt;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
 }
 
 .box1 {
@@ -78,8 +93,12 @@
   border-radius: 10px;
   font-size: 40px;
   color: grey;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
   cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 48%;
+
 
 
 
@@ -89,7 +108,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  margin-left: 20%;
+  gap: 20px;
 }
 
 
@@ -160,4 +180,16 @@
   color: red;
   font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.ModalScroller {
+  height:800px;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-bottom: 2.5%;
+  background-color: #ffffff;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  display: inline-flexbox;
+
 }
