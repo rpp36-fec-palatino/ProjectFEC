@@ -86,3 +86,8 @@
   overflow: hidden;
  }
 
+.reviewBody {
+  word-wrap: break-word;
+  width: 60%;
+  padding-right: 15px;
+}

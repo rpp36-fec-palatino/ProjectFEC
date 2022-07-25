@@ -41,6 +41,7 @@ const ReviewEntry = (props) => {
   let percent = (props.review.rating / 5) * 100;
   const [imagePop, setImagePop] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [displayFull, setDisplayFull] = useState(false);
 
 
 
@@ -66,7 +67,23 @@ const ReviewEntry = (props) => {
       </div>
 
       <h3 style={{'fontFamily': 'Montserrat'}}> {props.review.summary}</h3>
-      <p id='review-body'> {props.review.body} </p>
+      {props.review.body.length <= 250
+        ? <div id='review-body' className={ReviewEntryCSS.reviewBody}> {props.review.body} </div>
+
+        : props.review.body.length > 250 && !displayFull
+
+          ? <div id='review-body' className={ReviewEntryCSS.reviewBody}> {props.review.body.slice(0, 250) + '...'}
+            <a href='null' style={{'color': 'blue'}} onClick={e => {
+              e.preventDefault();
+              setDisplayFull(true);
+
+            }}>Show More</a> </div>
+
+          : <div id='review-body' className={ReviewEntryCSS.reviewBody}> {props.review.body} </div>
+
+
+      }
+
 
       {/* conditional rendering of recommendation */}
       {props.review.recommend
