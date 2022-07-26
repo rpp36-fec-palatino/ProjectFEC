@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './styles/AddToCart.module.css';
+import css from './styles/addToCart.module.css';
 
 class AddToCart extends React.Component {
   constructor(props) {
