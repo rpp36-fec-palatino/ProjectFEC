@@ -60,18 +60,25 @@ class HelpfulAndReport extends React.Component {
     return (
       <div className="review-entry-footer">
         <span >Helpful?</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         {!this.state.voted
-          ? <button
+          ? <a
+            href=''
             id={this.props.reviewId + '-yes'}
-            onClick={e => this.voteYesClick(e)}
-          >Yes({this.state.helpfulCount})</button>
-          : <button
+            onClick={e => { e.preventDefault(); this.voteYesClick(e); }}
+          >Yes({this.state.helpfulCount})</a>
+          : <a
+            href=''
             id={this.props.reviewId + '-yes'}
-          >Yes({this.state.helpfulCount})</button>
+          >Yes({this.state.helpfulCount})</a>
 
         }
+        &nbsp;&nbsp;
 
-        <button id={this.props.reviewId + '-report'} onClick = {e => this.reportBtnClick(e)}>Report</button>
+        {' | '}
+        &nbsp;&nbsp;
+
+        <a href='' id={this.props.reviewId + '-report'} onClick = {e => { e.preventDefault(); this.reportBtnClick(e); }}>  Report</a>
       </div>
     );
   }

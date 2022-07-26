@@ -26,7 +26,8 @@ class RatingsAndReviews extends React.Component {
       recommended: sampleMetaReview71697['recommended'],
       sortingKeyword: 'relevant', //default
       ratingFilters: {'5': false, '4': false, '3': false, '2': false, '1': false},
-      searchKeyword: ''
+      searchKeyword: '',
+      afterSearch: []
 
 
 
@@ -188,13 +189,24 @@ class RatingsAndReviews extends React.Component {
       filtered = prev.filter(ele => {
         return (ele.body.toLowerCase().includes(keyword.toLowerCase()) || ele.summary.toLowerCase().includes(keyword.toLowerCase()));
       } );
+      this.setState({
+        afterSearch: filtered,
+        currentDisplayedReviews: filtered.slice(0, 2)
+      });
+
+    } else {
+      this.setState({
+        currentReviews: prev,
+        currentDisplayedReviews: prev.slice(0, 2)
+      });
 
     }
 
-    this.setState({
-      currentReviews: prev,
-      currentDisplayedReviews: filtered.slice(0, 2)
-    });
+
+
+
+
+
 
   }
 
@@ -220,7 +232,7 @@ class RatingsAndReviews extends React.Component {
   render () {
     return (
       <div id="RatingsAndReviews">
-        <h1>Ratings and Reviews</h1>
+        <h1 style={{'fontFamily': 'Montserrat', 'marginLeft': '2%'}}>{'RATINGS & REVIEWS'}</h1>
         <div className={ReviewsMainCSS.box}>
           <Ratings
             currentMetaReview = {this.state.currentMetaReview}
@@ -245,6 +257,7 @@ class RatingsAndReviews extends React.Component {
             passSearchKeyword = {this.passSearchKeyword.bind(this)}
             refresh={this.refresh.bind(this)}
             removeReportedReview = {this.removeReportedReview.bind(this)}
+            afterSearch = {this.state.afterSearch}
 
 
           />

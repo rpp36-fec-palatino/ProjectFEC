@@ -49,6 +49,7 @@ class App extends React.Component {
     this.getRelatedProductsIds(sampleId);
     this.getRelatedProductsStyles(sampleId);
     this.getRelatedProductsRatings(sampleId);
+    localStorage.setItem('clicks', '[]'); // for clicktracker data array storage
   }
 
   getProductStyleNumber(event) {

@@ -61,13 +61,13 @@ const Ratings = (props) => {
   return (
 
     <div id="rating-container">
-      <WithTrackerHOC eventName={'Ratings'} >
-        <div className="rantingBreakdown" id='rating-breakdown-bars'>
+      <WithTrackerHOC eventName={'Ratings-index-1'} >
+        <div className={RatingBreakdownBarCSS.mainContainer} id='rating-breakdown-bars'>
 
           {avgStars > 0
             ? <div id="avg-star-rating">
               <div className={RatingBreakdownBarCSS.box2} >
-                <span style={{ 'fontSize': '40px', 'fontFamily': 'Arial', 'fontWeight': 'bolder'}} id="avg-star-score" >{avgStars}</span>
+                <span style={{ 'fontSize': '45px', 'fontFamily': 'Arial', 'fontWeight': 'bolder'}} id="avg-star-score" >{avgStars}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Stars percent={percent} />
               </div>
@@ -81,7 +81,7 @@ const Ratings = (props) => {
 
 
 
-            : <div style={{ 'fontSize': '30px', 'fontFamily': 'Arial'}}>This product has no ratings yet</div>
+            : <div style={{ 'fontSize': '20px', 'fontFamily': 'Roboto'}}>This product has no ratings yet! <br /><br /></div>
 
 
           }

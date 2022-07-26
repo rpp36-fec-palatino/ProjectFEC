@@ -12,7 +12,8 @@ class ReviewsList extends React.Component {
     super(props);
     this.state = {
       currentFilter: this.props.sortingKeyword,
-      addReviewSeen: false
+      addReviewSeen: false,
+      currentSearch: ''
 
     };
 
@@ -70,9 +71,12 @@ class ReviewsList extends React.Component {
     if (e.target.value.length >= 3) {
       console.log('current search:', e.target.value);
 
+      this.setState({currentSearch: e.target.value});
+
       this.props.passSearchKeyword(e.target.value);
 
     } else {
+      this.setState({currentSearch: ''});
       this.props.passSearchKeyword('');
 
     }
@@ -82,12 +86,13 @@ class ReviewsList extends React.Component {
 
   render() {
     return (
-      <WithTrackerHOC eventName={'ReviewList'}>
+      <WithTrackerHOC eventName={'ReviewList-index-1'}>
         <Wrapper>
           <div className={ReviewsListCSS.reviewListMain} id='review-list-main'>
             <h2>Reviews List</h2>
             <div id='search-form' className={ReviewsListCSS.box}>
               <FaSearch />
+
               <input onChange ={e => this.searchOnChange(e)} id='search-input' className={ReviewsListCSS.searchForm} type="text" name="search" placeholder="Search reviews by keywords here...">
 
               </input>
@@ -97,8 +102,12 @@ class ReviewsList extends React.Component {
 
             {this.props.currentReviews.length
               ? <div className={ReviewsListCSS.sortSelect} >
+                {this.state.currentSearch
+                  ? <div> {this.props.afterSearch.length} reviews, sorted by </div>
+                  : <div> {this.props.currentReviews.length} reviews, sorted by </div>
 
-                <div> {this.props.currentReviews.length} reviews, sorted by </div>
+
+                }
                 &nbsp;&nbsp;
                 <select id='dropdown-menu' data-testid='select' value={this.state.currentFilter} onChange={this.handleDropdownSelection.bind(this)} >
                   <option value="relevant" name="Relevant">Relevant</option>

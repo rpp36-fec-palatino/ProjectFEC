@@ -95,7 +95,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
     const clickButton = getByTestId('popModal');
     fireEvent.click(clickButton);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
-    expect(screen.getByTestId('addNewModal').id).toBe('add-new-review-title');
+    expect(screen.getByTestId('addNewModal').id).toBe('add-new-review-main');
 
   });
 
