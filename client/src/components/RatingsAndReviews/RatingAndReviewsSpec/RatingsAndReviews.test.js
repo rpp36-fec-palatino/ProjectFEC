@@ -31,7 +31,7 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
       currentProductName = {'Bright Future Sunglasses'}
       passReviewCount = {passReviewCount}
     />);
-    const title = await waitFor(() => screen.findByText(/Ratings and Reviews/i));
+    const title = await waitFor(() => screen.findByText(/RATINGS & REVIEWS/i));
     expect (title).toBeInTheDocument();
 
   });

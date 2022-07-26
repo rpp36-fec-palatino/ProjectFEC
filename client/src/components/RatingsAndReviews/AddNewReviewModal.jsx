@@ -287,7 +287,7 @@ class AddNewReviewModal extends React.Component {
                 <br />
                 {this.state.ReviewBody.length < 50
                   ? <span style={{'color': 'red', 'fontSize': '10pt'}}><i>Minimum required characters left: {50 - this.state.ReviewBody.length}</i></span>
-                  : <span style={{'color': 'blue', 'fontSize': '10pt'}}>Minimum reached!</span>
+                  : <span style={{'color': 'blue', 'fontSize': '10pt'}}>Minimum reached! {1000 - this.state.ReviewBody.length} characters to reach maximum length</span>
 
                 }
               </div>
