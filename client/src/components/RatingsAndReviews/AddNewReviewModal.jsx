@@ -28,6 +28,8 @@ class AddNewReviewModal extends React.Component {
 
       images: [],
 
+      imageFiles: [],
+
       uploadedImages: [],
 
       // uploaded: false,
@@ -50,6 +52,8 @@ class AddNewReviewModal extends React.Component {
 
       EmailFormatErr: true,
 
+      uploadErr: false,
+
       hasError: false
 
     };
@@ -64,6 +68,9 @@ class AddNewReviewModal extends React.Component {
 
 
   componentDidUpdate(prevState, prevProps) {
+    // if (prevState.images !== this.state.images) {
+    //   this.imageUpload();
+    // }
 
 
   }
@@ -80,37 +87,61 @@ class AddNewReviewModal extends React.Component {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0];
       let results = this.state.images;
-      let preUploadStatus = this.state.uploaded;
+      let files = this.state.imageFiles;
+
       results.push(URL.createObjectURL(img));
+      files.push(img);
 
       this.setState({
         images: results,
+        imageFiles: files
         // uploaded: !preUploadStatus
       });
+      this.imageUpload();
+
     }
   }
 
-  // imageUpload() {
-  //   this.state.images.forEach(image => {
-  //     let formData = new FormData();
-  //     formData.append('image', image);
-  //     axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
-  //       .then(response => {
-  //         let updated = this.state.uploadedImages.concat(response.data.url);
-  //         this.setState({
-  //           uploadedImages: updated
-  //         });
-  //       });
-  //   });
-  // }
+  imageUpload() {
+    let updated = [];
+    this.state.imageFiles.forEach(image => {
+      let formData = new FormData();
+      formData.append('image', image);
+
+      axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
+        .then(response => {
+          updated.push(response.data);
+          this.setState({
+            uploadedImages: updated,
+
+          });
+        }).catch(err => {
+          this.setState({
+            uploadErr: true
+          });
+        });
+    });
+  }
 
   removeBtnClick(e) {
     e.preventDefault();
     console.log('e.currenttargetId:', e.currentTarget.id);
     let idToFilter = e.currentTarget.id.split('-')[2];
-    let beforeRemove = this.state.images;
+    let beforeRemove = this.state.uploadedImages;
+    let imageFilesBeforeRmv = this.state.imageFiles;
+    let imagesBeforeRemove = this.state.images;
     let afterRemove = beforeRemove.slice(0, idToFilter).concat(beforeRemove.slice(idToFilter + 1));
-    this.setState({images: afterRemove});
+    let imageFilesAfterRemove = imageFilesBeforeRmv.slice(0, idToFilter).concat(imageFilesBeforeRmv.slice(idToFilter + 1));
+    let imagesAfterRemove = imagesBeforeRemove.slice(0, idToFilter).concat(imagesBeforeRemove.slice(idToFilter + 1));
+
+
+    this.setState({
+      uploadedImages: afterRemove,
+      imageFiles: imageFilesAfterRemove,
+      images: imagesAfterRemove
+
+
+    });
 
   }
 
@@ -216,7 +247,7 @@ class AddNewReviewModal extends React.Component {
       }
       reviewObj.name = this.state.nickeName;
       reviewObj.email = this.state.Email;
-      reviewObj.photos = this.state.images;
+      reviewObj.photos = this.state.uploadedImages;
       reviewObj.characteristics = this.state.characteristics;
       console.log(reviewObj);
 
@@ -295,10 +326,10 @@ class AddNewReviewModal extends React.Component {
 
               <div id='imageUploader' >
                 <h4>Upload your photos (up to 5) </h4>
-                {this.state.images.length
+                {this.state.uploadedImages.length
 
                   ? <div className = {AddNewReviewModalCSS.imageBox}>
-                    {this.state.images.map((photo, index) => (
+                    {this.state.uploadedImages.map((photo, index) => (
                       <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
                         <span
                           className = {AddNewReviewModalCSS.removeBtn}
@@ -376,6 +407,11 @@ class AddNewReviewModal extends React.Component {
                   }
                   {this.state.reviewBodyErr
                     ? <li>Review Body is less than 50 chars</li>
+                    : null
+
+                  }
+                  {this.state.uploadErr
+                    ? <li>Image upload error</li>
                     : null
 
                   }

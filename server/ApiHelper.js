@@ -1,5 +1,6 @@
 const axios = require('axios');
 const config = require('../config.js');
+const FormData = require('form-data');
 
 let apiGet = (url) => {
   // TODO - Use the axios module to request repos for a specific
@@ -50,6 +51,28 @@ let apiPost = (url, data) => {
   });
 };
 
+
+/***************************
+ * imgbb upload helper
+ * ********************** */
+
+let uploadImage = (file) => {
+  let formData = new FormData();
+  formData.append('image', Buffer.from(file.buffer).toString('base64'));
+  let options = {
+    method: 'POST',
+    url: `https://api.imgbb.com/1/upload?key=${config.IMGBB_KEY}`,
+    headers: { 'content-Type': 'multipart/form-data' },
+    data: formData
+
+  };
+  return axios(options);
+};
+
+
+
+
 module.exports.apiGet = apiGet;
 module.exports.apiPut = apiPut;
 module.exports.apiPost = apiPost;
+module.exports.uploadImage = uploadImage;
