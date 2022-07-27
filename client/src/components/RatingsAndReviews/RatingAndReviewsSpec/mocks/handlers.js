@@ -15,11 +15,12 @@ export const handlers = [
         ctx.json(sampleMetaReview71698)
       );
 
-    } else {
-      return res(
-        ctx.json(emptyReviewsMetaData)
-      );
     }
+    // else {
+    //   return res(
+    //     ctx.json(emptyReviewsMetaData)
+    //   );
+    // }
 
   }),
   rest.put('/reviews/:review_id/helpful', (req, res, ctx) => {
@@ -34,9 +35,9 @@ export const handlers = [
     );
   }),
 
-  // rest.post('/reviews', (req, res, ctx) => {
+  // rest.post('/interactions', (req, res, ctx) => {
   //   return res(
-  //     ctx.status(201).json('Posted')
+  //     ctx.json('Posted')
   //   );
   // }),
 
