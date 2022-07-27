@@ -18,87 +18,71 @@ const Question = (props) => {
 
   if (answerCount === totalAnswers && answerCount > 2) {
     return (
-      <WithTrackerHOC eventName={'QuestionsAndAnswers->Question'}>
-        <Wrapper>
-          <div className={style.question} id="question">
-            <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
-            {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
-            {currentAnswers.map((item) => {
-              return (
-                <Answer key={item.id} answer={item} helpful={props.helpfulQ}/>
-              );
-            })}
-            <button onClick={() => {
-              setCurrentAnswers(answers.slice(0, answerCount - 1));
-              setAnswerCount(answerCount - 1);
-            }}>Collapse answers</button>
-          </div>
-        </Wrapper>
-      </WithTrackerHOC>
+      <div className={style.question} id="question">
+        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
+        {currentAnswers.map((item) => {
+          return (
+            <Answer key={item.id} answer={item} helpful={props.helpfulQ}/>
+          );
+        })}
+        <button onClick={() => {
+          setCurrentAnswers(answers.slice(0, answerCount - 1));
+          setAnswerCount(answerCount - 1);
+        }}>Collapse answers</button>
+      </div>
     );
   }
   if (answerCount > 2 && answerCount < totalAnswers) {
     return (
-      <WithTrackerHOC eventName={'QuestionsAndAnswers->Question'}>
-        <Wrapper>
-          <div className={style.question} id="question">
-            <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
-            {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
-            {currentAnswers.map((item) => {
-              return (
-                <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
-              );
-            })}
-            <button onClick={() => {
-              setAnswerCount(answerCount + 1);
-              setCurrentAnswers(answers.slice(0, answerCount + 1));
-            }}>Load more answers</button>
-            <button onClick={() => {
-              setCurrentAnswers(answers.slice(0, answerCount - 1));
-              setAnswerCount(answerCount - 1);
-            }}>Collapse answers</button>
-          </div>
-        </Wrapper>
-      </WithTrackerHOC>
+      <div className={style.question} id="question">
+        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
+        {currentAnswers.map((item) => {
+          return (
+            <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
+          );
+        })}
+        <button onClick={() => {
+          setAnswerCount(answerCount + 1);
+          setCurrentAnswers(answers.slice(0, answerCount + 1));
+        }}>Load more answers</button>
+        <button onClick={() => {
+          setCurrentAnswers(answers.slice(0, answerCount - 1));
+          setAnswerCount(answerCount - 1);
+        }}>Collapse answers</button>
+      </div>
     );
   }
   if (answerCount < totalAnswers) {
     return (
-      <WithTrackerHOC eventName={'QuestionsAndAnswers->Question'}>
-        <Wrapper>
-          <div className={style.question} id="question">
-            <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
-            {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
-            {currentAnswers.map((item) => {
-              return (
-                <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
-              );
-            })}
-            <button onClick={() => {
-              setAnswerCount(answerCount + 1);
-              setCurrentAnswers(answers.slice(0, answerCount + 1));
-            }}>Load more answers</button>
-          </div>
-        </Wrapper>
-      </WithTrackerHOC>
+      <div className={style.question} id="question">
+        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
+        {currentAnswers.map((item) => {
+          return (
+            <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
+          );
+        })}
+        <button onClick={() => {
+          setAnswerCount(answerCount + 1);
+          setCurrentAnswers(answers.slice(0, answerCount + 1));
+        }}>Load more answers</button>
+      </div>
     );
   }
 
   return (
-    <WithTrackerHOC eventName={'QuestionsAndAnswers->Question'}>
-      <Wrapper>
-        <div className={style.question} id="question">
-          <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
-          {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
-          {/* {sellerAnswer.length ? <Answer key={sellerAnswer[0].id} answer={sellerAnswer[0]} helpful={props.helpfulQ}/> : null} */}
-          {currentAnswers.map((item) => {
-            return (
-              <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
-            );
-          })}
-        </div>
-      </Wrapper>
-    </WithTrackerHOC>
+    <div className={style.question} id="question">
+      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+      {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
+      {/* {sellerAnswer.length ? <Answer key={sellerAnswer[0].id} answer={sellerAnswer[0]} helpful={props.helpfulQ}/> : null} */}
+      {currentAnswers.map((item) => {
+        return (
+          <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
+        );
+      })}
+    </div>
   );
 };
 
