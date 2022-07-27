@@ -28,7 +28,7 @@ class WithTrackerHOC extends React.Component {
     result.widget = this.props.eventName;
     // console.log('e.currentTarget.id:', e.currentTarget.id);
     // console.log('e.target.id:', e.target.id);
-    // console.log('event.target:', e.target);
+    console.log('event.target:', e.target);
 
     console.log(result);
     axios.post('/interactions', result)

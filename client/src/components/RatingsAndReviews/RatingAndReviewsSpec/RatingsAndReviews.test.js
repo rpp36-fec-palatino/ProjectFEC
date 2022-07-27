@@ -115,7 +115,30 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
   /***********************************************/
 
   describe('AddNewReviewModal component', () => {
-    beforeEach(() => {
+
+    it('should render AddNewReview  modal and display correct product name and initial selection', () => {
+      const mockOnClick = jest.fn();
+      const mockCancelClick = jest.fn();
+      const mockRefresh = jest.fn();
+      render(
+        <AddNewReviewModal
+          currentName = {'Bright Future Sunglasses'}
+          handleCancelClick = {mockCancelClick()}
+          currentMeta = {sampleMetaReview71698}
+          currentProductId = {'71698'}
+          submitBtnClick = {mockOnClick()}
+          mockCancelClick = {mockCancelClick}
+          refresh = {mockRefresh()}
+
+        />);
+
+
+      expect(screen.getByText(/Bright Future Sunglasses/i)).toBeInTheDocument();
+      expect(screen.getByText(/no rating selected/i)).toBeInTheDocument();
+      expect(screen.getByText(/none selected/i)).toBeInTheDocument();
+    });
+
+    it('should render AddNewReview  modal and display all warning messages if trying to submit empty form', () => {
       const mockOnClick = jest.fn();
       const mockCancelClick = jest.fn();
       const mockRefresh = jest.fn();
@@ -125,74 +148,118 @@ describe('<RatingsAndReviews /> and its subcomponents rendering', () => {
           handleCancelClick = {mockCancelClick()}
           currentMeta = {sampleMetaReview71698}
           currentProductId = {'71698'}
-          onClick = {mockOnClick()}
+          submitBtnClick = {mockOnClick()}
+          refresh = {mockRefresh()}
+          mockCancelClick = {mockCancelClick}
+
+        />);
+      render(
+        <AddNewReviewModal
+          currentName = {'Bright Future Sunglasses'}
+          handleCancelClick = {mockCancelClick()}
+          currentMeta = {sampleMetaReview71698}
+          currentProductId = {'71698'}
+          submitBtnClick = {mockOnClick()}
+          mockCancelClick = {mockCancelClick}
           refresh = {mockRefresh()}
 
         />);
 
+      const clickButton = getByTestId('submitReview');
+      fireEvent.click(clickButton);
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+      expect(screen.getByTestId('submissionErrorMsg').id).toBe('submissionError');
+      // expect(screen.getByText(/OverallRating empty/i)).toBeInTheDocument();
+      // expect(screen.getByText(/Characteristics empty/i)).toBeInTheDocument();
+      // expect(screen.getByText(/Review Body is less than 50 chars/i)).toBeInTheDocument();
+      // expect(screen.getByText(/Nickname empty/i)).toBeInTheDocument();
+      // expect(screen.getByText(/Email empty/i)).toBeInTheDocument();
+      // expect(screen.getByText(/Email format Error/i)).toBeInTheDocument();
     });
-    describe('Information display', () => {
-      it('should render AddNewReview  modal and display correct product name and initial selection', () => {
 
+    it('should render AddNewReview  modal and close the modal after cancel btn click', () => {
+      const mockOnClick = jest.fn();
+      const mockCancelClick = jest.fn();
+      const mockRefresh = jest.fn();
 
-        expect(screen.getByText(/Bright Future Sunglasses/i)).toBeInTheDocument();
-        expect(screen.getByText(/no rating selected/i)).toBeInTheDocument();
-        expect(screen.getByText(/none selected/i)).toBeInTheDocument();
-      });
+      const {queryByText, getByTestId} = render(
+        <AddNewReviewModal
+          currentName = {'Bright Future Sunglasses'}
+          handleCancelClick = {mockCancelClick()}
+          currentMeta = {sampleMetaReview71698}
+          currentProductId = {'71698'}
+          submitBtnClick = {mockOnClick()}
+          refresh = {mockRefresh()}
+          handleCancelClick = {mockCancelClick}
 
+        />);
+
+      const clickCancelButton = getByTestId('closeModal');
+      fireEvent.click(clickCancelButton);
+      expect(screen.queryByText(/Bright Future Sunglasses/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/OverallRating empty/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Characteristics empty/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Review Body is less than 50 chars/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Nickname empty/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Email empty/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Email format Error/i)).not.toBeInTheDocument();
     });
 
+
+
+
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /****** testing dropdown selection *************************/
-
-  //default selection testing:
-  it('should correctly set default option', () => {
-    const dropdownSelection = (e) => {};
-    const handleDropdownSelection = (e) => {};
-    render(<ReviewsList
-      currentReviews = {sampleReviews71698.results}
-      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
-      dropdownSelection = {dropdownSelection}
-      handleDropdownSelection = {handleDropdownSelection}
-
-    />);
-    expect(screen.getByRole('option', {name: 'Relevant'}).selected).toBe(true);
-  });
-
-  it('Should simulates selection', () => {
-    const dropdownSelection = (e) => {};
-    const handleDropdownSelection = (e) => {};
-    const { getByTestId, getAllByTestId } = render(<ReviewsList
-      currentReviews = {sampleReviews71698.results}
-      currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
-      dropdownSelection = {dropdownSelection}
-      handleDropdownSelection = {handleDropdownSelection}
-
-    />);
-    fireEvent.change(getByTestId('select'), { target: { value: 'newest' } });
-    let option = getByTestId('select-newest');
-    expect(option.selected).toBeTruthy();
-
-    //...
-  });
-
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****** testing dropdown selection *************************/
+
+//default selection testing:
+it('should correctly set default option', () => {
+  const dropdownSelection = (e) => {};
+  const handleDropdownSelection = (e) => {};
+  render(<ReviewsList
+    currentReviews = {sampleReviews71698.results}
+    currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
+    dropdownSelection = {dropdownSelection}
+    handleDropdownSelection = {handleDropdownSelection}
+
+  />);
+  expect(screen.getByRole('option', {name: 'Relevant'}).selected).toBe(true);
+});
+
+it('Should simulates selection', () => {
+  const dropdownSelection = (e) => {};
+  const handleDropdownSelection = (e) => {};
+  const { getByTestId, getAllByTestId } = render(<ReviewsList
+    currentReviews = {sampleReviews71698.results}
+    currentDisplayReviews = {sampleReviews71698.results.slice(0, 2)}
+    dropdownSelection = {dropdownSelection}
+    handleDropdownSelection = {handleDropdownSelection}
+
+  />);
+  fireEvent.change(getByTestId('select'), { target: { value: 'newest' } });
+  let option = getByTestId('select-newest');
+  expect(option.selected).toBeTruthy();
+
+});
+
+
+
 
 
 /***********************************************/

@@ -24,10 +24,27 @@ export const handlers = [
   }),
   rest.put('/reviews/:review_id/helpful', (req, res, ctx) => {
     return res(
-      ctx.json('Voted helpful!')
+      ctx.status(201).json('Voted helpful!')
     );
-  })
+  }),
 
+  rest.post('/interactions', (req, res, ctx) => {
+    return res(
+      ctx.status(201).json('Created')
+    );
+  }),
+
+  // rest.post('/reviews', (req, res, ctx) => {
+  //   return res(
+  //     ctx.status(201).json('Posted')
+  //   );
+  // }),
+
+  // rest.post('/upload/images', (req, res, ctx) => {
+  //   return res(
+  //     ctx.status(201).json('https://i.ibb.co/gtFcyWv/98af460dec39.jpg')
+  //   );
+  // }),
 
 
 ];

@@ -73,7 +73,7 @@ const Ratings = (props) => {
               </div>
               <br />
               <br />
-              <div>{recommendRate}% of reviews recommend this product</div>
+              <div id='recommendation-rate'>{recommendRate}% of reviews recommend this product</div>
               <br />
 
 
