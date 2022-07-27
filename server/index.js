@@ -330,6 +330,46 @@ app.post('/qa/questions', (req, res) => {
 });
 
 
+
+/****************************************************************************
+ *
+ *             *** interaction api calls  ***
+ *
+ * ***************************************************************************/
+
+app.post('/interactions', (req, res) => {
+  console.log('this is req.body in interaction:', req.body);
+  let interactionData = req.body;
+  let options = {
+    method: 'POST',
+    url: apiUrl + '/interactions',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`,
+
+    },
+    data: interactionData
+
+  };
+
+  axios(options)
+    .then(response => {
+      res.status(201).send('Success!');
+    }).catch(err => {
+      res.status(500).send(err.message);
+    });
+
+
+})
+
+
+
+
+
+
+
+
+
 app.get('/*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
 });

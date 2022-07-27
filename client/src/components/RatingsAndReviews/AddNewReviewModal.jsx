@@ -273,7 +273,7 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <WithTrackerHOC eventName={'AddNewReviewModal-index-2'}>
+      <WithTrackerHOC eventName={'AddNewReviewModal'}>
         <div className = {AddNewReviewModalCSS.dimmerBg}></div>
         <div data-testid="addNewModal" id="add-new-review-main" className = {AddNewReviewModalCSS.modalContainer} >
           <h3 >Write Your Review</h3>

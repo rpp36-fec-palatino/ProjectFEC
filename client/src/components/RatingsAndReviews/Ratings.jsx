@@ -61,7 +61,7 @@ const Ratings = (props) => {
   return (
 
     <div id="rating-container">
-      <WithTrackerHOC eventName={'Ratings-index-1'} >
+      <WithTrackerHOC eventName={'Ratings'} >
         <div className={RatingBreakdownBarCSS.mainContainer} id='rating-breakdown-bars'>
 
           {avgStars > 0
