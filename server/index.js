@@ -338,7 +338,7 @@ app.post('/qa/questions', (req, res) => {
  * ***************************************************************************/
 
 app.post('/interactions', (req, res) => {
-  console.log('this is req.body in interaction:', req.body);
+  // console.log('this is req.body in interaction:', req.body);
   let interactionData = req.body;
   let options = {
     method: 'POST',
@@ -354,6 +354,7 @@ app.post('/interactions', (req, res) => {
 
   axios(options)
     .then(response => {
+      console.log('success posted interactions:', response.data);
       res.status(201).send('Success!');
     }).catch(err => {
       res.status(500).send(err.message);
