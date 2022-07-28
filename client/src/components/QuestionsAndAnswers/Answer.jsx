@@ -17,7 +17,7 @@ const Answer = (props) => {
   if (props.answer.answerer_name === 'Seller') {
     return (
       <div className='answer' id="answer">
-        <p>A: {props.answer.body}</p>
+        <p id="answerText">A: {props.answer.body}</p>
         <div className={style.row}>
           {photos.map((item, index) => {
             return (
@@ -25,14 +25,14 @@ const Answer = (props) => {
             );
           })}
         </div>
-        <p>by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+        <p id="answerUser">by <b>{props.answer.answerer_name}</b>, {answerDate}  | Helpful? <a id="answerHelpful" href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
         | <a href="#0" id="answerReportButton" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
       </div>
     );
   }
   return (
     <div className='answer' id="answer">
-      <p>A: {props.answer.body}</p>
+      <p id="answerText">A: {props.answer.body}</p>
       <div className={style.row}>
         {photos.map((item, index) => {
           return (
@@ -40,7 +40,7 @@ const Answer = (props) => {
           );
         })}
       </div>
-      <p>by {props.answer.answerer_name}, {answerDate}  | Helpful? <a href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
+      <p id="answerUser">by {props.answer.answerer_name}, {answerDate}  | Helpful? <a id="answerHelpful" href="#0" onClick={() => { if (!helpfulVote) { props.helpful(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a>({helpfulNumber})
       | <a href="#0" id="answerReportButton" onClick={() => { if (reportVote === 'Report') { props.helpful(reportUrl); setReportVote('Reported'); } }}>{reportVote}</a></p>
     </div>
   );

@@ -19,14 +19,14 @@ const Question = (props) => {
   if (answerCount === totalAnswers && answerCount > 2) {
     return (
       <div className={style.question} id="question">
-        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        <h3 className={style.questionHelpAdd} id="questionTitle">Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
         {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
         {currentAnswers.map((item) => {
           return (
             <Answer key={item.id} answer={item} helpful={props.helpfulQ}/>
           );
         })}
-        <button onClick={() => {
+        <button id="collapseAnswers" onClick={() => {
           setCurrentAnswers(answers.slice(0, answerCount - 1));
           setAnswerCount(answerCount - 1);
         }}>Collapse answers</button>
@@ -36,18 +36,18 @@ const Question = (props) => {
   if (answerCount > 2 && answerCount < totalAnswers) {
     return (
       <div className={style.question} id="question">
-        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        <h3 className={style.questionHelpAdd} id="questionTitle">Q: {props.qAndA.question_body}</h3> <h4 id="helpfulText" className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
         {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
         {currentAnswers.map((item) => {
           return (
             <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
           );
         })}
-        <button onClick={() => {
+        <button id="loadAnswers" onClick={() => {
           setAnswerCount(answerCount + 1);
           setCurrentAnswers(answers.slice(0, answerCount + 1));
         }}>Load more answers</button>
-        <button onClick={() => {
+        <button id="collapseAnswers" onClick={() => {
           setCurrentAnswers(answers.slice(0, answerCount - 1));
           setAnswerCount(answerCount - 1);
         }}>Collapse answers</button>
@@ -57,14 +57,14 @@ const Question = (props) => {
   if (answerCount < totalAnswers) {
     return (
       <div className={style.question} id="question">
-        <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+        <h3 className={style.questionHelpAdd} id="questionTitle">Q: {props.qAndA.question_body}</h3> <h4 id="helpfulText" className={style.voteAdd}> Helpful? <a id="helpfulQuestionVote" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswerButton" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
         {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
         {currentAnswers.map((item) => {
           return (
             <Answer key={item.id} answer={item} helpful={props.helpfulQ} />
           );
         })}
-        <button onClick={() => {
+        <button id="loadAnswers" onClick={() => {
           setAnswerCount(answerCount + 1);
           setCurrentAnswers(answers.slice(0, answerCount + 1));
         }}>Load more answers</button>
@@ -74,7 +74,7 @@ const Question = (props) => {
 
   return (
     <div className={style.question} id="question">
-      <h3 className={style.questionHelpAdd}>Q: {props.qAndA.question_body}</h3> <h4 className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
+      <h3 className={style.questionHelpAdd} id="questionTitle">Q: {props.qAndA.question_body}</h3> <h4 id="helpfulText" className={style.voteAdd}> Helpful? <a id="helpfulQuestion" href="#0" onClick={() => { if (!helpfulVote) { props.helpfulQ(helpfulUrl); setHelpfulNumber(helpfulNumber + 1); setHelpfulVote(current => !current); } }}>Yes</a> ({helpfulNumber}) | <a id="addAnswer" className={style.questionHelpAdd} href="#0" onClick={() => { setDisplayAddAnswer(current => !current); }}>Add Answer</a></h4>
       {displayAddAnswer ? <AddAnswer addAns={props.addAns} productName={props.productName} questionBody={props.qAndA.question_body} questionId={props.qAndA.question_id} cancel={() => setDisplayAddAnswer(current => !current)}/> : null}
       {/* {sellerAnswer.length ? <Answer key={sellerAnswer[0].id} answer={sellerAnswer[0]} helpful={props.helpfulQ}/> : null} */}
       {currentAnswers.map((item) => {

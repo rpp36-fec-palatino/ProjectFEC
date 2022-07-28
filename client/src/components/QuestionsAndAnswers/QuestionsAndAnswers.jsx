@@ -86,7 +86,7 @@ class QuestionsAndAnswers extends React.Component {
       return null;
     }
     return (
-      <button onClick={() => this.loadQuestions()}>More Answered Questions</button>
+      <button id="loadMoreQuestions" onClick={() => this.loadQuestions()}>More Answered Questions</button>
     );
   }
 
@@ -148,13 +148,18 @@ class QuestionsAndAnswers extends React.Component {
       );
     }
     return (
-      <div className={style.questionsAndAnswers} id="qAndA">
-        <h1 id="qAndATitle">Questions And Answers</h1>
-        <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
-        <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName} addAns={this.addQuestionButton.bind(this)}/>
-        {this.loadQuestionsButton()}<button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
-        {this.state.addQuestionForm ? <AddQuestion addQ={this.addQuestionButton.bind(this)} productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
-      </div>
+      <WithTrackerHOC eventName={'QuestionsAndAnswers->loadMoreQuestions'}>
+        <Wrapper>
+          <div className={style.questionsAndAnswers} id="qAndA">
+            <h1 id="qAndATitle">Questions And Answers</h1>
+            <SearchQuestions onSearch={this.onSearchInput.bind(this)}/>
+            <QuestionsList results={this.state.currentResults} helpfulQ={this.helpfulQuestionButton} productName={this.props.productName} addAns={this.addQuestionButton.bind(this)}/>
+            {this.loadQuestionsButton()}
+            <button onClick={this.handleAddQuestionClick.bind(this)}>Add a Question +</button>
+            {this.state.addQuestionForm ? <AddQuestion addQ={this.addQuestionButton.bind(this)} productName={this.props.productName} product_id={this.state.product_id} cancelButton={this.handleAddQuestionCancel}/> : null}
+          </div>
+        </Wrapper>
+      </WithTrackerHOC>
     );
   }
 }
