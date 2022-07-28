@@ -8,11 +8,13 @@
   border-right: 1px solid black;
   width: 1142px;
   padding-right: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .productInfoRight {
   text-align: left;
   width: 480px;
+  font-family: 'Roboto', sans-serif;
 }
 
 ul {
