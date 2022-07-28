@@ -1,18 +1,16 @@
 .form {
-  position: relative;
-  width: 30rem;
   background: var(--color-brand);
   border-radius: var(--rad);
 }
 
 .input[type="search"] {
-  outline: 0;
   width: 100%;
-  background: var(--color-light);
-  padding: 0 1.6rem;
-  border-radius: var(--rad);
-  appearance: none;
-  transition: all var(--dur) var(--bez);
-  transition-property: width, border-radius;
-  position: relative;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 12px 12px 12px;
 }
