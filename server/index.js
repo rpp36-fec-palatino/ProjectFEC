@@ -4,8 +4,12 @@ const axios = require('axios');
 const apiGet = require('./ApiHelper.js').apiGet;
 const apiPut = require('./ApiHelper.js').apiPut;
 const apiPost = require('./ApiHelper.js').apiPost;
+const uploadImage = require('./ApiHelper.js').uploadImage;
 const helper = require('../client/src/components/RatingsAndReviews/helperFns/helper.js');
 const path = require('path');
+const multer = require('multer');
+
+const upload = multer({});
 
 
 app.use(express.urlencoded({extended: true}));
@@ -185,28 +189,19 @@ app.post('/reviews', (req, res) => {
  *
  * ***************************************************************************/
 
-// app.post('/upload/images', (req, res) => {
-//   console.log('this is req.body in image POST:', req.body);
-//   let imageData = req.body;
-//   let options = {
-//     method: 'POST',
-//     url: `https://api.imgbb.com/1/upload?key=${config.IMGBB_KEY}`,
-//     headers: {
-//       'User-Agent': 'request'
+app.post('/upload/images', upload.single('image'), (req, res) => {
+  console.log('this is req.body in image POST:', req.body);
+  console.log('this is req.files in image POST:', req.file);
+  uploadImage(req.file)
+    .then(response => {
+      console.log('this is response from imgbb api:', response.data);
+      res.json(response.data.data.url);
+    }).catch(err => {
+      console.log('Err post to igmbb:', err.message);
+      res.send(err);
+    });
 
-//     },
-//     data: imageData.image
-//   };
-//   axios.post(options)
-//     .then(response => {
-//       console.log('Image post success!', response.data);
-//       res.status(201).send(reponse.data.url);
-//     }).catch(err => {
-//       console.log(err);
-//       res.status(500).send('err.message');
-//     });
-
-// });
+});
 
 
 
@@ -333,6 +328,47 @@ app.post('/qa/questions', (req, res) => {
   res.redirect(`/${id}`);
 
 });
+
+
+
+/****************************************************************************
+ *
+ *             *** interaction api calls  ***
+ *
+ * ***************************************************************************/
+
+app.post('/interactions', (req, res) => {
+  // console.log('this is req.body in interaction:', req.body);
+  let interactionData = req.body;
+  let options = {
+    method: 'POST',
+    url: apiUrl + '/interactions',
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`,
+
+    },
+    data: interactionData
+
+  };
+
+  axios(options)
+    .then(response => {
+      console.log('success posted interactions:', response.data);
+      res.status(201).send('Success!');
+    }).catch(err => {
+      res.status(500).send(err.message);
+    });
+
+
+});
+
+
+
+
+
+
+
 
 
 app.get('/*', (request, response) => {
