@@ -20,6 +20,13 @@ card-body {
    cursor: pointer;
  }
 
+ .card-img-top {
+  object-fit: cover;
+  width: 180px;
+  height: 180px;
+  margin-left: 15%;
+ }
+
  .card-icon {
   color: black;
   margin-left: 90%;

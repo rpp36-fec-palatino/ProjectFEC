@@ -29,6 +29,12 @@ class Outfit extends React.Component {
 
               <div className="card" onClick={() => this.props.modifyOutfit('add', this.props.currentId)}>
                 <img className="card-img-top" src='/img/plus.png'></img>
+                <div className="card-body">
+                  <p className="card-category"><b><center>Add to Outfit</center></b></p>
+
+
+
+                </div>
               </div>
 
 

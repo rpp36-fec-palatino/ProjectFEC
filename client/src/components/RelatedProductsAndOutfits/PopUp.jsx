@@ -31,34 +31,30 @@ class PopUp extends React.Component {
   render() {
 
     return (
-      <WithTrackerHOC eventName={'RelatedProductsAndOutfits->Popup'}>
-        <Wrapper>
-          <div className="popup-box" id="Popup">
+      <div className="popup-box" id="Popup">
 
-            <div className="box">
+        <div className="box">
 
-              <div>Comparing</div>
-              <button className="btn-close" onClick={() => this.props.closePopup()}>X</button>
-              <table>
-                <tr>
-                  <th>{this.props.currentProduct.name}</th>
-                  <th></th>
-                  <th className="right-col">{this.props.relatedProduct.name}</th>
-                </tr>
+          <div>Comparing</div>
+          <button className="btn-close" onClick={() => this.props.closePopup()}>X</button>
+          <table>
+            <tr>
+              <th>{this.props.currentProduct.name}</th>
+              <th></th>
+              <th className="right-col">{this.props.relatedProduct.name}</th>
+            </tr>
 
-                {Object.keys(this.state.features).map(value =>
-                  <tr key={value}>
-                    <td>{this.state.features[value][0]}</td>
-                    <td><i>{value}</i></td>
-                    <td className="right-col">{this.state.features[value][1]}</td>
-                  </tr>
-                )}
-              </table>
+            {Object.keys(this.state.features).map(value =>
+              <tr key={value}>
+                <td>{this.state.features[value][0]}</td>
+                <td><i>{value}</i></td>
+                <td className="right-col">{this.state.features[value][1]}</td>
+              </tr>
+            )}
+          </table>
 
-            </div>
-          </div>
-        </Wrapper>
-      </WithTrackerHOC>
+        </div>
+      </div>
     );
   }
 }
