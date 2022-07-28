@@ -121,7 +121,7 @@ class StyleSelector extends React.Component {
           <div id='StyleSelector' className={css.styleSelector}>
             {this.renderRating()}
             <div id='category' className={css.category}>{this.props.productData.category}</div>
-            <div id='productName' className={css.productName}>{this.props.productData.name}</div>
+            <b id='productName' className={css.productName}>{this.props.productData.name}</b>
             {this.currentPrice(this.props.selectedData)}
             <div id='style' className={css.style}>
               <b>{'STYLE > '}</b>

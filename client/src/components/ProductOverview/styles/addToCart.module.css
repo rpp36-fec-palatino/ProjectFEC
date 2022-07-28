@@ -9,6 +9,7 @@
   padding: 10px;
   font-size: medium;
   margin-right: 25px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .selectQty {
@@ -17,4 +18,5 @@
   width: 130px;
   padding: 10px;
   font-size: medium;
+  font-family: 'Roboto', sans-serif;
 }
