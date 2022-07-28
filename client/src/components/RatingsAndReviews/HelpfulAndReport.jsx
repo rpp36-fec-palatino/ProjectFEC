@@ -78,7 +78,7 @@ class HelpfulAndReport extends React.Component {
         {' | '}
         &nbsp;&nbsp;
 
-        <a href='' id={this.props.reviewId + '-report'} onClick = {e => { e.preventDefault(); this.reportBtnClick(e); }}>  Report</a>
+        <a href='' data-testid='voteHelpful' id={this.props.reviewId + '-report'} onClick = {e => { e.preventDefault(); this.reportBtnClick(e); }}>  Report</a>
       </div>
     );
   }

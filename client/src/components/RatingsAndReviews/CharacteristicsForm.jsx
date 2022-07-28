@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
@@ -67,16 +67,11 @@ const CharacteristicsForm = (props) => {
     console.log('whats in e.target: ', e.target.name, e.target.value);
   };
 
-  useEffect(() => {
-
-    props.passCharRating(selected);
-
-  }, [selected]);
 
 
 
   return (
-    <div id="characteristicsForm" id="characteristics-form">
+    <div id="AddNewReviewModal-characteristicsForm" >
       <span><b>Characteristics * </b></span>
       <div className={AddNewReviewModalCSS.characteristicsForm}>
         {Object.keys(props.currentMeta.characteristics).map(
@@ -97,7 +92,7 @@ const CharacteristicsForm = (props) => {
                           <label key={charKey + ratingKey}>
                             {ratingKey}
                           </label>
-                          <input id={'radio-' + charKey + '-' + ratingKey} type="radio" name={charKey} value={ratingKey} onChange={changeSelection}>
+                          <input id={'addNewReviewModal-radio-' + charKey + ratingKey} type="radio" name={charKey} value={ratingKey} onChange={changeSelection}>
 
                           </input>
 

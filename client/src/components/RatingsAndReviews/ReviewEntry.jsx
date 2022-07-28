@@ -66,7 +66,7 @@ const ReviewEntry = (props) => {
 
       </div>
 
-      <h3 style={{'fontFamily': 'Montserrat'}}> {props.review.summary}</h3>
+      <h3 id='review-summary' style={{'fontFamily': 'Montserrat'}}> {props.review.summary}</h3>
       {props.review.body.length <= 250
         ? <div id='review-body' className={ReviewEntryCSS.reviewBody}> {props.review.body} </div>
 

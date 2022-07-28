@@ -28,6 +28,8 @@ class AddNewReviewModal extends React.Component {
 
       images: [],
 
+      imageFiles: [],
+
       uploadedImages: [],
 
       // uploaded: false,
@@ -50,6 +52,8 @@ class AddNewReviewModal extends React.Component {
 
       EmailFormatErr: true,
 
+      uploadErr: false,
+
       hasError: false
 
     };
@@ -64,6 +68,9 @@ class AddNewReviewModal extends React.Component {
 
 
   componentDidUpdate(prevState, prevProps) {
+    // if (prevState.images !== this.state.images) {
+    //   this.imageUpload();
+    // }
 
 
   }
@@ -80,37 +87,61 @@ class AddNewReviewModal extends React.Component {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0];
       let results = this.state.images;
-      let preUploadStatus = this.state.uploaded;
+      let files = this.state.imageFiles;
+
       results.push(URL.createObjectURL(img));
+      files.push(img);
 
       this.setState({
         images: results,
+        imageFiles: files
         // uploaded: !preUploadStatus
       });
+      this.imageUpload();
+
     }
   }
 
-  // imageUpload() {
-  //   this.state.images.forEach(image => {
-  //     let formData = new FormData();
-  //     formData.append('image', image);
-  //     axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
-  //       .then(response => {
-  //         let updated = this.state.uploadedImages.concat(response.data.url);
-  //         this.setState({
-  //           uploadedImages: updated
-  //         });
-  //       });
-  //   });
-  // }
+  imageUpload() {
+    let updated = [];
+    this.state.imageFiles.forEach(image => {
+      let formData = new FormData();
+      formData.append('image', image);
+
+      axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
+        .then(response => {
+          updated.push(response.data);
+          this.setState({
+            uploadedImages: updated,
+
+          });
+        }).catch(err => {
+          this.setState({
+            uploadErr: true
+          });
+        });
+    });
+  }
 
   removeBtnClick(e) {
     e.preventDefault();
     console.log('e.currenttargetId:', e.currentTarget.id);
     let idToFilter = e.currentTarget.id.split('-')[2];
-    let beforeRemove = this.state.images;
+    let beforeRemove = this.state.uploadedImages;
+    let imageFilesBeforeRmv = this.state.imageFiles;
+    let imagesBeforeRemove = this.state.images;
     let afterRemove = beforeRemove.slice(0, idToFilter).concat(beforeRemove.slice(idToFilter + 1));
-    this.setState({images: afterRemove});
+    let imageFilesAfterRemove = imageFilesBeforeRmv.slice(0, idToFilter).concat(imageFilesBeforeRmv.slice(idToFilter + 1));
+    let imagesAfterRemove = imagesBeforeRemove.slice(0, idToFilter).concat(imagesBeforeRemove.slice(idToFilter + 1));
+
+
+    this.setState({
+      uploadedImages: afterRemove,
+      imageFiles: imageFilesAfterRemove,
+      images: imagesAfterRemove
+
+
+    });
 
   }
 
@@ -216,7 +247,7 @@ class AddNewReviewModal extends React.Component {
       }
       reviewObj.name = this.state.nickeName;
       reviewObj.email = this.state.Email;
-      reviewObj.photos = this.state.images;
+      reviewObj.photos = this.state.uploadedImages;
       reviewObj.characteristics = this.state.characteristics;
       console.log(reviewObj);
 
@@ -242,17 +273,18 @@ class AddNewReviewModal extends React.Component {
 
   render () {
     return (
-      <WithTrackerHOC eventName={'AddNewReviewModal-index-2'}>
+      // <WithTrackerHOC eventName={'AddNewReviewModal'}>
+      <>
         <div className = {AddNewReviewModalCSS.dimmerBg}></div>
-        <div data-testid="addNewModal" id="add-new-review-main" className = {AddNewReviewModalCSS.modalContainer} >
+        <div data-testid="addNewModal" id="add-new-review-modal-main" className = {AddNewReviewModalCSS.modalContainer} >
           <h3 >Write Your Review</h3>
           <div className = {AddNewReviewModalCSS.ModalScroller}>
             <form>
 
-              <div id="product-name" >About  <span style={{'color': 'blue', 'fontWeight': 'bolder'}}>{this.state.currentItemName}</span></div>
+              <div id="AddNewReviewModal-product-name" >About  <span style={{'color': 'blue', 'fontWeight': 'bolder'}}>{this.state.currentItemName}</span></div>
 
 
-              <div name="rating" id='Overall-star-rating'>
+              <div name="rating" id='AddNewReviewModal-Overall-star-rating'>
                 <br />
                 <b>Overall Rating *</b>
 
@@ -263,7 +295,7 @@ class AddNewReviewModal extends React.Component {
               <br />
 
 
-              <div id="recommend">
+              <div id="AddNewReviewModal-recommend">
                 <label><b>Do you recommend this product? *</b> </label>
                 <input type="radio" value="yes" name="recommend" checked={this.state.recommendStatus === 'yes'} onChange={e => this.onValueChange(e)} /> Yes
                 <input type="radio" value="no" name="recommend" checked={this.state.recommendStatus === 'no'} onChange={e => this.onValueChange(e)} /> No
@@ -275,30 +307,30 @@ class AddNewReviewModal extends React.Component {
               <br />
 
 
-              <div id='review-content'>
+              <div id='AddNewReviewModal-review-content'>
                 <label><b>Review Summary</b> </label>
                 <br />
-                <textarea id='review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
+                <textarea id='AddNewReviewModal-review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
               </div>
               <div>
                 <label><b>Review Body *</b></label>
                 <br />
-                <textarea id="review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+                <textarea id="AddNewReviewModal-review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
                 <br />
                 {this.state.ReviewBody.length < 50
                   ? <span style={{'color': 'red', 'fontSize': '10pt'}}><i>Minimum required characters left: {50 - this.state.ReviewBody.length}</i></span>
-                  : <span style={{'color': 'blue', 'fontSize': '10pt'}}>Minimum reached!</span>
+                  : <span style={{'color': 'blue', 'fontSize': '10pt'}}>Minimum reached! {1000 - this.state.ReviewBody.length} characters to reach maximum length</span>
 
                 }
               </div>
 
 
-              <div id='imageUploader' >
+              <div id='AddNewReviewModal-imageUploader' >
                 <h4>Upload your photos (up to 5) </h4>
-                {this.state.images.length
+                {this.state.uploadedImages.length
 
                   ? <div className = {AddNewReviewModalCSS.imageBox}>
-                    {this.state.images.map((photo, index) => (
+                    {this.state.uploadedImages.map((photo, index) => (
                       <div className = {AddNewReviewModalCSS.imageEntryContainer} key = {'uploadImg' + index}>
                         <span
                           className = {AddNewReviewModalCSS.removeBtn}
@@ -330,11 +362,11 @@ class AddNewReviewModal extends React.Component {
                     <label htmlFor="fileUpload">
 
 
-                      <div id='addBtn' className = {AddNewReviewModalCSS.addBtn}>
+                      <div id='AddNewReviewModal-addBtn' className = {AddNewReviewModalCSS.addBtn}>
   +
                       </div>
                     </label>
-                    <input hidden id="fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
+                    <input hidden id="AddNewReviewModal-fileUpload" type="file" onChange={this.onImageChange.bind(this)} accept="image/*" />
 
                   </div>
                   : null
@@ -346,22 +378,22 @@ class AddNewReviewModal extends React.Component {
               <br />
 
 
-              <div id='user-info'>
+              <div id='AddNewReviewModal-user-info'>
                 <label><b>What is your nickname *</b></label>
-                <input id='nickname-input' type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
+                <input id='AddNewReviewModal-nickname-input' type="text" name="name" placeholder="Example: jackson11!" onChange = {e => this.setState({nickeName: e.target.value})}/>
                 <br />
                 <label><b>Your Email *</b></label>
-                <input id='email-input' type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
+                <input id='AddNewReviewModal-email-input' type="text" name="email" placeholder="Example: jackson11@email.com" onChange = {e => this.setState({Email: e.target.value})}/>
                 <p style={{'fontSize': '10pt'}}>For authentication reasons, you will not be emailed</p>
 
               </div>
               {this.state.posted ? <div>Review posted!</div> : null}
 
-              <button id="submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
+              <button data-testid="submitReview" id="AddNewReviewModal-submit-review-btn" onClick={e=> this.submitBtnClick(e)}>Submit Review</button>
 
               {/* input content validation */}
               {this.state.hasError
-                ? <div id='submissionError' className = {AddNewReviewModalCSS.errMsg}>
+                ? <div id='submissionError' data-testid="AddNewReviewModal-submissionErrorMsg" className = {AddNewReviewModalCSS.errMsg}>
             You must fix the following errors:
                   <br />
                   {this.state.overallRatingErr
@@ -376,6 +408,11 @@ class AddNewReviewModal extends React.Component {
                   }
                   {this.state.reviewBodyErr
                     ? <li>Review Body is less than 50 chars</li>
+                    : null
+
+                  }
+                  {this.state.uploadErr
+                    ? <li>Image upload error</li>
                     : null
 
                   }
@@ -407,7 +444,7 @@ class AddNewReviewModal extends React.Component {
 
 
 
-              <div id="close-modal-btn" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
+              <div id="AddNewReviewModal-close-modal-btn" data-testid="closeModal" className = {AddNewReviewModalCSS.removeBtn2} onClick = {e => this.props.handleCancelClick(e)}>&#215;</div>
 
 
 
@@ -420,7 +457,8 @@ class AddNewReviewModal extends React.Component {
 
 
         </div>
-      </WithTrackerHOC>
+      </>
+
 
     );
   }
