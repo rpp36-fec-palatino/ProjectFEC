@@ -310,12 +310,12 @@ class AddNewReviewModal extends React.Component {
               <div id='AddNewReviewModal-review-content'>
                 <label><b>Review Summary</b> </label>
                 <br />
-                <textarea id='AddNewReviewModal-review-summary' type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
+                <textarea id='AddNewReviewModal-review-summary' style={{'width': '60%'}} type="text" name="summary" placeholder="Example: Best purchase ever!" maxLength='60' onChange = {e => this.setState({summary: e.target.value})}/>
               </div>
               <div>
                 <label><b>Review Body *</b></label>
                 <br />
-                <textarea id="AddNewReviewModal-review-body" type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
+                <textarea id="AddNewReviewModal-review-body" style={{'width': '60%'}} type="text" name="body" placeholder="Why did you like the product or not?" maxLength='1000' rows="4" onChange = {e => this.setState({ReviewBody: e.target.value})}/>
                 <br />
                 {this.state.ReviewBody.length < 50
                   ? <span style={{'color': 'red', 'fontSize': '10pt'}}><i>Minimum required characters left: {50 - this.state.ReviewBody.length}</i></span>
@@ -359,7 +359,7 @@ class AddNewReviewModal extends React.Component {
                 {this.state.images.length < 5
                   ? <div>
                     <br />
-                    <label htmlFor="fileUpload">
+                    <label htmlFor="AddNewReviewModal-fileUpload">
 
 
                       <div id='AddNewReviewModal-addBtn' className = {AddNewReviewModalCSS.addBtn}>

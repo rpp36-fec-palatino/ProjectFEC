@@ -69,6 +69,7 @@ class HelpfulAndReport extends React.Component {
           >Yes({this.state.helpfulCount})</a>
           : <a
             href=''
+            onClick={e => { e.preventDefault(); }}
             id={this.props.reviewId + '-yes'}
           >Yes({this.state.helpfulCount})</a>
 
