@@ -26,8 +26,27 @@ const AddQuestion = (props) => {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value
           };
-          props.addQ(url, options);
-          props.cancelButton();
+          var validateEmail = false;
+          if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(options.email)) {
+            validateEmail = true;
+          }
+          if (options.body !== '' && options.name !== '' && validateEmail === true) {
+            props.addQ(url, options);
+            props.cancelButton();
+          } else {
+            var formData = '';
+            for (const property in options) {
+              if (options[property] === '' && property !== 'email') {
+                formData += property + ', ';
+              }
+            }
+            if (!validateEmail) {
+              formData += 'email, ';
+            }
+            formData = formData.slice(0, formData.length - 2);
+            formData = formData + '.';
+            alert('You must fix the following errors in ' + formData);
+          }
         } }></input><button onClick={() => props.cancelButton()}>Cancel</button>
       </form>
     </div>

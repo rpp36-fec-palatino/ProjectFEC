@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-
+import AddAnswerPhoto from './AddAnswerPhoto.jsx';
 import style from './styles/AddAnswerModal.module.css';
 import UploadPhotoModal from './UploadPhotoModal.jsx';
 import WithTrackerHOC from '../../WithTrackerHOC.jsx';
@@ -24,7 +24,7 @@ const AddAnswer = (props) => {
           <div id="addAnswerPhotoPreview" className={style.imageContainer}>
             { uploadedImage.map((photo, index) => {
               return (
-                <img className={style.thumbnail} id={'addAnswerPhoto' + index} src={photo}></img>
+                <AddAnswerPhoto key={index} link={photo}/>
               );
             })}
 
@@ -71,8 +71,27 @@ const AddAnswer = (props) => {
             email: document.getElementById('email').value,
             photos: uploadedImage
           };
-          props.addAns(url, options);
-          props.cancel();
+          var validateEmail = false;
+          if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(options.email)) {
+            validateEmail = true;
+          }
+          if (options.body !== '' && options.name !== '' && validateEmail === true) {
+            props.addAns(url, options);
+            props.cancel();
+          } else {
+            var formData = '';
+            for (const property in options) {
+              if (options[property] === '' && property !== 'email') {
+                formData += property + ', ';
+              }
+            }
+            if (!validateEmail) {
+              formData += 'email, ';
+            }
+            formData = formData.slice(0, formData.length - 2);
+            formData = formData + '.';
+            alert('You must fix the following errors in ' + formData);
+          }
         }}></input><button onClick={() => props.cancel()}>Cancel</button>
       </form>
     </div>
