@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 import style from './styles/AddAnswerModal.module.css';
 import UploadPhotoModal from './UploadPhotoModal.jsx';
@@ -8,6 +9,7 @@ import Wrapper from '../../Wrapper.jsx';
 const AddAnswer = (props) => {
   const [images, setImages] = useState([]);
   const [imageFiles, setImageFile] = useState([]);
+  const [uploadedImage, setUploadedImage] = useState([]);
   const url = '/qa/questions/answers';
 
   return (
@@ -18,18 +20,41 @@ const AddAnswer = (props) => {
         <label for="yourAnswer"><b id="addAnswerBodyTitle">Your Answer*</b></label><br></br>
         <textarea name="body" id="addAnswerBody" rows="10" cols="30" maxLength="1000" required></textarea><br></br>
         <label for="upload"><b id="addAnswerPhotoUploadLimitText">Upload your photos (limit 5)</b></label><br></br>
-        {images.length ? <div>{ images.map((photo) => (
-          <img className={style.thumbnail} src={photo}></img>
-        ) ) }</div> : <p id="addAnswerNoPhotoText">No photos yet</p>}
+        {uploadedImage.length ?
+          <div id="addAnswerPhotoPreview" className={style.imageContainer}>
+            { uploadedImage.map((photo, index) => {
+              return (
+                <img className={style.thumbnail} id={'addAnswerPhoto' + index} src={photo}></img>
+              );
+            })}
+
+          </div>
+          : <p id="addAnswerNoPhotoText">No photos yet</p>}
+
         {(images.length < 5) ? <input type="file" name="upload" id="addAnswerUploadButton" onChange={(e) => {
           if (e.target.files && e.target.files[0]) {
-            console.log('image upload', e.target.files);
             let img = e.target.files[0];
-            let photos = images;
+            let results = images;
             let files = imageFiles;
 
-            photos.push(URL.createObjectURL(img));
-            setImages(photos);
+            results.push(URL.createObjectURL(img));
+            files.push(img);
+            setImages(results);
+            setImageFile(files);
+
+            let updated = [];
+            imageFiles.forEach(image => {
+              let formData = new FormData();
+              formData.append('image', image);
+              axios.post('/upload/images', formData, { headers: { 'content-Type': 'multipart/form-data' } })
+                .then(response => {
+                  updated.push(response.data);
+                  setUploadedImage(updated);
+                }).catch(err => {
+                  console.log('error uploading');
+                });
+            });
+
           }
         }}></input> : null}
         <br></br><label for="name"><b id="addAnswerNicknameTitle">What is your nickname*</b></label><br></br>
@@ -41,10 +66,10 @@ const AddAnswer = (props) => {
           var options = {
             // eslint-disable-next-line camelcase
             question_id: document.getElementById('question_id').value,
-            body: document.getElementById('body').value,
+            body: document.getElementById('addAnswerBody').value,
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
-            photos: images
+            photos: uploadedImage
           };
           props.addAns(url, options);
           props.cancel();
