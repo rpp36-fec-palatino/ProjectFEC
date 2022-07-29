@@ -1,15 +1,17 @@
 const path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, '/client/src/index.jsx'),
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/client/dist')
+    path: path.join(__dirname, '/client/dist'),
+    publicPath: '/build/js',
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
       {
@@ -21,7 +23,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx)$/i,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -31,5 +33,17 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+
+  //https://github.com/webpack-contrib/compression-webpack-plugin/blob/master/README.md
+
+  plugins: [
+    new CompressionPlugin({
+      filename: '[path][base].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 4096,
+      minRatio: 0.8
+    })
+  ]
 };
