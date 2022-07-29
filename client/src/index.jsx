@@ -41,6 +41,7 @@ class App extends React.Component {
     if (sampleId === '') {
       sampleId = 71697;
     }
+    this.setState({currentId: sampleId});
     this.getProduct(sampleId, true);
     this.getProductStyles(sampleId, true);
     this.getQuestions(sampleId);
