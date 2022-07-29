@@ -15,21 +15,21 @@ This project comprises a complete redesign of an out-dated retail portal  and mo
 npm install
 ```
 
-1. Run webpack at local development mode:
+3. Run webpack at local development mode:
 
 ```jsx
 npm run react-dev
 ```
 
-1. Start server:
+4. Start server:
 
 ```jsx
 npm run server-dev
 ```
 
-1. create `config.js` file and add your github token
-2. Visit [http://localhost:3000](http://localhost:3000) to start the page
-3. You will need to create a free account at [https://imgbb.com/](https://imgbb.com/) and get an API key for the image upload feature. The key will be stored in the `config.js`
+5. create `config.js` file and add your github token
+6. Visit [http://localhost:3000](http://localhost:3000) to start the page
+7. You will need to create a free account at [https://imgbb.com/](https://imgbb.com/) and get an API key for the image upload feature. The key will be stored in the `config.js`
 
 ## Components:
 
@@ -47,7 +47,7 @@ A maximum of 7 thumbnails are presented to the user. If more thumbnails are avai
 
 There are also left and right arrows to allow scrolling through the main image. If thumbnail scrolling is available, scrolling through the main image will automatically scroll up/down to keep the selected main image in view.
 
-1. **Style Selector**
+2. **Style Selector**
 
 The style selector section presents the following details of the current product:
 
@@ -60,7 +60,7 @@ The style selector section presents the following details of the current product
 - *Quantity*: Selectable quantity up to 15. Will display “Sold out” if unavailable
 - *Outfit*: Toggleable “add to outfit” function.
 
-3）**Product Information**
+3. **Product Information**
 
 Displays available product description and features.
 
@@ -116,7 +116,7 @@ Built by [Serena Huang](https://github.com/sdhlyhb)
 - **Filtering reviews by the star ratings**
     - the filters are additive and can be toggled.
     - the filter can be combined with other sorting or searching features.
-1.  **Reviews:**
+2.  **Reviews:**
 - **Display reviews containing star ratings, username, review date, review summary, review body, response from seller(if any), recommendation and images(if any).**
     - By default the first 250 characters of review body will display. For long reviews, the full content will display by clicking the ‘Show more’ link.
 - **Reviews pagination**: initial display is two reviews and will display two more upon each click of ‘load more’ button and the ‘load more’ button will disappear once all the reviews are loaded.
