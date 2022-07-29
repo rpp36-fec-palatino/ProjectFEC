@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AddNewReviewModalCSS from './cssModule_Reviews/AddNewReviewModal.module.css';
 
@@ -66,6 +66,12 @@ const CharacteristicsForm = (props) => {
     setSelected((prevSelected) => ({ ...prevSelected, [e.target.name]: e.target.value }));
     console.log('whats in e.target: ', e.target.name, e.target.value);
   };
+
+  useEffect(() => {
+
+    props.passCharRating(selected);
+
+  }, [selected]);
 
 
 
