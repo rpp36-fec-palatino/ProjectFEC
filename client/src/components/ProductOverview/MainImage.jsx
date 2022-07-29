@@ -93,6 +93,8 @@ class MainImage extends React.Component {
               </div>
               <div className={css.currentImageContainer}>
                 <img id='currentImage'
+                  fetchpriority="high"
+                  rel="preload"
                   src={this.props.currentImg.url}
                   className={css.currentImage}
                   style={{width: this.state.currentImgSize, cursor: this.state.cursor}}
