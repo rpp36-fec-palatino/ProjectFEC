@@ -17,7 +17,7 @@ const AddQuestion = (props) => {
         <input type="text" id="name" name ="name" placeholder="Example: jackson11!" maxLength= "60" required></input><br></br>
         <label for="email"><b id="addQuestionModalEmailTitle">our email*</b>Y</label><br></br>
         <input type="email" id="email" name="email" placeholder="Example: jack@email.com" maxLength="60" required></input><br></br>
-        <label for="email"><b id="addQuestionModalAuthenticationWarn">For authentication reasons, you will not be emailed</b></label><br></br>
+        <label for="email">For authentication reasons, you will not be emailed</label><br></br>
         <input type="button" id="addQuestionSubmit" value="Submit" onClick={() => {
           var options = {
             // eslint-disable-next-line camelcase
