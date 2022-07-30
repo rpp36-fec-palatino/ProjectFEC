@@ -69,6 +69,7 @@ class RatingsAndReviews extends React.Component {
     }
     if (this.state.searchKeyword !== prevState.searchKeyword) {
       this.searchByKeyword(this.state.searchKeyword);
+
     }
 
 
@@ -108,21 +109,48 @@ class RatingsAndReviews extends React.Component {
 
 
   clickLoadMoreBtn(e) {
-    let curDisplays = this.state.currentDisplayedReviews;
-    let allReviews = this.state.currentReviews;
-    if (curDisplays.length < allReviews.length - 2) {
-      let i = curDisplays.length;
-      this.setState({
-        currentDisplayedReviews: allReviews.slice(0, i + 2),
 
-      });
+    if (this.state.searchKeyword === '') {
+      let curDisplays = this.state.currentDisplayedReviews;
+      let allReviews = this.state.currentReviews;
+      if (curDisplays.length < allReviews.length - 2) {
+        let i = curDisplays.length;
+        this.setState({
+          currentDisplayedReviews: allReviews.slice(0, i + 2),
+
+        });
+
+      } else {
+        this.setState({
+          currentDisplayedReviews: allReviews,
+          loadMore: false
+
+        });
+
+      }
 
     } else {
-      this.setState({
-        currentDisplayedReviews: allReviews,
-        loadMore: false
+      let curDisplays = this.state.currentDisplayedReviews;
+      let reviewsAfterSearch = this.state.afterSearch;
+      if (curDisplays.length < reviewsAfterSearch.length - 2) {
+        let i = curDisplays.length;
+        this.setState({
+          currentDisplayedReviews: reviewsAfterSearch.slice(0, i + 2),
 
-      });
+        });
+
+      } else {
+        this.setState({
+          currentDisplayedReviews: reviewsAfterSearch,
+          loadMore: false
+
+        });
+
+      }
+
+
+
+
     }
 
   }
@@ -140,6 +168,7 @@ class RatingsAndReviews extends React.Component {
   displayRatingFilteredReviews (currentFiltersObj) {
     let values = Object.values(currentFiltersObj);
     let allReviews = this.state.allReviews;
+
     if (values.includes(true)) {
 
       let filtered = [];
@@ -171,7 +200,8 @@ class RatingsAndReviews extends React.Component {
     e.preventDefault();
     this.setState({
       hasFilter: false,
-      ratingFilters: {'5': false, '4': false, '3': false, '2': false, '1': false}
+      ratingFilters: {'5': false, '4': false, '3': false, '2': false, '1': false},
+
 
     });
   }
@@ -189,15 +219,28 @@ class RatingsAndReviews extends React.Component {
       filtered = prev.filter(ele => {
         return (ele.body.toLowerCase().includes(keyword.toLowerCase()) || ele.summary.toLowerCase().includes(keyword.toLowerCase()));
       } );
-      this.setState({
-        afterSearch: filtered,
-        currentDisplayedReviews: filtered.slice(0, 2)
-      });
+      if (filtered.length <= 2) {
+        this.setState({
+          afterSearch: filtered,
+          currentDisplayedReviews: filtered.slice(0, 2),
+          loadMore: false
+        });
+
+      } else {
+        this.setState({
+          afterSearch: filtered,
+          currentDisplayedReviews: filtered.slice(0, 2),
+
+        });
+
+      }
+
 
     } else {
       this.setState({
         currentReviews: prev,
-        currentDisplayedReviews: prev.slice(0, 2)
+        currentDisplayedReviews: prev.slice(0, 2),
+        loadMore: true
       });
 
     }

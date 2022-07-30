@@ -154,7 +154,7 @@ class ReviewsList extends React.Component {
 
 
             {/* conditional rendering when there are more than 2 reviews */}
-            {this.props.currentReviews.length > 2 && this.props.loadMore
+            {(this.props.currentReviews.length > 2 && this.props.loadMore)
               ? <button id='load-more-btn' onClick={this.handleLoadMoreClick.bind(this)}>MORE REVIEWS</button>
               : null
             }
